@@ -2,7 +2,9 @@
 	import HashLink from '$lib/HashLink.svelte';
 	import TypeKindIndicator from '$lib/TypeKindIndicator.svelte';
 	import { pascalToKebab } from '$lib/casing';
-	import { markdownToHtml, type ResolverFromFilesystem } from '$lib/markdown';
+	import { markdownToHtml } from '$lib/markdown';
+	import { findTypeInSchema } from '$lib/schema-utils';
+	import type { ModuleItem } from 'graphinx';
 	import {
 		type GraphQLNamedType,
 		type GraphQLSchema,
@@ -15,13 +17,14 @@
 	} from 'graphql';
 	import ArgType from './ArgType.svelte';
 	import Query from './Query.svelte';
-	import { findTypeInSchema } from '$lib/schema-utils';
+	import { linkToItem } from '$lib/links';
 
 	export let type: GraphQLNamedType;
-	export let allResolvers: ResolverFromFilesystem[];
+	export let allItems: ModuleItem[];
 	export let schema: GraphQLSchema;
 	export let renderTitle = false;
 	export let moduleName: string;
+	$: item = allItems.find((i) => i.name === type.name);
 	$: fields =
 		isObjectType(type) || isInputObjectType(type) || isInterfaceType(type)
 			? Object.values(type.getFields())
@@ -30,19 +33,20 @@
 
 <article>
 	<section class="doc">
-		<HashLink data-toc-title={type.name} element={renderTitle ? 'h4' : 'h3'} hash={type.name}>
+		<HashLink
+			data-toc-title={type.name}
+			element={renderTitle ? 'h4' : 'h3'}
+			href={linkToItem(item)}
+		>
 			{#if type.astNode?.kind}
 				<TypeKindIndicator kind={type.astNode?.kind}></TypeKindIndicator>
 			{/if}
 			<code class="no-color">{type.name}</code>
-			<a
-				href="https://git.inpt.fr/inp-net/churros/-/tree/main/packages/api/src/modules/{moduleName}/types/{pascalToKebab(
-					type.name
-				)}.ts"
-				class="source-code">[src]</a
-			>
+			{#if item?.sourceCodeURL}
+				<a href={item.sourceCodeURL} class="source-code">[src]</a>
+			{/if}
 		</HashLink>
-		{#await markdownToHtml(type.description ?? '', allResolvers) then doc}
+		{#await markdownToHtml(type.description ?? '', allItems) then doc}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html doc}
 		{:catch error}
@@ -54,7 +58,7 @@
 			<ul>
 				{#each fields as field}
 					<li>
-						<Query {schema} kind="field" query={{ args: [], ...field }}></Query>
+						<Query {allItems} {schema} kind="field" query={{ args: [], ...field }}></Query>
 					</li>
 				{/each}
 			</ul>
@@ -68,7 +72,7 @@
 							{:else}{name}{/if}
 						</code>
 						<div class="doc">
-							{#await markdownToHtml(description ?? '', allResolvers) then doc}
+							{#await markdownToHtml(description ?? '', allItems) then doc}
 								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html doc}
 							{:catch error}
@@ -85,9 +89,9 @@
 			<ul>
 				{#each possibleTypes as t}
 					<li>
-						<ArgType {schema} nullable={false} typ={t}></ArgType>
+						<ArgType {allItems} {schema} nullable={false} typ={t}></ArgType>
 						<div class="doc">
-							{#await markdownToHtml(t.description ?? '', allResolvers) then doc}
+							{#await markdownToHtml(t.description ?? '', allItems) then doc}
 								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html doc}
 							{:catch error}
@@ -98,7 +102,7 @@
 				{/each}
 			</ul>
 		{:else if isScalarType(type)}
-			<ArgType {schema} nullable={false} typ={type}></ArgType>
+			<ArgType {allItems} {schema} nullable={false} typ={type}></ArgType>
 		{/if}
 	</section>
 </article>

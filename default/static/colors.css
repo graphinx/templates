@@ -32,9 +32,7 @@
 		--cyan: #17a2bb;
 	}
 
-	img[src="https://churros.inpt.fr/logo-masked.png"],
-	img[src="https://churros.inpt.fr/storage/groups/dark/net7-n7.png"]
-	{
+	img[invert] {
 		filter: invert(1);
 	}
 }

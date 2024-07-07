@@ -1,125 +1,130 @@
+<script lang="ts" context="module">
+	import { writable } from 'svelte/store';
+	export const tocShown = writable(false);
+	export const tocIsFloating = writable(false);
+</script>
+
 <!-- From https://github.com/janosh/svelte-toc, MIT-licensed. -->
 <script lang="ts">
-import { page } from "$app/stores";
-import SearchIcon from "$lib/icons/SearchIcon.svelte";
-import debounced from "$lib/stores";
-import { onMount } from "svelte";
-import { useParamStore } from "svelte-param-store";
-import { blur, type BlurParams } from "svelte/transition";
-import MenuIcon from "./icons/MenuIcon.svelte";
-import { browser } from "$app/environment";
+	import { page } from '$app/stores';
+	import debounced from '$lib/stores';
+	import { onMount } from 'svelte';
+	import { useParamStore } from 'svelte-param-store';
+	import { blur, type BlurParams } from 'svelte/transition';
+	import MenuIcon from './icons/MenuIcon.svelte';
+	import { browser } from '$app/environment';
+	import { data } from './data.generated';
+	import { currentTheme } from './theme';
+	import { onNavigate } from '$app/navigation';
+	import SearchBar from './SearchBar.svelte';
+	import GraphinxCredits from './GraphinxCredits.svelte';
 
-export let activeHeading: HTMLHeadingElement | null = null;
-export let activeHeadingScrollOffset: number = 100;
-export let activeTocLi: HTMLLIElement | null = null;
-export let aside: HTMLElement | undefined = undefined;
-export let breakpoint: number = 1000;
-export let desktop: boolean = true;
-export let flashClickedHeadingsFor: number = 1500;
-export let getHeadingIds = (node: HTMLHeadingElement): string => node.id;
-export let getHeadingLevels = (node: HTMLHeadingElement): number =>
-	Number(node.nodeName[1]); // get the number from H1, H2, ...
-export let getHeadingTitles = (node: HTMLHeadingElement): string =>
-	node.dataset.tocTitle ||
-	node.firstChild?.textContent ||
-	node?.textContent ||
-	``;
-// the result of document.querySelectorAll(headingSelector). can be useful for binding
-export let headings: HTMLHeadingElement[] = [];
-export let headingSelector: string = `:is(h2, [data-toc-include]):not(.toc-exclude)`;
-export let hide: boolean = false;
-export let autoHide: boolean = false;
-export let keepActiveTocItemInView: boolean = true; // requires scrollend event browser support
-export let minItems: number = 0;
-export let nav: HTMLElement | undefined = undefined;
-export let open: boolean = false;
-export let openButtonLabel: string = `Ouvrir la table des matières`;
-export let pageBody: string | HTMLElement = `body`;
-export let scrollBehavior: "auto" | "smooth" = `smooth`;
-export let titleTag: string = `h2`;
-export let tocItems: HTMLLIElement[] = [];
-export let warnOnEmpty: boolean = true;
-export let blurParams: BlurParams | undefined = { duration: 200 };
-export let title = "Accueil";
+	export let activeHeading: HTMLHeadingElement | null = null;
+	export let activeHeadingScrollOffset = 100;
+	export let activeTocLi: HTMLLIElement | null = null;
+	export let aside: HTMLElement | undefined = undefined;
+	export let breakpoint = 1000;
+	export let desktop = true;
+	export let flashClickedHeadingsFor = 1500;
+	export let getHeadingIds = (node: HTMLHeadingElement): string => node.id;
+	export let getHeadingLevels = (node: HTMLHeadingElement): number => Number(node.nodeName[1]); // get the number from H1, H2, ...
+	export let getHeadingTitles = (node: HTMLHeadingElement): string =>
+		node.dataset.tocTitle || node.firstChild?.textContent || node?.textContent || '';
+	// the result of document.querySelectorAll(headingSelector). can be useful for binding
+	export let headings: HTMLHeadingElement[] = [];
+	export let headingSelector = ':is(h2, [data-toc-include]):not(.toc-exclude)';
+	export let hide = false;
+	export let autoHide = false;
+	export let keepActiveTocItemInView = true; // requires scrollend event browser support
+	export let minItems = 0;
+	export let nav: HTMLElement | undefined = undefined;
+	export let open = false;
+	export let openButtonLabel = 'Open table of contents';
+	export let pageBody: string | HTMLElement = 'body';
+	export let scrollBehavior: 'auto' | 'smooth' = 'smooth';
+	export let titleTag = 'h2';
+	export let tocItems: HTMLLIElement[] = [];
+	export let warnOnEmpty = true;
+	export let blurParams: BlurParams | undefined = { duration: 200 };
+	export let title = 'Contents';
 
-let window_width: number;
+	let window_width: number;
 
-$: searchQuery = browser ? debounced(useParamStore("q"), 20) : undefined;
+	$: searchQuery = browser ? debounced(useParamStore('q'), 20) : undefined;
 
-$: levels = headings.map(getHeadingLevels);
-$: minLevel = Math.min(...levels);
-$: desktop = window_width > breakpoint;
+	$: levels = headings.map(getHeadingLevels);
+	$: minLevel = Math.min(...levels);
+	$: desktop = window_width > breakpoint;
+	$: $tocShown = headings.length >= minItems;
+	$: $tocIsFloating = !desktop;
 
-function close(event: MouseEvent) {
-	if (!aside?.contains(event.target as Node)) open = false;
-}
-
-// (re-)query headings on mount and on route changes
-function requery_headings() {
-	if (typeof document === `undefined`) return; // for SSR
-	headings = [
-		...document.querySelectorAll(headingSelector),
-	] as HTMLHeadingElement[];
-	set_active_heading();
-	if (headings.length === 0) {
-		if (warnOnEmpty) {
-			console.warn(
-				`svelte-toc found no headings for headingSelector='${headingSelector}'. ${
-					autoHide ? `Hiding` : `Showing empty`
-				} table of contents.`,
-			);
-		}
-		if (autoHide) hide = true;
-	} else if (hide && autoHide) {
-		hide = false;
+	function close(event: MouseEvent) {
+		if (!aside?.contains(event.target as Node)) open = false;
 	}
-}
 
-requery_headings();
-
-onMount(() => {
-	if (typeof pageBody === `string`) {
-		pageBody = document.querySelector(pageBody) as HTMLElement;
-
-		if (!pageBody) {
-			throw new Error(`Could not find page body element: ${pageBody}`);
-		}
-	}
-	const mutation_observer = new MutationObserver(requery_headings);
-	mutation_observer.observe(pageBody, { childList: true, subtree: true });
-	return () => mutation_observer.disconnect();
-});
-function set_active_heading() {
-	let idx = headings.length;
-	while (idx--) {
-		const { top } = headings[idx].getBoundingClientRect();
-
-		// loop through headings from last to first until we find one that the viewport already
-		// scrolled past. if none is found, set make first heading active
-		if (top < activeHeadingScrollOffset || idx === 0) {
-			activeHeading = headings[idx];
-			activeTocLi = tocItems[idx];
-			return; // exit while loop if updated active heading
-		}
-	}
-}
-
-const handler =
-	(node: HTMLHeadingElement) => (event: MouseEvent | KeyboardEvent) => {
-		if (event instanceof KeyboardEvent && ![`Enter`, ` `].includes(event.key))
-			return;
+	onNavigate(() => {
 		open = false;
-		node.scrollIntoView({ behavior: scrollBehavior, block: `start` });
+	});
 
-		const id = getHeadingIds && getHeadingIds(node);
-		if (id) history.replaceState({}, ``, `#${id}`);
+	// (re-)query headings on mount and on route changes
+	function requery_headings() {
+		if (typeof document === 'undefined') return; // for SSR
+		headings = [...document.querySelectorAll(headingSelector)] as HTMLHeadingElement[];
+		set_active_heading();
+		if (headings.length === 0) {
+			if (warnOnEmpty) {
+				console.warn(
+					`svelte-toc found no headings for headingSelector='${headingSelector}'. ${
+						autoHide ? 'Hiding' : 'Showing empty'
+					} table of contents.`
+				);
+			}
+			if (autoHide) hide = true;
+		} else if (hide && autoHide) {
+			hide = false;
+		}
+	}
+
+	requery_headings();
+
+	onMount(() => {
+		if (typeof pageBody === 'string') {
+			pageBody = document.querySelector(pageBody) as HTMLElement;
+
+			if (!pageBody) {
+				throw new Error(`Could not find page body element: ${pageBody}`);
+			}
+		}
+		const mutation_observer = new MutationObserver(requery_headings);
+		mutation_observer.observe(pageBody, { childList: true, subtree: true });
+		return () => mutation_observer.disconnect();
+	});
+	function set_active_heading() {
+		let idx = headings.length;
+		while (idx--) {
+			const { top } = headings[idx].getBoundingClientRect();
+
+			// loop through headings from last to first until we find one that the viewport already
+			// scrolled past. if none is found, set make first heading active
+			if (top < activeHeadingScrollOffset || idx === 0) {
+				activeHeading = headings[idx];
+				activeTocLi = tocItems[idx];
+				return; // exit while loop if updated active heading
+			}
+		}
+	}
+
+	const handler = (node: HTMLHeadingElement) => (event: MouseEvent | KeyboardEvent) => {
+		if (event instanceof KeyboardEvent && !['Enter', ' '].includes(event.key)) return;
+		open = false;
+		node.scrollIntoView({ behavior: scrollBehavior, block: 'start' });
+
+		const id = getHeadingIds?.(node);
+		if (id) history.replaceState({}, '', `#${id}`);
 
 		if (flashClickedHeadingsFor) {
-			node.classList.add(`toc-clicked`);
-			setTimeout(
-				() => node.classList.remove(`toc-clicked`),
-				flashClickedHeadingsFor,
-			);
+			node.classList.add('toc-clicked');
+			setTimeout(() => node.classList.remove('toc-clicked'), flashClickedHeadingsFor);
 		}
 	};
 </script>
@@ -163,24 +168,14 @@ const handler =
 	{#if open || (desktop && headings.length >= minItems)}
 		<nav transition:blur={blurParams} bind:this={nav}>
 			<p class="suptitle">
-				<img src="https://churros.inpt.fr/logo-masked.png" alt="Churros Logo" />
-				Churros API
+				<!-- svelte-ignore a11y-missing-attribute -->
+				<img src={data.config.branding.logo[$currentTheme]} aria-hidden="true" />
+				{data.config.branding.name}
 				{#if $page.url.pathname !== '/'}
-					<a class="back" href="/">← Retour</a>
+					<a class="back" href="/">← Back</a>
 				{/if}
 			</p>
-			<search>
-				<form action="/search" method="get">
-					<input
-						placeholder="Rechercher…"
-						bind:value={$searchQuery}
-						name="q"
-						type="search"
-					/><button type="submit">
-						<SearchIcon></SearchIcon>
-					</button>
-				</form>
-			</search>
+			<SearchBar bind:query={$searchQuery}></SearchBar>
 			{#if title}
 				<slot name="title">
 					<svelte:element this={titleTag} class="toc-title toc-exclude">
@@ -205,6 +200,18 @@ const handler =
 					</li>
 				{/each}
 			</ol>
+			{#if desktop}
+				<GraphinxCredits />
+			{:else}
+				<button
+					class="close-btn"
+					on:click={() => {
+						open = false;
+					}}
+				>
+					×
+				</button>
+			{/if}
 		</nav>
 	{/if}
 </aside>
@@ -219,44 +226,6 @@ const handler =
 		margin-bottom: 1rem;
 		font-size: 1.2rem;
 		font-weight: bold;
-	}
-
-	search {
-		margin: 1rem 0;
-	}
-
-	search form {
-		display: flex;
-		font-size: 1em;
-	}
-
-	search input {
-		flex-shrink: 1;
-		min-width: 0;
-		padding: 0.25em 0.5em;
-		font-size: 1em;
-		color: var(--fg);
-		background: transparent;
-		border: 2px solid var(--fg);
-		border-right: 0;
-	}
-
-	search input::placeholder {
-		color: var(--muted);
-		opacity: 1;
-	}
-
-	search button {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		padding: 0.25em;
-		font-size: 1.3em;
-		color: var(--fg);
-		background: transparent;
-		border: none;
-		border: 2px solid var(--fg);
-		border-left: 0;
 	}
 
 	.suptitle img {
@@ -351,7 +320,7 @@ const handler =
 		right: 0;
 		z-index: -1;
 		box-sizing: border-box;
-		width: var(--toc-mobile-width, 18em);
+		width: var(--toc-mobile-width, 16em);
 		background: var(--toc-mobile-bg, white);
 		border: var(--toc-mobile-border);
 		border-radius: 3pt;
@@ -368,5 +337,13 @@ const handler =
 
 		/* max-width: 200px; */
 		background: var(--toc-desktop-bg);
+	}
+
+	.close-btn {
+		border: none;
+		font-size: 2rem;
+		cursor: pointer;
+		display: flex;
+		margin-left: auto;
 	}
 </style>

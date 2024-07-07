@@ -11,7 +11,9 @@
 
 <svelte:head>
 	<title>
-		{data.modules.length === 1 ? `${data.modules[0].displayName}—` : ''}Churros API</title
+		{data.modules.length === 1
+			? `${data.modules[0].displayName}—${data.config.branding.name}`
+			: data.config.branding.name}</title
 	>
 </svelte:head>
 <svelte:body />
@@ -24,20 +26,17 @@
 
 		{module.displayName}
 
-		<a
-			class="link-to-source"
-			href="https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/{data
-				.modules[0].name}/README.md"
-		>
-			<EditIcon></EditIcon> Un problème sur la doc?
-		</a>
+		{#if module.contributeURL}
+			<a class="link-to-source" href={module.contributeURL}>
+				<EditIcon></EditIcon> Contribute to this page
+			</a>
+		{/if}
 	{:else}
 		Documentation
 	{/if}
 </h1>
 
-<GraphQlModules {...data} allResolvers={data.resolvers} schema={buildSchema(data.schema)}
-></GraphQlModules>
+<GraphQlModules {...data} allItems={data.items} schema={buildSchema(data.schema)}></GraphQlModules>
 
 <style>
 	h1 {

@@ -19,7 +19,7 @@
 	}
 
 	export let data: PageData;
-	$: ({ modules, schemaRaw } = data);
+	$: ({ modules, schema: schemaRaw } = data);
 	$: schema = buildSchema(schemaRaw);
 
 	$: queries = modules.flatMap((module) =>
@@ -89,13 +89,13 @@
 </script>
 
 <svelte:head>
-	<title>Recherche—Churros API</title>
+	<title>Search—{data.config.branding.name}</title>
 </svelte:head>
 
-<h1>Recherche de “{query}”</h1>
+<h1>Results for “{query}”</h1>
 {#if resultsCount > 0}
 	<p class="results-count">
-		{resultsCount} résultat{resultsCount === 1 ? '' : 's'}
+		{resultsCount} result{resultsCount === 1 ? '' : 's'}
 	</p>
 {/if}
 
@@ -109,11 +109,7 @@
 
 {#each results as result}
 	{#if isNamedType(result.item)}
-		<TypeDef
-			{schema}
-			allResolvers={data.resolvers}
-			moduleName={result.item.module.name}
-			type={result.item}
+		<TypeDef {schema} allItems={data.items} moduleName={result.item.module.name} type={result.item}
 		></TypeDef>
 	{:else}
 		{@const query =
@@ -121,14 +117,14 @@
 			findMutationInSchema(schema, result.item.name) ??
 			findSubscriptionInSchema(schema, result.item.name)}
 		{#if query}
-			<Query {schema} kind={resultKind(result)} {query}></Query>
+			<Query allItems={data.items} {schema} kind={resultKind(result)} {query}></Query>
 		{:else}
-			<p>Impossible de trouver la query {result.item.name} dans le schéma</p>
+			<p>Cannot find query {result.item.name} in the schema</p>
 		{/if}
 	{/if}
 {:else}
-	<p class="no-results">Aucun résultat.</p>
-	<a href="/">Retour à l'accueil</a>
+	<p class="no-results">No results.</p>
+	<a href="/">Go back home</a>
 {/each}
 
 <style>

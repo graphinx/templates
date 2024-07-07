@@ -234,7 +234,7 @@ __metadata:
     eslint-config-prettier: "npm:^9.1.0"
     eslint-plugin-svelte: "npm:^2.35.1"
     fuse.js: "npm:^7.0.0"
-    graphinx: "npm:^0.7.0"
+    graphinx: "npm:^0.8.0"
     graphql: "npm:^16.9.0"
     jsdom: "npm:^24.0.0"
     linkifyjs: "npm:^4.1.3"
@@ -2132,9 +2132,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphinx@npm:^0.7.0":
-  version: 0.7.0
-  resolution: "graphinx@npm:0.7.0"
+"graphinx@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "graphinx@npm:0.8.0"
   dependencies:
     chalk: "npm:^5.3.0"
     cheerio: "npm:^1.0.0-rc.12"
@@ -2156,7 +2156,7 @@ __metadata:
     yaml: "npm:^2.4.5"
   bin:
     graphinx: dist/cli.js
-  checksum: 10c0/8b8d27d1cf7f7e8627615b5d19430daa8abcaf28a9c21f7d8e26db1bf521e67d8ebe032b908278c393618fd0f302b13b87f15f1d858350d59c7876211c33d8ba
+  checksum: 10c0/07834cb67f72732f3fc686189ef78626ad79644bf9fabb15755230fcd66a738694568802b0aea53f1739b960603f11e185ae4977653c1cc862a37d3597003eae
   languageName: node
   linkType: hard
 

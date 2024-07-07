@@ -2,7 +2,7 @@ import { data } from '$lib/data.generated.js';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {
-	const { schema, modules } = data;
+	const { schema, modules, index } = data;
 
 	if (
 		!['index', 'all'].includes(params.module) &&
@@ -16,7 +16,7 @@ export async function load({ params }) {
 				params.module === 'all'
 					? modules
 					: params.module === 'index'
-						? [] // TODO
+						? [index]
 						: // biome-ignore lint/style/noNonNullAssertion: we are checking if the module exists before
 							[modules.find((module) => module.name === params.module)!]
 		};

@@ -5,7 +5,6 @@
 	import { pascalToKebab } from '$lib/casing';
 	import { markdownToHtml } from '$lib/markdown';
 	import {
-		getNamedType,
 		type GraphQLField,
 		type GraphQLNamedType,
 		type GraphQLSchema,
@@ -16,14 +15,18 @@
 	} from 'graphql';
 	import { onMount } from 'svelte';
 	import ArgType from './ArgType.svelte';
+	import { linkToItem } from '$lib/links';
+	import type { ModuleItem } from 'graphinx';
 
 	export let schema: GraphQLSchema;
+	export let allItems: ModuleItem[];
 	export let query: GraphQLField<unknown, unknown>; //| GraphQLArgument;
 	export let kind: 'query' | 'mutation' | 'subscription' | 'field';
 	export let hasAvailableSubscription = false;
 	// export let showReturnType = false;
 	export let typeIsEnumAndWasExpanded = false;
 
+	$: item = allItems.find((i) => i.name === query.name);
 	$: args = query.args ?? [];
 
 	let mobile = false;
@@ -46,7 +49,7 @@
 		return t;
 	}
 
-	$: hash = kind !== 'field' ? `${kind}/${query.name}` : undefined;
+	$: hash = kind !== 'field' ? linkToItem(item) : undefined;
 
 	$: headingLevel = $page.url.pathname === '/' ? 'h4' : 'h3';
 </script>
@@ -58,7 +61,11 @@
 />
 
 <svelte:element this={kind === 'field' ? 'div' : 'article'} data-kind={kind}>
-	<HashLink data-toc-title={query.name} {hash} element={kind === 'field' ? 'span' : headingLevel}>
+	<HashLink
+		data-toc-title={query.name}
+		href={hash}
+		element={kind === 'field' ? 'span' : headingLevel}
+	>
 		{#if hasAvailableSubscription}
 			<LiveIndicator></LiveIndicator>
 		{/if}
@@ -68,7 +75,11 @@
 					this={typeIsEnumAndWasExpanded ? 'a' : 'span'}
 					href="#{query.name}"
 					class="field-name">{query.name}</svelte:element
-				>: <ArgType {schema} bind:enumWasExpanded={typeIsEnumAndWasExpanded} typ={query.type}
+				>: <ArgType
+					{allItems}
+					{schema}
+					bind:enumWasExpanded={typeIsEnumAndWasExpanded}
+					typ={query.type}
 				></ArgType></code
 			>
 		{:else}
@@ -76,6 +87,7 @@
 				>{query.name}({#if !mobile}&#8203;{/if}{#if args && args.length >= (mobile ? 3 : 5)}<span
 						class="too-many-args">...</span
 					>{:else}{#each Object.entries(args) as [i, { name, type, defaultValue }]}{name}{#if !mobile}:&nbsp;<ArgType
+								{allItems}
 								{schema}
 								noExpandEnums={Boolean(defaultValue)}
 								inline
@@ -85,7 +97,7 @@
 								class="literal {pascalToKebab(syntaxHighlightTypeName(type))}">{defaultValue}</span
 							>{/if}{#if Number(i) < args.length - 1},&#x20;&#8203;{/if}{/each}{/if})</code
 			>&#x20;&rarr;&nbsp;<code class="no-color"
-				><ArgType {schema} inline typ={query.type}></ArgType></code
+				><ArgType {allItems} {schema} inline typ={query.type}></ArgType></code
 			>
 		{/if}
 	</HashLink>
@@ -124,7 +136,7 @@
 						<code class="no-color">{arg.name}: </code>
 						<span class="type">
 							<code class="no-color">
-								<ArgType {schema} typ={arg.type} />
+								<ArgType {allItems} {schema} typ={arg.type} />
 							</code>
 						</span>
 						{#if arg.defaultValue}
@@ -156,7 +168,7 @@
 									<ul>
 										{#each isInputObjectType(innerType) ? Object.values(innerType.getFields()) ?? [] : [] as field}
 											<li>
-												<svelte:self kind="field" query={field}></svelte:self>
+												<svelte:self {allItems} kind="field" query={field}></svelte:self>
 											</li>
 										{/each}
 									</ul>
