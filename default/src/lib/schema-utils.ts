@@ -1,4 +1,5 @@
-import type { GraphQLSchema } from 'graphql';
+import type { GraphQLSchema, GraphQLType } from 'graphql';
+import { isNamedType } from 'graphql';
 
 export function findQueryInSchema(schema: GraphQLSchema, name: string) {
 	const field = schema.getQueryType()?.getFields()[name];
@@ -28,4 +29,14 @@ export function findTypeInSchema(schema: GraphQLSchema, name: string) {
 	if (!type) console.error(`Not found in schema: Type ${name}`);
 
 	return type;
+}
+
+export function drillToNamedType<T extends GraphQLType>(
+	type: T | null | undefined
+): GraphQLNamedType | null {
+	if (!type) return null;
+	// console.debug(`Drilling to named type of ${printType(type)}`)
+	if (isNamedType(type)) return type;
+	if (type.ofType) return drillToNamedType(type.ofType);
+	return null;
 }

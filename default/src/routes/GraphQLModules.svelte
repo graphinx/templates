@@ -60,7 +60,10 @@
 			{#each types as typeName}
 				{@const type = findTypeInSchema(schema, typeName)}
 				{#if type}
-					<TypeDef {schema} {allItems} moduleName={name} {type} {renderTitle} />
+					{@const item = allItems.find((i) => i.name === typeName)}
+					{#if !item?.connection && !item?.result}
+						<TypeDef {schema} {allItems} moduleName={name} {type} {renderTitle} />
+					{/if}
 				{:else if dev}
 					<article class="error">
 						<code class="no-color">{typeName}</code> non trouvée dans le schéma.

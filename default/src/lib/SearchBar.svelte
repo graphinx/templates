@@ -5,7 +5,7 @@
 
 <search>
 	<form action="/search" method="get">
-		<input placeholder="Rechercher…" bind:value={query} name="q" type="search" /><button
+		<input placeholder="Search…" bind:value={query} name="q" type="search" /><button
 			type="submit"
 		>
 			<SearchIcon></SearchIcon>

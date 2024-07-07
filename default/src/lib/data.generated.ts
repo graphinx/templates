@@ -9,17 +9,129 @@ export const data: BuiltData = {
       "shortDescription": "Types utilisés au travers de tout l'API",
       "renderedDocs": "<html><head></head><body>\n<p>Types utilisés au travers de tout l'API.</p></body></html>",
       "types": [
+        "BuildInfo",
+        "Error",
+        "ErrorInterface",
+        "File",
+        "NotFoundError",
+        "Pictured",
+        "QRCode",
+        "SortDirection",
+        "StringToIntMapping",
+        "UID",
+        "Visibility",
+        "ZodError",
+        "ZodFieldError",
         "Node",
         "PageInfo",
         "BuildInfo"
       ],
       "queries": [
+        "buildInfo",
+        "renderMarkdown",
+        "uidIsAvailable",
         "node",
         "nodes"
       ],
       "mutations": [],
       "subscriptions": [],
-      "items": []
+      "items": [
+        {
+          "name": "buildInfo",
+          "moduleName": "global",
+          "type": "query",
+          "returnType": "BuildInfo",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+        },
+        {
+          "name": "renderMarkdown",
+          "moduleName": "global",
+          "type": "query",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+        },
+        {
+          "name": "uidIsAvailable",
+          "moduleName": "global",
+          "type": "query",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+        },
+        {
+          "name": "Error",
+          "moduleName": "global",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+        },
+        {
+          "name": "ErrorInterface",
+          "moduleName": "global",
+          "type": "type"
+        },
+        {
+          "name": "File",
+          "moduleName": "global",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+        },
+        {
+          "name": "NotFoundError",
+          "moduleName": "global",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+        },
+        {
+          "name": "Pictured",
+          "moduleName": "global",
+          "type": "type"
+        },
+        {
+          "name": "QRCode",
+          "moduleName": "global",
+          "type": "type"
+        },
+        {
+          "name": "SortDirection",
+          "moduleName": "global",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+        },
+        {
+          "name": "StringToIntMapping",
+          "moduleName": "global",
+          "type": "type"
+        },
+        {
+          "name": "UID",
+          "moduleName": "global",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+        },
+        {
+          "name": "Visibility",
+          "moduleName": "global",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+        },
+        {
+          "name": "ZodError",
+          "moduleName": "global",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+        },
+        {
+          "name": "ZodFieldError",
+          "moduleName": "global",
+          "type": "type"
+        },
+        {
+          "name": "BuildInfo",
+          "moduleName": "global",
+          "type": "type",
+          "returnType": "BuildInfo",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+        }
+      ]
     },
     {
       "name": "users",
@@ -27,25 +139,792 @@ export const data: BuiltData = {
       "rawDocs": "# Users\n\nLes personnes utilisant l'application.\n\n## Inscription\n\nL'inscription se fait en deux ou trois parties: la première consiste à donner simplement une adresse e-mail et à la valider.\nEnsuite, on rentre le reste des informations.\nEnfin, si la personne déclare appartenir à une école mais que l'e-mail n'est pas dans le domaine de l'école (ce qui prouve automatiquement que la personne est étudiante), il faut qu'un admin confirme manuellement.\n\nCe n'est qu'après cette validation (quand elle est nécessaire) que l'objet `UserCandidate` est transformé en `User`.\n\n## Connexion\n\nLa mutation `login` permet la connexion.\n",
       "shortDescription": "Les personnes utilisant l'application",
       "renderedDocs": "<html><head></head><body>\n<p>Les personnes utilisant l'application.</p>\n<h2>Inscription</h2>\n<p>L'inscription se fait en deux ou trois parties: la première consiste à donner simplement une adresse e-mail et à la valider.\nEnsuite, on rentre le reste des informations.\nEnfin, si la personne déclare appartenir à une école mais que l'e-mail n'est pas dans le domaine de l'école (ce qui prouve automatiquement que la personne est étudiante), il faut qu'un admin confirme manuellement.</p>\n<p>Ce n'est qu'après cette validation (quand elle est nécessaire) que l'objet <code>UserCandidate</code> est transformé en <code>User</code>.</p>\n<h2>Connexion</h2>\n<p>La mutation <code>login</code> permet la connexion.</p></body></html>",
-      "types": [],
+      "types": [
+        "AwaitingValidationError",
+        "CompleteSignupResult",
+        "Credential",
+        "CredentialType",
+        "EmailChange",
+        "FamilyTree",
+        "GodparentRequest",
+        "MutationAcceptRegistrationResult",
+        "MutationCompleteRegistrationResult",
+        "MutationCreatePasswordResetResult",
+        "MutationLoginResult",
+        "MutationRegisterGoogleCredentialResult",
+        "MutationRequestEmailChangeResult",
+        "MutationResetPasswordResult",
+        "MutationStartRegistrationResult",
+        "MutationUpdateUserCandidateResult",
+        "MutationUpdateUserResult",
+        "MutationUpsertGodparentRequestResult",
+        "MutationUsePasswordResetResult",
+        "MutationValidateEmailResult",
+        "QueryAllUsersConnection",
+        "QueryQuickSignupsConnection",
+        "QueryUserCandidatesConnection",
+        "QuickSignup",
+        "User",
+        "UserCandidate",
+        "UserSearchResult"
+      ],
       "queries": [
-        "me"
+        "allUsers",
+        "birthdays",
+        "existsInSchoolLdap",
+        "godparentRequest",
+        "godparentRequests",
+        "me",
+        "quickSignups",
+        "searchUsers",
+        "user",
+        "userByEmail",
+        "userCandidate",
+        "userCandidateByEmail",
+        "userCandidates"
       ],
       "mutations": [
-        "deleteGodparentRequest"
+        "acceptRegistration",
+        "completeRegistration",
+        "createBot",
+        "createPasswordReset",
+        "createQuickSignup",
+        "deleteGodchild",
+        "deleteGodparentRequest",
+        "deleteQuickSignup",
+        "deleteRegistration",
+        "deleteToken",
+        "deleteUserPicture",
+        "login",
+        "logout",
+        "refuseRegistration",
+        "registerGoogleCredential",
+        "renameSession",
+        "requestEmailChange",
+        "resetPassword",
+        "startRegistration",
+        "syncUserLdap",
+        "updateNotificationSettings",
+        "updateUser",
+        "updateUserCandidate",
+        "updateUserPermissions",
+        "updateUserPicture",
+        "upsertGodparentRequest",
+        "usePasswordReset",
+        "validateEmail"
       ],
       "subscriptions": [],
       "items": [
         {
-          "name": "deleteGodparentRequest",
+          "name": "allUsers",
           "moduleName": "users",
-          "type": "mutation",
+          "type": "query",
+          "returnType": "QueryAllUsersConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "connection": {
+            "nodeType": "User",
+            "edgeType": "QueryAllUsersConnectionEdge",
+            "connectionType": "QueryAllUsersConnection"
+          }
+        },
+        {
+          "name": "birthdays",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "User",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "existsInSchoolLdap",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "godparentRequest",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "GodparentRequest",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "godparentRequests",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "GodparentRequest",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
         },
         {
           "name": "me",
           "moduleName": "users",
           "type": "query",
+          "returnType": "User",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "quickSignups",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "QueryQuickSignupsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "connection": {
+            "nodeType": "QuickSignup",
+            "edgeType": "QueryQuickSignupsConnectionEdge",
+            "connectionType": "QueryQuickSignupsConnection"
+          }
+        },
+        {
+          "name": "searchUsers",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "UserSearchResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "user",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "User",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "userByEmail",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "User",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "userCandidate",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "UserCandidate",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "userCandidateByEmail",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "UserCandidate",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "userCandidates",
+          "moduleName": "users",
+          "type": "query",
+          "returnType": "QueryUserCandidatesConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "connection": {
+            "nodeType": "UserCandidate",
+            "edgeType": "QueryUserCandidatesConnectionEdge",
+            "connectionType": "QueryUserCandidatesConnection"
+          }
+        },
+        {
+          "name": "acceptRegistration",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationAcceptRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationAcceptRegistrationResult",
+            "successDataType": "User",
+            "successType": "MutationAcceptRegistrationSuccess"
+          }
+        },
+        {
+          "name": "completeRegistration",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationCompleteRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationCompleteRegistrationResult",
+            "successDataType": "CompleteSignupResult",
+            "successType": "MutationCompleteRegistrationSuccess"
+          }
+        },
+        {
+          "name": "createBot",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "User",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "createPasswordReset",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationCreatePasswordResetResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationCreatePasswordResetResult",
+            "successDataType": "Boolean",
+            "successType": "MutationCreatePasswordResetSuccess"
+          }
+        },
+        {
+          "name": "createQuickSignup",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "QuickSignup",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "deleteGodchild",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "deleteGodparentRequest",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "GodparentRequest",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "deleteQuickSignup",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "QuickSignup",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "deleteRegistration",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "deleteToken",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "deleteUserPicture",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "login",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationLoginResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "AwaitingValidationError",
+              "Error"
+            ],
+            "resultType": "MutationLoginResult",
+            "successDataType": "Credential",
+            "successType": "MutationLoginSuccess"
+          }
+        },
+        {
+          "name": "logout",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "refuseRegistration",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "registerGoogleCredential",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationRegisterGoogleCredentialResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationRegisterGoogleCredentialResult",
+            "successDataType": "Boolean",
+            "successType": "MutationRegisterGoogleCredentialSuccess"
+          }
+        },
+        {
+          "name": "renameSession",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "requestEmailChange",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationRequestEmailChangeResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationRequestEmailChangeResult",
+            "successDataType": "Boolean",
+            "successType": "MutationRequestEmailChangeSuccess"
+          }
+        },
+        {
+          "name": "resetPassword",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationResetPasswordResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationResetPasswordResult",
+            "successDataType": "Boolean",
+            "successType": "MutationResetPasswordSuccess"
+          }
+        },
+        {
+          "name": "startRegistration",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationStartRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationStartRegistrationResult",
+            "successDataType": "Boolean",
+            "successType": "MutationStartRegistrationSuccess"
+          }
+        },
+        {
+          "name": "syncUserLdap",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "updateNotificationSettings",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "NotificationChannel",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "updateUser",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationUpdateUserResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpdateUserResult",
+            "successDataType": "User",
+            "successType": "MutationUpdateUserSuccess"
+          }
+        },
+        {
+          "name": "updateUserCandidate",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationUpdateUserCandidateResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpdateUserCandidateResult",
+            "successDataType": "Boolean",
+            "successType": "MutationUpdateUserCandidateSuccess"
+          }
+        },
+        {
+          "name": "updateUserPermissions",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "User",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "updateUserPicture",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "upsertGodparentRequest",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationUpsertGodparentRequestResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertGodparentRequestResult",
+            "successDataType": "GodparentRequest",
+            "successType": "MutationUpsertGodparentRequestSuccess"
+          }
+        },
+        {
+          "name": "usePasswordReset",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationUsePasswordResetResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUsePasswordResetResult",
+            "successDataType": "Boolean",
+            "successType": "MutationUsePasswordResetSuccess"
+          }
+        },
+        {
+          "name": "validateEmail",
+          "moduleName": "users",
+          "type": "mutation",
+          "returnType": "MutationValidateEmailResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationValidateEmailResult",
+            "successDataType": "Boolean",
+            "successType": "MutationValidateEmailSuccess"
+          }
+        },
+        {
+          "name": "AwaitingValidationError",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/users/"
+        },
+        {
+          "name": "CompleteSignupResult",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "Credential",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "CredentialType",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/users/"
+        },
+        {
+          "name": "EmailChange",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "FamilyTree",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/users/"
+        },
+        {
+          "name": "GodparentRequest",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "QuickSignup",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "User",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "UserCandidate",
+          "moduleName": "users",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+        },
+        {
+          "name": "MutationAcceptRegistrationResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationAcceptRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationAcceptRegistrationResult",
+            "successDataType": "User",
+            "successType": "MutationAcceptRegistrationSuccess"
+          }
+        },
+        {
+          "name": "MutationCompleteRegistrationResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationCompleteRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationCompleteRegistrationResult",
+            "successDataType": "CompleteSignupResult",
+            "successType": "MutationCompleteRegistrationSuccess"
+          }
+        },
+        {
+          "name": "MutationCreatePasswordResetResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationCreatePasswordResetResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationCreatePasswordResetResult",
+            "successDataType": "Boolean",
+            "successType": "MutationCreatePasswordResetSuccess"
+          }
+        },
+        {
+          "name": "MutationLoginResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationLoginResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "AwaitingValidationError",
+              "Error"
+            ],
+            "resultType": "MutationLoginResult",
+            "successDataType": "Credential",
+            "successType": "MutationLoginSuccess"
+          }
+        },
+        {
+          "name": "MutationRegisterGoogleCredentialResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationRegisterGoogleCredentialResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationRegisterGoogleCredentialResult",
+            "successDataType": "Boolean",
+            "successType": "MutationRegisterGoogleCredentialSuccess"
+          }
+        },
+        {
+          "name": "MutationRequestEmailChangeResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationRequestEmailChangeResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationRequestEmailChangeResult",
+            "successDataType": "Boolean",
+            "successType": "MutationRequestEmailChangeSuccess"
+          }
+        },
+        {
+          "name": "MutationResetPasswordResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationResetPasswordResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationResetPasswordResult",
+            "successDataType": "Boolean",
+            "successType": "MutationResetPasswordSuccess"
+          }
+        },
+        {
+          "name": "MutationStartRegistrationResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationStartRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationStartRegistrationResult",
+            "successDataType": "Boolean",
+            "successType": "MutationStartRegistrationSuccess"
+          }
+        },
+        {
+          "name": "MutationUpdateUserCandidateResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationUpdateUserCandidateResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpdateUserCandidateResult",
+            "successDataType": "Boolean",
+            "successType": "MutationUpdateUserCandidateSuccess"
+          }
+        },
+        {
+          "name": "MutationUpdateUserResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationUpdateUserResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpdateUserResult",
+            "successDataType": "User",
+            "successType": "MutationUpdateUserSuccess"
+          }
+        },
+        {
+          "name": "MutationUpsertGodparentRequestResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationUpsertGodparentRequestResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertGodparentRequestResult",
+            "successDataType": "GodparentRequest",
+            "successType": "MutationUpsertGodparentRequestSuccess"
+          }
+        },
+        {
+          "name": "MutationUsePasswordResetResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationUsePasswordResetResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUsePasswordResetResult",
+            "successDataType": "Boolean",
+            "successType": "MutationUsePasswordResetSuccess"
+          }
+        },
+        {
+          "name": "MutationValidateEmailResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "MutationValidateEmailResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationValidateEmailResult",
+            "successDataType": "Boolean",
+            "successType": "MutationValidateEmailSuccess"
+          }
+        },
+        {
+          "name": "QueryAllUsersConnection",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "QueryAllUsersConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "connection": {
+            "nodeType": "User",
+            "edgeType": "QueryAllUsersConnectionEdge",
+            "connectionType": "QueryAllUsersConnection"
+          }
+        },
+        {
+          "name": "QueryQuickSignupsConnection",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "QueryQuickSignupsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "connection": {
+            "nodeType": "QuickSignup",
+            "edgeType": "QueryQuickSignupsConnectionEdge",
+            "connectionType": "QueryQuickSignupsConnection"
+          }
+        },
+        {
+          "name": "QueryUserCandidatesConnection",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "QueryUserCandidatesConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+          "connection": {
+            "nodeType": "UserCandidate",
+            "edgeType": "QueryUserCandidatesConnectionEdge",
+            "connectionType": "QueryUserCandidatesConnection"
+          }
+        },
+        {
+          "name": "UserSearchResult",
+          "moduleName": "users",
+          "type": "type",
+          "returnType": "UserSearchResult",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
         }
       ]
@@ -57,19 +936,160 @@ export const data: BuiltData = {
       "shortDescription": "Groupes de personnnes: peut être un club, une association, un bureau d'AE, un groupe d'intégration...",
       "renderedDocs": "<html><head></head><body>\n<p>Groupes de personnnes: peut être un club, une association, un bureau d'<a href=\"../student-associations\">AE</a>, un groupe d'intégration ou un simple groupe (parfois dit \"groupe informel\").</p></body></html>",
       "types": [
-        "GroupType"
+        "Group",
+        "GroupMember",
+        "GroupSearchResult",
+        "GroupType",
+        "MutationAddGroupMemberResult",
+        "MutationUpsertGroupResult",
+        "QueryGroupMembersCsvResult",
+        "UpsertGroupInput"
       ],
-      "queries": [],
+      "queries": [
+        "group",
+        "groupMembersCsv",
+        "groups",
+        "searchGroups"
+      ],
       "mutations": [
+        "addGroupMember",
+        "deleteGroup",
+        "deleteGroupMember",
+        "deleteGroupPicture",
+        "selfJoinGroup",
+        "updateGroupPicture",
+        "updateRoomOpenState",
         "upsertGroup",
         "upsertGroupMember"
       ],
       "subscriptions": [],
       "items": [
         {
+          "name": "group",
+          "moduleName": "groups",
+          "type": "query",
+          "returnType": "Group",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "groupMembersCsv",
+          "moduleName": "groups",
+          "type": "query",
+          "returnType": "QueryGroupMembersCsvResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryGroupMembersCsvResult",
+            "successDataType": "String",
+            "successType": "QueryGroupMembersCsvSuccess"
+          }
+        },
+        {
+          "name": "groups",
+          "moduleName": "groups",
+          "type": "query",
+          "returnType": "Group",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "searchGroups",
+          "moduleName": "groups",
+          "type": "query",
+          "returnType": "GroupSearchResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "addGroupMember",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "MutationAddGroupMemberResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationAddGroupMemberResult",
+            "successDataType": "GroupMember",
+            "successType": "MutationAddGroupMemberSuccess"
+          }
+        },
+        {
+          "name": "deleteGroup",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "deleteGroupMember",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "deleteGroupPicture",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "selfJoinGroup",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "GroupMember",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "updateGroupPicture",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "updateRoomOpenState",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "upsertGroup",
+          "moduleName": "groups",
+          "type": "mutation",
+          "returnType": "MutationUpsertGroupResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpsertGroupResult",
+            "successDataType": "Group",
+            "successType": "MutationUpsertGroupSuccess"
+          }
+        },
+        {
           "name": "upsertGroupMember",
           "moduleName": "groups",
           "type": "mutation",
+          "returnType": "GroupMember",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "Group",
+          "moduleName": "groups",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "GroupMember",
+          "moduleName": "groups",
+          "type": "type",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
         },
         {
@@ -79,10 +1099,468 @@ export const data: BuiltData = {
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/groups/"
         },
         {
-          "name": "upsertGroup",
+          "name": "UpsertGroupInput",
           "moduleName": "groups",
-          "type": "mutation",
+          "type": "type",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "GroupSearchResult",
+          "moduleName": "groups",
+          "type": "type",
+          "returnType": "GroupSearchResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+        },
+        {
+          "name": "MutationAddGroupMemberResult",
+          "moduleName": "groups",
+          "type": "type",
+          "returnType": "MutationAddGroupMemberResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationAddGroupMemberResult",
+            "successDataType": "GroupMember",
+            "successType": "MutationAddGroupMemberSuccess"
+          }
+        },
+        {
+          "name": "MutationUpsertGroupResult",
+          "moduleName": "groups",
+          "type": "type",
+          "returnType": "MutationUpsertGroupResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpsertGroupResult",
+            "successDataType": "Group",
+            "successType": "MutationUpsertGroupSuccess"
+          }
+        },
+        {
+          "name": "QueryGroupMembersCsvResult",
+          "moduleName": "groups",
+          "type": "type",
+          "returnType": "QueryGroupMembersCsvResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryGroupMembersCsvResult",
+            "successDataType": "String",
+            "successType": "QueryGroupMembersCsvSuccess"
+          }
+        }
+      ]
+    },
+    {
+      "name": "posts",
+      "displayName": "Posts",
+      "rawDocs": "# Posts\n\nLes différents posts publiés par les différents [groupes](../groups)\n\nAppelés _Articles_ dans le code pour des soucis de rétrocompatibilité.\nSera renommé en _Post_ partout dans le futur.\n",
+      "shortDescription": "Les différents posts publiés par les différents groupes",
+      "renderedDocs": "<html><head></head><body>\n<p>Les différents posts publiés par les différents <a href=\"../groups\">groupes</a></p>\n<p>Appelés <em>Articles</em> dans le code pour des soucis de rétrocompatibilité.\nSera renommé en <em>Post</em> partout dans le futur.</p></body></html>",
+      "types": [
+        "Article",
+        "ArticleSearchResultType",
+        "MutationUpsertArticleResult",
+        "QueryHomepageConnection"
+      ],
+      "queries": [
+        "article",
+        "homepage",
+        "searchArticles"
+      ],
+      "mutations": [
+        "deleteArticle",
+        "deleteArticlePicture",
+        "updateArticlePicture",
+        "upsertArticle"
+      ],
+      "subscriptions": [
+        "article",
+        "homepage"
+      ],
+      "items": [
+        {
+          "name": "article",
+          "moduleName": "posts",
+          "type": "query",
+          "returnType": "Article",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "homepage",
+          "moduleName": "posts",
+          "type": "query",
+          "returnType": "QueryHomepageConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+          "connection": {
+            "nodeType": "Article",
+            "edgeType": "QueryHomepageConnectionEdge",
+            "connectionType": "QueryHomepageConnection"
+          }
+        },
+        {
+          "name": "searchArticles",
+          "moduleName": "posts",
+          "type": "query",
+          "returnType": "ArticleSearchResultType",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "deleteArticle",
+          "moduleName": "posts",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "deleteArticlePicture",
+          "moduleName": "posts",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "updateArticlePicture",
+          "moduleName": "posts",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "upsertArticle",
+          "moduleName": "posts",
+          "type": "mutation",
+          "returnType": "MutationUpsertArticleResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertArticleResult",
+            "successDataType": "Article",
+            "successType": "MutationUpsertArticleSuccess"
+          }
+        },
+        {
+          "name": "article",
+          "moduleName": "posts",
+          "type": "subscription",
+          "returnType": "Article",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "homepage",
+          "moduleName": "posts",
+          "type": "subscription",
+          "returnType": "QueryHomepageConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+          "connection": {
+            "nodeType": "Article",
+            "edgeType": "QueryHomepageConnectionEdge",
+            "connectionType": "QueryHomepageConnection"
+          }
+        },
+        {
+          "name": "Article",
+          "moduleName": "posts",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "ArticleSearchResultType",
+          "moduleName": "posts",
+          "type": "type",
+          "returnType": "ArticleSearchResultType",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+        },
+        {
+          "name": "MutationUpsertArticleResult",
+          "moduleName": "posts",
+          "type": "type",
+          "returnType": "MutationUpsertArticleResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertArticleResult",
+            "successDataType": "Article",
+            "successType": "MutationUpsertArticleSuccess"
+          }
+        },
+        {
+          "name": "QueryHomepageConnection",
+          "moduleName": "posts",
+          "type": "type",
+          "returnType": "QueryHomepageConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+          "connection": {
+            "nodeType": "Article",
+            "edgeType": "QueryHomepageConnectionEdge",
+            "connectionType": "QueryHomepageConnection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "events",
+      "displayName": "Évènements",
+      "rawDocs": "# Évènements\n\nLes différents évènements organisés par des [groupes](../groups).\n\nUn évènement peut, ou non, avoir des billets (et donc un système de billetterie).\n\nVoir [Billetterie](../ticketing) pour tout ce qui est billest et réservations.\n\n## URLs additionnelles\n\n<article>\n##\n\nRenvoie un billet PDF d'une réservation ayant pour code `:code`.\n\n</article>\n",
+      "shortDescription": "Les différents évènements organisés par des groupes",
+      "renderedDocs": "<html><head></head><body>\n<p>Les différents évènements organisés par des <a href=\"../groups\">groupes</a>.</p>\n<p>Un évènement peut, ou non, avoir des billets (et donc un système de billetterie).</p>\n<p>Voir <a href=\"../ticketing\">Billetterie</a> pour tout ce qui est billest et réservations.</p>\n<h2>URLs additionnelles</h2>\n<p>Renvoie un billet PDF d'une réservation ayant pour code <code>:code</code>.</p></body></html>",
+      "types": [
+        "EvenSearchResult",
+        "Event",
+        "EventFrequency",
+        "EventManager",
+        "EventManagerPowerLevel",
+        "EventsByDay",
+        "ManagerOfEventInput",
+        "MutationUpsertEventResult",
+        "QueryEventsByDayConnection",
+        "QueryEventsConnection"
+      ],
+      "queries": [
+        "event",
+        "eventManager",
+        "events",
+        "eventsByDay",
+        "eventsInWeek",
+        "kioskReload",
+        "searchEvents"
+      ],
+      "mutations": [
+        "deleteEvent",
+        "deleteEventManager",
+        "deleteEventPicture",
+        "kioskReload",
+        "updateEventPicture",
+        "upsertEvent",
+        "upsertManagersOfEvent"
+      ],
+      "subscriptions": [
+        "event",
+        "kioskReload"
+      ],
+      "items": [
+        {
+          "name": "event",
+          "moduleName": "events",
+          "type": "query",
+          "returnType": "Event",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "eventManager",
+          "moduleName": "events",
+          "type": "query",
+          "returnType": "EventManager",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "events",
+          "moduleName": "events",
+          "type": "query",
+          "returnType": "QueryEventsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+          "connection": {
+            "nodeType": "Event",
+            "edgeType": "QueryEventsConnectionEdge",
+            "connectionType": "QueryEventsConnection"
+          }
+        },
+        {
+          "name": "eventsByDay",
+          "moduleName": "events",
+          "type": "query",
+          "returnType": "QueryEventsByDayConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+          "connection": {
+            "nodeType": "EventsByDay",
+            "edgeType": "QueryEventsByDayConnectionEdge",
+            "connectionType": "QueryEventsByDayConnection"
+          }
+        },
+        {
+          "name": "eventsInWeek",
+          "moduleName": "events",
+          "type": "query",
+          "returnType": "Event",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "kioskReload",
+          "moduleName": "events",
+          "type": "query",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "searchEvents",
+          "moduleName": "events",
+          "type": "query",
+          "returnType": "EvenSearchResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "deleteEvent",
+          "moduleName": "events",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "deleteEventManager",
+          "moduleName": "events",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "deleteEventPicture",
+          "moduleName": "events",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "kioskReload",
+          "moduleName": "events",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "updateEventPicture",
+          "moduleName": "events",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "upsertEvent",
+          "moduleName": "events",
+          "type": "mutation",
+          "returnType": "MutationUpsertEventResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertEventResult",
+            "successDataType": "Event",
+            "successType": "MutationUpsertEventSuccess"
+          }
+        },
+        {
+          "name": "upsertManagersOfEvent",
+          "moduleName": "events",
+          "type": "mutation",
+          "returnType": "EventManager",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "event",
+          "moduleName": "events",
+          "type": "subscription",
+          "returnType": "Event",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "kioskReload",
+          "moduleName": "events",
+          "type": "subscription",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "Event",
+          "moduleName": "events",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "EventFrequency",
+          "moduleName": "events",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/events/"
+        },
+        {
+          "name": "EventManager",
+          "moduleName": "events",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "EventManagerPowerLevel",
+          "moduleName": "events",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/events/"
+        },
+        {
+          "name": "EventsByDay",
+          "moduleName": "events",
+          "type": "type"
+        },
+        {
+          "name": "ManagerOfEventInput",
+          "moduleName": "events",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "EvenSearchResult",
+          "moduleName": "events",
+          "type": "type",
+          "returnType": "EvenSearchResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+        },
+        {
+          "name": "MutationUpsertEventResult",
+          "moduleName": "events",
+          "type": "type",
+          "returnType": "MutationUpsertEventResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertEventResult",
+            "successDataType": "Event",
+            "successType": "MutationUpsertEventSuccess"
+          }
+        },
+        {
+          "name": "QueryEventsByDayConnection",
+          "moduleName": "events",
+          "type": "type",
+          "returnType": "QueryEventsByDayConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+          "connection": {
+            "nodeType": "EventsByDay",
+            "edgeType": "QueryEventsByDayConnectionEdge",
+            "connectionType": "QueryEventsByDayConnection"
+          }
+        },
+        {
+          "name": "QueryEventsConnection",
+          "moduleName": "events",
+          "type": "type",
+          "returnType": "QueryEventsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+          "connection": {
+            "nodeType": "Event",
+            "edgeType": "QueryEventsConnectionEdge",
+            "connectionType": "QueryEventsConnection"
+          }
         }
       ]
     },
@@ -92,25 +1570,326 @@ export const data: BuiltData = {
       "rawDocs": "# Billetterie\n\nBillets et réservations de places sur des [évènements](/events).\n",
       "shortDescription": "Billets et réservations de places sur des évènements",
       "renderedDocs": "<html><head></head><body>\n<p>Billets et réservations de places sur des <a href=\"/events\">évènements</a>.</p></body></html>",
-      "types": [],
-      "queries": [],
+      "types": [
+        "MutationCancelRegistrationResult",
+        "MutationOpposeRegistrationResult",
+        "MutationPaidRegistrationResult",
+        "MutationUpsertRegistrationResult",
+        "QueryRegistrationResult",
+        "QueryRegistrationsOfUserConnection",
+        "Registration",
+        "RegistrationVerificationResult",
+        "RegistrationVerificationState",
+        "RegistrationsCounts",
+        "Ticket",
+        "TicketGroup",
+        "TicketGroupInput",
+        "TicketInput"
+      ],
+      "queries": [
+        "registration",
+        "registrationQRCode",
+        "registrationsOfUser",
+        "ticketGroup"
+      ],
       "mutations": [
         "cancelRegistration",
-        "paidRegistration"
+        "checkIfRegistrationIsPaid",
+        "createGoogleWalletPass",
+        "deleteTicket",
+        "deleteTicketGroup",
+        "opposeRegistration",
+        "paidRegistration",
+        "upsertRegistration",
+        "upsertTicketGroup"
       ],
-      "subscriptions": [],
+      "subscriptions": [
+        "registration"
+      ],
       "items": [
+        {
+          "name": "registration",
+          "moduleName": "ticketing",
+          "type": "query",
+          "returnType": "QueryRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryRegistrationResult",
+            "successDataType": "Registration",
+            "successType": "QueryRegistrationSuccess"
+          }
+        },
+        {
+          "name": "registrationQRCode",
+          "moduleName": "ticketing",
+          "type": "query",
+          "returnType": "QRCode",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "registrationsOfUser",
+          "moduleName": "ticketing",
+          "type": "query",
+          "returnType": "QueryRegistrationsOfUserConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "connection": {
+            "nodeType": "Registration",
+            "edgeType": "QueryRegistrationsOfUserConnectionEdge",
+            "connectionType": "QueryRegistrationsOfUserConnection"
+          }
+        },
+        {
+          "name": "ticketGroup",
+          "moduleName": "ticketing",
+          "type": "query",
+          "returnType": "TicketGroup",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
         {
           "name": "cancelRegistration",
           "moduleName": "ticketing",
           "type": "mutation",
+          "returnType": "MutationCancelRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationCancelRegistrationResult",
+            "successDataType": "Boolean",
+            "successType": "MutationCancelRegistrationSuccess"
+          }
+        },
+        {
+          "name": "checkIfRegistrationIsPaid",
+          "moduleName": "ticketing",
+          "type": "mutation",
+          "returnType": "Boolean",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "createGoogleWalletPass",
+          "moduleName": "ticketing",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "deleteTicket",
+          "moduleName": "ticketing",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "deleteTicketGroup",
+          "moduleName": "ticketing",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "opposeRegistration",
+          "moduleName": "ticketing",
+          "type": "mutation",
+          "returnType": "MutationOpposeRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationOpposeRegistrationResult",
+            "successDataType": "Boolean",
+            "successType": "MutationOpposeRegistrationSuccess"
+          }
         },
         {
           "name": "paidRegistration",
           "moduleName": "ticketing",
           "type": "mutation",
+          "returnType": "MutationPaidRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationPaidRegistrationResult",
+            "successDataType": "String",
+            "successType": "MutationPaidRegistrationSuccess"
+          }
+        },
+        {
+          "name": "upsertRegistration",
+          "moduleName": "ticketing",
+          "type": "mutation",
+          "returnType": "MutationUpsertRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertRegistrationResult",
+            "successDataType": "Registration",
+            "successType": "MutationUpsertRegistrationSuccess"
+          }
+        },
+        {
+          "name": "upsertTicketGroup",
+          "moduleName": "ticketing",
+          "type": "mutation",
+          "returnType": "TicketGroup",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "registration",
+          "moduleName": "ticketing",
+          "type": "subscription",
+          "returnType": "QueryRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryRegistrationResult",
+            "successDataType": "Registration",
+            "successType": "QueryRegistrationSuccess"
+          }
+        },
+        {
+          "name": "Registration",
+          "moduleName": "ticketing",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "RegistrationVerificationResult",
+          "moduleName": "ticketing",
+          "type": "type"
+        },
+        {
+          "name": "RegistrationVerificationState",
+          "moduleName": "ticketing",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/ticketing/"
+        },
+        {
+          "name": "RegistrationsCounts",
+          "moduleName": "ticketing",
+          "type": "type"
+        },
+        {
+          "name": "Ticket",
+          "moduleName": "ticketing",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "TicketGroup",
+          "moduleName": "ticketing",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "TicketGroupInput",
+          "moduleName": "ticketing",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "TicketInput",
+          "moduleName": "ticketing",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+        },
+        {
+          "name": "MutationCancelRegistrationResult",
+          "moduleName": "ticketing",
+          "type": "type",
+          "returnType": "MutationCancelRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationCancelRegistrationResult",
+            "successDataType": "Boolean",
+            "successType": "MutationCancelRegistrationSuccess"
+          }
+        },
+        {
+          "name": "MutationOpposeRegistrationResult",
+          "moduleName": "ticketing",
+          "type": "type",
+          "returnType": "MutationOpposeRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationOpposeRegistrationResult",
+            "successDataType": "Boolean",
+            "successType": "MutationOpposeRegistrationSuccess"
+          }
+        },
+        {
+          "name": "MutationPaidRegistrationResult",
+          "moduleName": "ticketing",
+          "type": "type",
+          "returnType": "MutationPaidRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationPaidRegistrationResult",
+            "successDataType": "String",
+            "successType": "MutationPaidRegistrationSuccess"
+          }
+        },
+        {
+          "name": "MutationUpsertRegistrationResult",
+          "moduleName": "ticketing",
+          "type": "type",
+          "returnType": "MutationUpsertRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertRegistrationResult",
+            "successDataType": "Registration",
+            "successType": "MutationUpsertRegistrationSuccess"
+          }
+        },
+        {
+          "name": "QueryRegistrationResult",
+          "moduleName": "ticketing",
+          "type": "type",
+          "returnType": "QueryRegistrationResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryRegistrationResult",
+            "successDataType": "Registration",
+            "successType": "QueryRegistrationSuccess"
+          }
+        },
+        {
+          "name": "QueryRegistrationsOfUserConnection",
+          "moduleName": "ticketing",
+          "type": "type",
+          "returnType": "QueryRegistrationsOfUserConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+          "connection": {
+            "nodeType": "Registration",
+            "edgeType": "QueryRegistrationsOfUserConnectionEdge",
+            "connectionType": "QueryRegistrationsOfUserConnection"
+          }
         }
       ]
     },
@@ -120,18 +1899,610 @@ export const data: BuiltData = {
       "rawDocs": "# Boutique\n\nSystème de boutique permettant aux groupes de mettre en vente des produits.\n",
       "shortDescription": "Système de boutique permettant aux groupes de mettre en vente des produits",
       "renderedDocs": "<html><head></head><body>\n<p>Système de boutique permettant aux groupes de mettre en vente des produits.</p></body></html>",
-      "types": [],
-      "queries": [],
+      "types": [
+        "MutationDeleteShopItemResult",
+        "MutationPaidShopPaymentResult",
+        "MutationUpsertShopItemResult",
+        "MutationUpsertShopPaymentResult",
+        "Picture",
+        "ShopItem",
+        "ShopItemAnswer",
+        "ShopItemOption",
+        "ShopItemOptionInput",
+        "ShopPayment"
+      ],
+      "queries": [
+        "shopItem",
+        "shopPayments"
+      ],
       "mutations": [
-        "updateItemPicture"
+        "deleteItemPicture",
+        "deleteShopItem",
+        "deleteShopOption",
+        "paidShopPayment",
+        "updateItemPicture",
+        "upsertShopItem",
+        "upsertShopOptions",
+        "upsertShopPayment"
       ],
       "subscriptions": [],
       "items": [
         {
+          "name": "shopItem",
+          "moduleName": "shop",
+          "type": "query",
+          "returnType": "ShopItem",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "shopPayments",
+          "moduleName": "shop",
+          "type": "query",
+          "returnType": "ShopPayment",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "deleteItemPicture",
+          "moduleName": "shop",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "deleteShopItem",
+          "moduleName": "shop",
+          "type": "mutation",
+          "returnType": "MutationDeleteShopItemResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationDeleteShopItemResult",
+            "successDataType": "Boolean",
+            "successType": "MutationDeleteShopItemSuccess"
+          }
+        },
+        {
+          "name": "deleteShopOption",
+          "moduleName": "shop",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "paidShopPayment",
+          "moduleName": "shop",
+          "type": "mutation",
+          "returnType": "MutationPaidShopPaymentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationPaidShopPaymentResult",
+            "successDataType": "ShopPayment",
+            "successType": "MutationPaidShopPaymentSuccess"
+          }
+        },
+        {
           "name": "updateItemPicture",
           "moduleName": "shop",
           "type": "mutation",
+          "returnType": "Picture",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "upsertShopItem",
+          "moduleName": "shop",
+          "type": "mutation",
+          "returnType": "MutationUpsertShopItemResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertShopItemResult",
+            "successDataType": "ShopItem",
+            "successType": "MutationUpsertShopItemSuccess"
+          }
+        },
+        {
+          "name": "upsertShopOptions",
+          "moduleName": "shop",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "upsertShopPayment",
+          "moduleName": "shop",
+          "type": "mutation",
+          "returnType": "MutationUpsertShopPaymentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertShopPaymentResult",
+            "successDataType": "ShopPayment",
+            "successType": "MutationUpsertShopPaymentSuccess"
+          }
+        },
+        {
+          "name": "Picture",
+          "moduleName": "shop",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "ShopItem",
+          "moduleName": "shop",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "ShopItemAnswer",
+          "moduleName": "shop",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "ShopItemOption",
+          "moduleName": "shop",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "ShopItemOptionInput",
+          "moduleName": "shop",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "ShopPayment",
+          "moduleName": "shop",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+        },
+        {
+          "name": "MutationDeleteShopItemResult",
+          "moduleName": "shop",
+          "type": "type",
+          "returnType": "MutationDeleteShopItemResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationDeleteShopItemResult",
+            "successDataType": "Boolean",
+            "successType": "MutationDeleteShopItemSuccess"
+          }
+        },
+        {
+          "name": "MutationPaidShopPaymentResult",
+          "moduleName": "shop",
+          "type": "type",
+          "returnType": "MutationPaidShopPaymentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationPaidShopPaymentResult",
+            "successDataType": "ShopPayment",
+            "successType": "MutationPaidShopPaymentSuccess"
+          }
+        },
+        {
+          "name": "MutationUpsertShopItemResult",
+          "moduleName": "shop",
+          "type": "type",
+          "returnType": "MutationUpsertShopItemResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertShopItemResult",
+            "successDataType": "ShopItem",
+            "successType": "MutationUpsertShopItemSuccess"
+          }
+        },
+        {
+          "name": "MutationUpsertShopPaymentResult",
+          "moduleName": "shop",
+          "type": "type",
+          "returnType": "MutationUpsertShopPaymentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertShopPaymentResult",
+            "successDataType": "ShopPayment",
+            "successType": "MutationUpsertShopPaymentSuccess"
+          }
+        }
+      ]
+    },
+    {
+      "name": "forms",
+      "displayName": "Formulaires",
+      "rawDocs": "---\ninline_types: [QuestionScaleInput]\n---\n\n# Formulaires\n\nChurros propose un système de formulaires, à l'instar de Google Forms. Sert principalement à poser des questions supplémentaires lors d'une réservation d'un évènement, où à effectuer des sondages.\n",
+      "shortDescription": "Churros propose un système de formulaires, à l'instar de Google Forms",
+      "renderedDocs": "<html><head></head><body>\n<p>Churros propose un système de formulaires, à l'instar de Google Forms. Sert principalement à poser des questions supplémentaires lors d'une réservation d'un évènement, où à effectuer des sondages.</p></body></html>",
+      "types": [
+        "Answer",
+        "AnswerDate",
+        "AnswerFileUpload",
+        "AnswerInput",
+        "AnswerLongText",
+        "AnswerNumber",
+        "AnswerScale",
+        "AnswerSearchResult",
+        "AnswerSelectMultiple",
+        "AnswerSelectOne",
+        "AnswerText",
+        "AnswerTime",
+        "AnswersExportFormats",
+        "AnswersOfUser",
+        "Form",
+        "FormSearchResult",
+        "FormSection",
+        "MutationAnswerFormSectionResult",
+        "MutationMailFormAnswersResult",
+        "QueryAllFormsConnection",
+        "QueryFormsConnection",
+        "Question",
+        "QuestionFileUpload",
+        "QuestionKind",
+        "QuestionScalar",
+        "QuestionScale",
+        "QuestionScaleInput",
+        "QuestionSelectMultiple",
+        "QuestionSelectOne"
+      ],
+      "queries": [
+        "allForms",
+        "form",
+        "forms",
+        "searchForms"
+      ],
+      "mutations": [
+        "answerFileQuestion",
+        "answerFormSection",
+        "createLinkedGoogleSheet",
+        "mailFormAnswers",
+        "setFormAnswersCheckbox",
+        "upsertForm",
+        "upsertFormSection",
+        "upsertQuestion"
+      ],
+      "subscriptions": [
+        "form"
+      ],
+      "items": [
+        {
+          "name": "allForms",
+          "moduleName": "forms",
+          "type": "query",
+          "returnType": "QueryAllFormsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "connection": {
+            "nodeType": "Form",
+            "edgeType": "QueryAllFormsConnectionEdge",
+            "connectionType": "QueryAllFormsConnection"
+          }
+        },
+        {
+          "name": "form",
+          "moduleName": "forms",
+          "type": "query",
+          "returnType": "Form",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "forms",
+          "moduleName": "forms",
+          "type": "query",
+          "returnType": "QueryFormsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "connection": {
+            "nodeType": "Form",
+            "edgeType": "QueryFormsConnectionEdge",
+            "connectionType": "QueryFormsConnection"
+          }
+        },
+        {
+          "name": "searchForms",
+          "moduleName": "forms",
+          "type": "query",
+          "returnType": "FormSearchResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "answerFileQuestion",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "AnswerFileUpload",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "answerFormSection",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "MutationAnswerFormSectionResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationAnswerFormSectionResult",
+            "successDataType": "Answer",
+            "successType": "MutationAnswerFormSectionSuccess"
+          }
+        },
+        {
+          "name": "createLinkedGoogleSheet",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "mailFormAnswers",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "MutationMailFormAnswersResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationMailFormAnswersResult",
+            "successDataType": "String",
+            "successType": "MutationMailFormAnswersSuccess"
+          }
+        },
+        {
+          "name": "setFormAnswersCheckbox",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "Form",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "upsertForm",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "Form",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "upsertFormSection",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "FormSection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "upsertQuestion",
+          "moduleName": "forms",
+          "type": "mutation",
+          "returnType": "Question",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "form",
+          "moduleName": "forms",
+          "type": "subscription",
+          "returnType": "Form",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "Answer",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "AnswerDate",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerFileUpload",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerInput",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "AnswerLongText",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerNumber",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerScale",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerSearchResult",
+          "moduleName": "forms",
+          "type": "type"
+        },
+        {
+          "name": "AnswerSelectMultiple",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerSelectOne",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerText",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswerTime",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswersExportFormats",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "AnswersOfUser",
+          "moduleName": "forms",
+          "type": "type"
+        },
+        {
+          "name": "Form",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "FormSection",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "Question",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "QuestionFileUpload",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "QuestionKind",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "QuestionScalar",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "QuestionScale",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "QuestionScaleInput",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "QuestionSelectMultiple",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "QuestionSelectOne",
+          "moduleName": "forms",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+        },
+        {
+          "name": "FormSearchResult",
+          "moduleName": "forms",
+          "type": "type",
+          "returnType": "FormSearchResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+        },
+        {
+          "name": "MutationAnswerFormSectionResult",
+          "moduleName": "forms",
+          "type": "type",
+          "returnType": "MutationAnswerFormSectionResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationAnswerFormSectionResult",
+            "successDataType": "Answer",
+            "successType": "MutationAnswerFormSectionSuccess"
+          }
+        },
+        {
+          "name": "MutationMailFormAnswersResult",
+          "moduleName": "forms",
+          "type": "type",
+          "returnType": "MutationMailFormAnswersResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationMailFormAnswersResult",
+            "successDataType": "String",
+            "successType": "MutationMailFormAnswersSuccess"
+          }
+        },
+        {
+          "name": "QueryAllFormsConnection",
+          "moduleName": "forms",
+          "type": "type",
+          "returnType": "QueryAllFormsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "connection": {
+            "nodeType": "Form",
+            "edgeType": "QueryAllFormsConnectionEdge",
+            "connectionType": "QueryAllFormsConnection"
+          }
+        },
+        {
+          "name": "QueryFormsConnection",
+          "moduleName": "forms",
+          "type": "type",
+          "returnType": "QueryFormsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+          "connection": {
+            "nodeType": "Form",
+            "edgeType": "QueryFormsConnectionEdge",
+            "connectionType": "QueryFormsConnection"
+          }
         }
       ]
     },
@@ -141,18 +2512,147 @@ export const data: BuiltData = {
       "rawDocs": "---\ninline_types_from: [HealthCheck]\n---\n\n# Documents (La Frappe)\n\nDocuments publiés dans des [matières](../curriculum).\n\nNommé \"La Frappe\" au sein des écoles de Toulouse INP.\n",
       "shortDescription": "Documents publiés dans des matières",
       "renderedDocs": "<html><head></head><body>\n<p>Documents publiés dans des <a href=\"../curriculum\">matières</a>.</p>\n<p>Nommé \"La Frappe\" au sein des écoles de Toulouse INP.</p></body></html>",
-      "types": [],
+      "types": [
+        "Document",
+        "DocumentSearchResult",
+        "DocumentType",
+        "MutationUpsertDocumentResult",
+        "QueryDocumentsConnection"
+      ],
       "queries": [
+        "document",
+        "documents",
         "searchDocuments"
       ],
-      "mutations": [],
+      "mutations": [
+        "deleteDocument",
+        "deleteDocumentFile",
+        "mergeDocuments",
+        "setDocumentFileIsSolution",
+        "uploadDocumentFile",
+        "upsertDocument"
+      ],
       "subscriptions": [],
       "items": [
+        {
+          "name": "document",
+          "moduleName": "documents",
+          "type": "query",
+          "returnType": "Document",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "documents",
+          "moduleName": "documents",
+          "type": "query",
+          "returnType": "QueryDocumentsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+          "connection": {
+            "nodeType": "Document",
+            "edgeType": "QueryDocumentsConnectionEdge",
+            "connectionType": "QueryDocumentsConnection"
+          }
+        },
         {
           "name": "searchDocuments",
           "moduleName": "documents",
           "type": "query",
+          "returnType": "DocumentSearchResult",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "deleteDocument",
+          "moduleName": "documents",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "deleteDocumentFile",
+          "moduleName": "documents",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "mergeDocuments",
+          "moduleName": "documents",
+          "type": "mutation",
+          "returnType": "Document",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "setDocumentFileIsSolution",
+          "moduleName": "documents",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "uploadDocumentFile",
+          "moduleName": "documents",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "upsertDocument",
+          "moduleName": "documents",
+          "type": "mutation",
+          "returnType": "MutationUpsertDocumentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertDocumentResult",
+            "successDataType": "Document",
+            "successType": "MutationUpsertDocumentSuccess"
+          }
+        },
+        {
+          "name": "Document",
+          "moduleName": "documents",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+        },
+        {
+          "name": "DocumentSearchResult",
+          "moduleName": "documents",
+          "type": "type"
+        },
+        {
+          "name": "DocumentType",
+          "moduleName": "documents",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/documents/"
+        },
+        {
+          "name": "MutationUpsertDocumentResult",
+          "moduleName": "documents",
+          "type": "type",
+          "returnType": "MutationUpsertDocumentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertDocumentResult",
+            "successDataType": "Document",
+            "successType": "MutationUpsertDocumentSuccess"
+          }
+        },
+        {
+          "name": "QueryDocumentsConnection",
+          "moduleName": "documents",
+          "type": "type",
+          "returnType": "QueryDocumentsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+          "connection": {
+            "nodeType": "Document",
+            "edgeType": "QueryDocumentsConnectionEdge",
+            "connectionType": "QueryDocumentsConnection"
+          }
         }
       ]
     },
@@ -162,18 +2662,132 @@ export const data: BuiltData = {
       "rawDocs": "---\ninline_types: [NotificationSubscriptionKeysInput]\n---\n\n# Notifications\n\nNotifications envoyées aux utilisateurs.\n",
       "shortDescription": "Notifications envoyées aux utilisateurs",
       "renderedDocs": "<html><head></head><body>\n<p>Notifications envoyées aux utilisateurs.</p></body></html>",
-      "types": [],
-      "queries": [
-        "notification"
+      "types": [
+        "Notification",
+        "NotificationChannel",
+        "NotificationSubscription",
+        "NotificationSubscriptionKeysInput",
+        "QueryNotificationsConnection"
       ],
-      "mutations": [],
+      "queries": [
+        "notification",
+        "notificationSubscription",
+        "notificationSubscriptions",
+        "notifications",
+        "notificationsSendCountForArticle"
+      ],
+      "mutations": [
+        "deleteNotificationSubscription",
+        "sendNotification",
+        "testNotification",
+        "upsertNotificationSubscription"
+      ],
       "subscriptions": [],
       "items": [
         {
           "name": "notification",
           "moduleName": "notifications",
           "type": "query",
+          "returnType": "Notification",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "notificationSubscription",
+          "moduleName": "notifications",
+          "type": "query",
+          "returnType": "NotificationSubscription",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "notificationSubscriptions",
+          "moduleName": "notifications",
+          "type": "query",
+          "returnType": "NotificationSubscription",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "notifications",
+          "moduleName": "notifications",
+          "type": "query",
+          "returnType": "QueryNotificationsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/",
+          "connection": {
+            "nodeType": "Notification",
+            "edgeType": "QueryNotificationsConnectionEdge",
+            "connectionType": "QueryNotificationsConnection"
+          }
+        },
+        {
+          "name": "notificationsSendCountForArticle",
+          "moduleName": "notifications",
+          "type": "query",
+          "returnType": "Int",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "deleteNotificationSubscription",
+          "moduleName": "notifications",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "sendNotification",
+          "moduleName": "notifications",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "testNotification",
+          "moduleName": "notifications",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "upsertNotificationSubscription",
+          "moduleName": "notifications",
+          "type": "mutation",
+          "returnType": "NotificationSubscription",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "Notification",
+          "moduleName": "notifications",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "NotificationChannel",
+          "moduleName": "notifications",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/notifications/"
+        },
+        {
+          "name": "NotificationSubscriptionKeysInput",
+          "moduleName": "notifications",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "NotificationSubscription",
+          "moduleName": "notifications",
+          "type": "type",
+          "returnType": "NotificationSubscription",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+        },
+        {
+          "name": "QueryNotificationsConnection",
+          "moduleName": "notifications",
+          "type": "type",
+          "returnType": "QueryNotificationsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/",
+          "connection": {
+            "nodeType": "Notification",
+            "edgeType": "QueryNotificationsConnectionEdge",
+            "connectionType": "QueryNotificationsConnection"
+          }
         }
       ]
     },
@@ -183,18 +2797,170 @@ export const data: BuiltData = {
       "rawDocs": "# Services\n\nServices externes proposés par une [AE](../student-associations), une [école](../schools) ou un [groupe](../groups).\n",
       "shortDescription": "Services externes proposés par une AE, une école ou un groupe",
       "renderedDocs": "<html><head></head><body>\n<p>Services externes proposés par une <a href=\"../student-associations\">AE</a>, une <a href=\"../schools\">école</a> ou un <a href=\"../groups\">groupe</a>.</p></body></html>",
-      "types": [],
+      "types": [
+        "LogoSourceType",
+        "MutationUpsertServiceResult",
+        "Service"
+      ],
       "queries": [
+        "service",
+        "services",
         "userServices"
       ],
-      "mutations": [],
+      "mutations": [
+        "upsertService"
+      ],
       "subscriptions": [],
       "items": [
+        {
+          "name": "service",
+          "moduleName": "services",
+          "type": "query",
+          "returnType": "Service",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
+        },
+        {
+          "name": "services",
+          "moduleName": "services",
+          "type": "query",
+          "returnType": "Service",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
+        },
         {
           "name": "userServices",
           "moduleName": "services",
           "type": "query",
+          "returnType": "Service",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
+        },
+        {
+          "name": "upsertService",
+          "moduleName": "services",
+          "type": "mutation",
+          "returnType": "MutationUpsertServiceResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertServiceResult",
+            "successDataType": "Service",
+            "successType": "MutationUpsertServiceSuccess"
+          }
+        },
+        {
+          "name": "LogoSourceType",
+          "moduleName": "services",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/services/"
+        },
+        {
+          "name": "Service",
+          "moduleName": "services",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
+        },
+        {
+          "name": "MutationUpsertServiceResult",
+          "moduleName": "services",
+          "type": "type",
+          "returnType": "MutationUpsertServiceResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertServiceResult",
+            "successDataType": "Service",
+            "successType": "MutationUpsertServiceSuccess"
+          }
+        }
+      ]
+    },
+    {
+      "name": "bar-weeks",
+      "displayName": "Semaines de bar",
+      "rawDocs": "# Semaines de bar\n\nSpécifique à l'AEn7, représente une semaine où un club organise des activités et staff pour le bar du Foyer.\nLes personnes ayant la permissions d'en créer sont les administrateur·ice·s, responsables des clubs (permission `canEditGroups`) et membres du bureau du Foyer (configurés avec la variable d'environnement `FOY_GROUPS`, liste séparée par des virgules d'uids de groupes)\n",
+      "shortDescription": "Spécifique à l'AEn7, représente une semaine où un club organise des activités et staff pour...",
+      "renderedDocs": "<html><head></head><body>\n<p>Spécifique à l'AEn7, représente une semaine où un club organise des activités et staff pour le bar du Foyer.\nLes personnes ayant la permissions d'en créer sont les administrateur·ice·s, responsables des clubs (permission <code>canEditGroups</code>) et membres du bureau du Foyer (configurés avec la variable d'environnement <code>FOY_GROUPS</code>, liste séparée par des virgules d'uids de groupes)</p></body></html>",
+      "types": [
+        "BarWeek",
+        "MutationUpsertBarWeekResult"
+      ],
+      "queries": [
+        "barWeek",
+        "barWeekNow",
+        "barWeeks"
+      ],
+      "mutations": [
+        "deleteBarWeek",
+        "upsertBarWeek"
+      ],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "barWeek",
+          "moduleName": "bar-weeks",
+          "type": "query",
+          "returnType": "BarWeek",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+        },
+        {
+          "name": "barWeekNow",
+          "moduleName": "bar-weeks",
+          "type": "query",
+          "returnType": "BarWeek",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+        },
+        {
+          "name": "barWeeks",
+          "moduleName": "bar-weeks",
+          "type": "query",
+          "returnType": "BarWeek",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+        },
+        {
+          "name": "deleteBarWeek",
+          "moduleName": "bar-weeks",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+        },
+        {
+          "name": "upsertBarWeek",
+          "moduleName": "bar-weeks",
+          "type": "mutation",
+          "returnType": "MutationUpsertBarWeekResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertBarWeekResult",
+            "successDataType": "BarWeek",
+            "successType": "MutationUpsertBarWeekSuccess"
+          }
+        },
+        {
+          "name": "BarWeek",
+          "moduleName": "bar-weeks",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+        },
+        {
+          "name": "MutationUpsertBarWeekResult",
+          "moduleName": "bar-weeks",
+          "type": "type",
+          "returnType": "MutationUpsertBarWeekResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationUpsertBarWeekResult",
+            "successDataType": "BarWeek",
+            "successType": "MutationUpsertBarWeekSuccess"
+          }
         }
       ]
     },
@@ -204,18 +2970,301 @@ export const data: BuiltData = {
       "rawDocs": "# Associations étudiantes\n\nAssociations Étudiantes de chaque [école](/schools). Il n'y a qu'une seule _AE_ par école.\n",
       "shortDescription": "Associations Étudiantes de chaque école",
       "renderedDocs": "<html><head></head><body>\n<p>Associations Étudiantes de chaque <a href=\"/schools\">école</a>. Il n'y a qu'une seule <em>AE</em> par école.</p></body></html>",
-      "types": [],
-      "queries": [
-        "studentAssociation"
+      "types": [
+        "ContributionOption",
+        "MutationContributeResult",
+        "StudentAssociation"
       ],
-      "mutations": [],
+      "queries": [
+        "contributionOptions",
+        "studentAssociation",
+        "studentAssociations"
+      ],
+      "mutations": [
+        "cancelPendingContribution",
+        "contribute",
+        "updateStudentAssociationPicture"
+      ],
       "subscriptions": [],
       "items": [
+        {
+          "name": "contributionOptions",
+          "moduleName": "student-associations",
+          "type": "query",
+          "returnType": "ContributionOption",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+        },
         {
           "name": "studentAssociation",
           "moduleName": "student-associations",
           "type": "query",
+          "returnType": "StudentAssociation",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+        },
+        {
+          "name": "studentAssociations",
+          "moduleName": "student-associations",
+          "type": "query",
+          "returnType": "StudentAssociation",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+        },
+        {
+          "name": "cancelPendingContribution",
+          "moduleName": "student-associations",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+        },
+        {
+          "name": "contribute",
+          "moduleName": "student-associations",
+          "type": "mutation",
+          "returnType": "MutationContributeResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationContributeResult",
+            "successDataType": "Boolean",
+            "successType": "MutationContributeSuccess"
+          }
+        },
+        {
+          "name": "updateStudentAssociationPicture",
+          "moduleName": "student-associations",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+        },
+        {
+          "name": "ContributionOption",
+          "moduleName": "student-associations",
+          "type": "type",
+          "returnType": "ContributionOption",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+        },
+        {
+          "name": "MutationContributeResult",
+          "moduleName": "student-associations",
+          "type": "type",
+          "returnType": "MutationContributeResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationContributeResult",
+            "successDataType": "Boolean",
+            "successType": "MutationContributeSuccess"
+          }
+        },
+        {
+          "name": "StudentAssociation",
+          "moduleName": "student-associations",
+          "type": "type",
+          "returnType": "StudentAssociation",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+        }
+      ]
+    },
+    {
+      "name": "pages",
+      "displayName": "Pages",
+      "rawDocs": "# Pages\n\nPages web liées à un groupe ou une AE. Pratique pour par exemple parler des partenariats d'une AE (genre réductions de prix), héberger les status d'une asso, etc.\n",
+      "shortDescription": "Pages web liées à un groupe ou une AE",
+      "renderedDocs": "<html><head></head><body>\n<p>Pages web liées à un groupe ou une AE. Pratique pour par exemple parler des partenariats d'une AE (genre réductions de prix), héberger les status d'une asso, etc.</p></body></html>",
+      "types": [
+        "MutationAddFileToPageResult",
+        "MutationDeletePageResult",
+        "MutationRemoveFileFromPageResult",
+        "MutationUpsertPageResult",
+        "Page",
+        "PagesConnection",
+        "QueryPagesConnection"
+      ],
+      "queries": [
+        "page",
+        "pages"
+      ],
+      "mutations": [
+        "addFileToPage",
+        "deletePage",
+        "removeFileFromPage",
+        "upsertPage"
+      ],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "page",
+          "moduleName": "pages",
+          "type": "query",
+          "returnType": "Page",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/"
+        },
+        {
+          "name": "pages",
+          "moduleName": "pages",
+          "type": "query",
+          "returnType": "QueryPagesConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "connection": {
+            "nodeType": "Page",
+            "edgeType": "QueryPagesConnectionEdge",
+            "connectionType": "QueryPagesConnection"
+          }
+        },
+        {
+          "name": "addFileToPage",
+          "moduleName": "pages",
+          "type": "mutation",
+          "returnType": "MutationAddFileToPageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationAddFileToPageResult",
+            "successDataType": "Page",
+            "successType": "MutationAddFileToPageSuccess"
+          }
+        },
+        {
+          "name": "deletePage",
+          "moduleName": "pages",
+          "type": "mutation",
+          "returnType": "MutationDeletePageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationDeletePageResult",
+            "successDataType": "Page",
+            "successType": "MutationDeletePageSuccess"
+          }
+        },
+        {
+          "name": "removeFileFromPage",
+          "moduleName": "pages",
+          "type": "mutation",
+          "returnType": "MutationRemoveFileFromPageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationRemoveFileFromPageResult",
+            "successDataType": "Page",
+            "successType": "MutationRemoveFileFromPageSuccess"
+          }
+        },
+        {
+          "name": "upsertPage",
+          "moduleName": "pages",
+          "type": "mutation",
+          "returnType": "MutationUpsertPageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpsertPageResult",
+            "successDataType": "Page",
+            "successType": "MutationUpsertPageSuccess"
+          }
+        },
+        {
+          "name": "Page",
+          "moduleName": "pages",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/"
+        },
+        {
+          "name": "PagesConnection",
+          "moduleName": "pages",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/pages/"
+        },
+        {
+          "name": "MutationAddFileToPageResult",
+          "moduleName": "pages",
+          "type": "type",
+          "returnType": "MutationAddFileToPageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationAddFileToPageResult",
+            "successDataType": "Page",
+            "successType": "MutationAddFileToPageSuccess"
+          }
+        },
+        {
+          "name": "MutationDeletePageResult",
+          "moduleName": "pages",
+          "type": "type",
+          "returnType": "MutationDeletePageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationDeletePageResult",
+            "successDataType": "Page",
+            "successType": "MutationDeletePageSuccess"
+          }
+        },
+        {
+          "name": "MutationRemoveFileFromPageResult",
+          "moduleName": "pages",
+          "type": "type",
+          "returnType": "MutationRemoveFileFromPageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationRemoveFileFromPageResult",
+            "successDataType": "Page",
+            "successType": "MutationRemoveFileFromPageSuccess"
+          }
+        },
+        {
+          "name": "MutationUpsertPageResult",
+          "moduleName": "pages",
+          "type": "type",
+          "returnType": "MutationUpsertPageResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpsertPageResult",
+            "successDataType": "Page",
+            "successType": "MutationUpsertPageSuccess"
+          }
+        },
+        {
+          "name": "QueryPagesConnection",
+          "moduleName": "pages",
+          "type": "type",
+          "returnType": "QueryPagesConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+          "connection": {
+            "nodeType": "Page",
+            "edgeType": "QueryPagesConnectionEdge",
+            "connectionType": "QueryPagesConnection"
+          }
         }
       ]
     },
@@ -225,18 +3274,250 @@ export const data: BuiltData = {
       "rawDocs": "# Écoles\n\nÉcoles présentes sur l'application.\n",
       "shortDescription": "Écoles présentes sur l'application",
       "renderedDocs": "<html><head></head><body>\n<p>Écoles présentes sur l'application.</p></body></html>",
-      "types": [],
-      "queries": [
-        "school"
+      "types": [
+        "School",
+        "SchoolGroup",
+        "SchoolInput"
       ],
-      "mutations": [],
+      "queries": [
+        "school",
+        "schoolGroups",
+        "schools"
+      ],
+      "mutations": [
+        "deleteSchoolPicture",
+        "updateSchool",
+        "updateSchoolPicture"
+      ],
       "subscriptions": [],
       "items": [
         {
           "name": "school",
           "moduleName": "schools",
           "type": "query",
+          "returnType": "School",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        },
+        {
+          "name": "schoolGroups",
+          "moduleName": "schools",
+          "type": "query",
+          "returnType": "SchoolGroup",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        },
+        {
+          "name": "schools",
+          "moduleName": "schools",
+          "type": "query",
+          "returnType": "School",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        },
+        {
+          "name": "deleteSchoolPicture",
+          "moduleName": "schools",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        },
+        {
+          "name": "updateSchool",
+          "moduleName": "schools",
+          "type": "mutation",
+          "returnType": "School",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        },
+        {
+          "name": "updateSchoolPicture",
+          "moduleName": "schools",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        },
+        {
+          "name": "School",
+          "moduleName": "schools",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        },
+        {
+          "name": "SchoolGroup",
+          "moduleName": "schools",
+          "type": "type"
+        },
+        {
+          "name": "SchoolInput",
+          "moduleName": "schools",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+        }
+      ]
+    },
+    {
+      "name": "curriculum",
+      "displayName": "Curriculum",
+      "rawDocs": "# Curriculum\n\nDifférentes matières enseignées dans les écoles, et leur organisation au sein de celle-ci.\n\nLa hiérarchie est la suivante:\n\n- [École](../schools)\n  - Filière (ou majeure): objet `Major`\n    - Parcours (ou mineure): objet `Minor`\n      - \"UE\" (Unité d'enseignement): objet `TeachingUnit`\n        - Matière: objet `Subject`\n\nCependant, afin de rendre les différents cas particuliers des écoles représentables, cette représentation se doit d'être la plus flexible possible.\n\nEn conséquence, une matière peut être reliée à:\n\n- une UE\n- une mineure\n- une majeure\n\nEt de même, une UE peut être reliée à:\n\n- une mineure\n- une majeure\n\nLa hiérarchie complète est donc plutôt la suivante:\n\n```\nSchool\n    Major\n        Subject\n        TeachingUnit\n        Minor\n            Subject\n            TeachingUnit\n                Subject\n```\n",
+      "shortDescription": "Différentes matières enseignées dans les écoles, et leur organisation au sein de celle-ci",
+      "renderedDocs": "<html><head></head><body>\n<p>Différentes matières enseignées dans les écoles, et leur organisation au sein de celle-ci.</p>\n<p>La hiérarchie est la suivante:</p>\n<ul>\n<li><a href=\"../schools\">École</a>\n<ul>\n<li>Filière (ou majeure): objet <code>Major</code>\n<ul>\n<li>Parcours (ou mineure): objet <code>Minor</code>\n<ul>\n<li>\"UE\" (Unité d'enseignement): objet <code>TeachingUnit</code>\n<ul>\n<li>Matière: objet <code>Subject</code></li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<p>Cependant, afin de rendre les différents cas particuliers des écoles représentables, cette représentation se doit d'être la plus flexible possible.</p>\n<p>En conséquence, une matière peut être reliée à:</p>\n<ul>\n<li>une UE</li>\n<li>une mineure</li>\n<li>une majeure</li>\n</ul>\n<p>Et de même, une UE peut être reliée à:</p>\n<ul>\n<li>une mineure</li>\n<li>une majeure</li>\n</ul>\n<p>La hiérarchie complète est donc plutôt la suivante:</p>\n<pre><code>School\n    Major\n        Subject\n        TeachingUnit\n        Minor\n            Subject\n            TeachingUnit\n                Subject\n</code></pre></body></html>",
+      "types": [
+        "Major",
+        "Minor",
+        "QueryMinorsConnection",
+        "Subject",
+        "TeachingUnit"
+      ],
+      "queries": [
+        "major",
+        "majors",
+        "minor",
+        "minors",
+        "subject",
+        "subjects"
+      ],
+      "mutations": [
+        "updateSubjectsExamDates"
+      ],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "major",
+          "moduleName": "curriculum",
+          "type": "query",
+          "returnType": "Major",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "majors",
+          "moduleName": "curriculum",
+          "type": "query",
+          "returnType": "Major",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "minor",
+          "moduleName": "curriculum",
+          "type": "query",
+          "returnType": "Minor",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "minors",
+          "moduleName": "curriculum",
+          "type": "query",
+          "returnType": "QueryMinorsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/",
+          "connection": {
+            "nodeType": "Minor",
+            "edgeType": "QueryMinorsConnectionEdge",
+            "connectionType": "QueryMinorsConnection"
+          }
+        },
+        {
+          "name": "subject",
+          "moduleName": "curriculum",
+          "type": "query",
+          "returnType": "Subject",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "subjects",
+          "moduleName": "curriculum",
+          "type": "query",
+          "returnType": "Subject",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "updateSubjectsExamDates",
+          "moduleName": "curriculum",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "Major",
+          "moduleName": "curriculum",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "Minor",
+          "moduleName": "curriculum",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "Subject",
+          "moduleName": "curriculum",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "TeachingUnit",
+          "moduleName": "curriculum",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+        },
+        {
+          "name": "QueryMinorsConnection",
+          "moduleName": "curriculum",
+          "type": "type",
+          "returnType": "QueryMinorsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/",
+          "connection": {
+            "nodeType": "Minor",
+            "edgeType": "QueryMinorsConnectionEdge",
+            "connectionType": "QueryMinorsConnection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "comments",
+      "displayName": "Commentaires",
+      "rawDocs": "# Commentaires\n\nLes différents commentaires postés.\nLes commentaires peuvent être reliés à des [posts](../posts) ou des [documents](../documents)\n",
+      "shortDescription": "Les différents commentaires postés",
+      "renderedDocs": "<html><head></head><body>\n<p>Les différents commentaires postés.\nLes commentaires peuvent être reliés à des <a href=\"../posts\">posts</a> ou des <a href=\"../documents\">documents</a></p></body></html>",
+      "types": [
+        "Comment",
+        "Commentable",
+        "CommentsConnection"
+      ],
+      "queries": [],
+      "mutations": [
+        "deleteComment",
+        "upsertComment"
+      ],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "deleteComment",
+          "moduleName": "comments",
+          "type": "mutation",
+          "returnType": "Comment",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/comments/"
+        },
+        {
+          "name": "upsertComment",
+          "moduleName": "comments",
+          "type": "mutation",
+          "returnType": "Comment",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/comments/"
+        },
+        {
+          "name": "Comment",
+          "moduleName": "comments",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/comments/"
+        },
+        {
+          "name": "Commentable",
+          "moduleName": "comments",
+          "type": "type"
+        },
+        {
+          "name": "CommentsConnection",
+          "moduleName": "comments",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/comments/"
         }
       ]
     },
@@ -246,12 +3527,21 @@ export const data: BuiltData = {
       "rawDocs": "# Réactions\n\nRéactions (likes, etc) sur les différents objets de l'application (évènements, posts, etc)\n",
       "shortDescription": "Réactions (likes, etc) sur les différents objets de l'application (évènements, posts, etc)",
       "renderedDocs": "<html><head></head><body>\n<p>Réactions (likes, etc) sur les différents objets de l'application (évènements, posts, etc)</p></body></html>",
-      "types": [],
+      "types": [
+        "BooleanMap",
+        "Counts",
+        "QueryReactionsConnection",
+        "Reactable",
+        "Reaction"
+      ],
       "queries": [
-        "reaction"
+        "reaction",
+        "reactions"
       ],
       "mutations": [
-        "deleteReaction"
+        "deleteReaction",
+        "toggleReaction",
+        "upsertReaction"
       ],
       "subscriptions": [],
       "items": [
@@ -259,13 +3549,76 @@ export const data: BuiltData = {
           "name": "reaction",
           "moduleName": "reactions",
           "type": "query",
+          "returnType": "Reaction",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+        },
+        {
+          "name": "reactions",
+          "moduleName": "reactions",
+          "type": "query",
+          "returnType": "QueryReactionsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/",
+          "connection": {
+            "nodeType": "Reaction",
+            "edgeType": "QueryReactionsConnectionEdge",
+            "connectionType": "QueryReactionsConnection"
+          }
         },
         {
           "name": "deleteReaction",
           "moduleName": "reactions",
           "type": "mutation",
+          "returnType": "Boolean",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+        },
+        {
+          "name": "toggleReaction",
+          "moduleName": "reactions",
+          "type": "mutation",
+          "returnType": "Reactable",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+        },
+        {
+          "name": "upsertReaction",
+          "moduleName": "reactions",
+          "type": "mutation",
+          "returnType": "Int",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+        },
+        {
+          "name": "BooleanMap",
+          "moduleName": "reactions",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+        },
+        {
+          "name": "Counts",
+          "moduleName": "reactions",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+        },
+        {
+          "name": "Reactable",
+          "moduleName": "reactions",
+          "type": "type"
+        },
+        {
+          "name": "Reaction",
+          "moduleName": "reactions",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+        },
+        {
+          "name": "QueryReactionsConnection",
+          "moduleName": "reactions",
+          "type": "type",
+          "returnType": "QueryReactionsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/",
+          "connection": {
+            "nodeType": "Reaction",
+            "edgeType": "QueryReactionsConnectionEdge",
+            "connectionType": "QueryReactionsConnection"
+          }
         }
       ]
     },
@@ -275,17 +3628,175 @@ export const data: BuiltData = {
       "rawDocs": "---\ninline_types: [ThirdPartyAppResponse]\n---\n\n# Applications tierces (OAuth)\n\nChurros fournit un service de provider OAuth.\n\nDes applications tierces peuvent utiliser l'API de Churros au nom d'une personne, si celle-ci autorise l'application.\n\n## Endpoints utiles\n\n- **URL d'autorisation**: `https://churros.inpt.fr/authorize`\n- **URL d'obtention d'un token**: `https://churros.inpt.fr/token`\n- **URL d'obtention d'informations basiques sur l'utilisateur·ice connecté·e**: `https://churros.inpt.fr/identity`\n\n  Renvoie un JSON, contenant les informations suivantes:\n\n  - `uid`: nom d'utilisateur·ice unique (le \"@\")\n  - `email`: adresse email\n  - `ldapInternalEmail`: adresse email en `@bde.enseeiht.fr` (pour les n7iens)\n  - `fullName`: nom d'affichage\n  - `firstName`: prénom\n  - `lastName`: nom de famille\n  - `groupsUids`: uids des groupes dont l'utilisateur·ice est membre\n\nPour en savoir plus, voir la [documentation OAuth2 de Churros](https://wiki.inpt.fr/inp-net/public/oauth-churros)\n",
       "shortDescription": "Churros fournit un service de provider OAuth",
       "renderedDocs": "<html><head></head><body>\n<p>Churros fournit un service de provider OAuth.</p>\n<p>Des applications tierces peuvent utiliser l'API de Churros au nom d'une personne, si celle-ci autorise l'application.</p>\n<h2>Endpoints utiles</h2>\n<ul>\n<li>\n<p><strong>URL d'autorisation</strong>: <code>https://churros.inpt.fr/authorize</code></p>\n</li>\n<li>\n<p><strong>URL d'obtention d'un token</strong>: <code>https://churros.inpt.fr/token</code></p>\n</li>\n<li>\n<p><strong>URL d'obtention d'informations basiques sur l'utilisateur·ice connecté·e</strong>: <code>https://churros.inpt.fr/identity</code></p>\n<p>Renvoie un JSON, contenant les informations suivantes:</p>\n<ul>\n<li><code>uid</code>: nom d'utilisateur·ice unique (le \"@\")</li>\n<li><code>email</code>: adresse email</li>\n<li><code>ldapInternalEmail</code>: adresse email en <code>@bde.enseeiht.fr</code> (pour les n7iens)</li>\n<li><code>fullName</code>: nom d'affichage</li>\n<li><code>firstName</code>: prénom</li>\n<li><code>lastName</code>: nom de famille</li>\n<li><code>groupsUids</code>: uids des groupes dont l'utilisateur·ice est membre</li>\n</ul>\n</li>\n</ul>\n<p>Pour en savoir plus, voir la <a href=\"https://wiki.inpt.fr/inp-net/public/oauth-churros\">documentation OAuth2 de Churros</a></p></body></html>",
-      "types": [],
-      "queries": [],
-      "mutations": [
-        "deactivateApp"
+      "types": [
+        "ApiRateLimitHits",
+        "ApiUsage",
+        "ApiUsageQueryType",
+        "MutationAuthorizeResult",
+        "OAuth2Error",
+        "OAuth2ErrorCode",
+        "ThirdPartyApp",
+        "ThirdPartyAppRegistrationResponse"
       ],
-      "subscriptions": [],
+      "queries": [
+        "allApps",
+        "myApps",
+        "thirdPartyApp"
+      ],
+      "mutations": [
+        "activateApp",
+        "authorize",
+        "deactivateApp",
+        "editApp",
+        "registerApp",
+        "revokeAuthorization",
+        "rotateAppSecret"
+      ],
+      "subscriptions": [
+        "thirdPartyApp"
+      ],
       "items": [
+        {
+          "name": "allApps",
+          "moduleName": "oauth",
+          "type": "query",
+          "returnType": "ThirdPartyApp",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "myApps",
+          "moduleName": "oauth",
+          "type": "query",
+          "returnType": "ThirdPartyApp",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "thirdPartyApp",
+          "moduleName": "oauth",
+          "type": "query",
+          "returnType": "ThirdPartyApp",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "activateApp",
+          "moduleName": "oauth",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "authorize",
+          "moduleName": "oauth",
+          "type": "mutation",
+          "returnType": "MutationAuthorizeResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "OAuth2Error"
+            ],
+            "resultType": "MutationAuthorizeResult",
+            "successDataType": "String",
+            "successType": "MutationAuthorizeSuccess"
+          }
+        },
         {
           "name": "deactivateApp",
           "moduleName": "oauth",
           "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "editApp",
+          "moduleName": "oauth",
+          "type": "mutation",
+          "returnType": "ThirdPartyApp",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "registerApp",
+          "moduleName": "oauth",
+          "type": "mutation",
+          "returnType": "ThirdPartyAppRegistrationResponse",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "revokeAuthorization",
+          "moduleName": "oauth",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "rotateAppSecret",
+          "moduleName": "oauth",
+          "type": "mutation",
+          "returnType": "String",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "thirdPartyApp",
+          "moduleName": "oauth",
+          "type": "subscription",
+          "returnType": "ThirdPartyApp",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "ApiRateLimitHits",
+          "moduleName": "oauth",
+          "type": "type"
+        },
+        {
+          "name": "ApiUsage",
+          "moduleName": "oauth",
+          "type": "type"
+        },
+        {
+          "name": "ApiUsageQueryType",
+          "moduleName": "oauth",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/oauth/"
+        },
+        {
+          "name": "OAuth2Error",
+          "moduleName": "oauth",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/oauth/"
+        },
+        {
+          "name": "OAuth2ErrorCode",
+          "moduleName": "oauth",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/oauth/"
+        },
+        {
+          "name": "ThirdPartyApp",
+          "moduleName": "oauth",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+        },
+        {
+          "name": "MutationAuthorizeResult",
+          "moduleName": "oauth",
+          "type": "type",
+          "returnType": "MutationAuthorizeResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "OAuth2Error"
+            ],
+            "resultType": "MutationAuthorizeResult",
+            "successDataType": "String",
+            "successType": "MutationAuthorizeSuccess"
+          }
+        },
+        {
+          "name": "ThirdPartyAppRegistrationResponse",
+          "moduleName": "oauth",
+          "type": "type",
+          "returnType": "ThirdPartyAppRegistrationResponse",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
         }
       ]
@@ -296,20 +3807,113 @@ export const data: BuiltData = {
       "rawDocs": "# Annonces\n\nAnnonces effectuées par les administrateur·ice·s de l'application.\nÀ afficher à tout le monde (connecté ou non) de manière visible au travers de toute l'application.\n",
       "shortDescription": "Annonces effectuées par les administrateur·ice·s de l'application",
       "renderedDocs": "<html><head></head><body>\n<p>Annonces effectuées par les administrateur·ice·s de l'application.\nÀ afficher à tout le monde (connecté ou non) de manière visible au travers de toute l'application.</p></body></html>",
-      "types": [],
+      "types": [
+        "Announcement",
+        "MutationUpsertAnnouncementResult",
+        "QueryAnnouncementsConnection"
+      ],
       "queries": [
+        "announcement",
+        "announcements",
         "announcementsNow"
       ],
-      "mutations": [],
+      "mutations": [
+        "deleteAnnouncement",
+        "upsertAnnouncement"
+      ],
       "subscriptions": [
         "announcementsNow"
       ],
       "items": [
         {
+          "name": "announcement",
+          "moduleName": "announcements",
+          "type": "query",
+          "returnType": "Announcement",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+        },
+        {
+          "name": "announcements",
+          "moduleName": "announcements",
+          "type": "query",
+          "returnType": "QueryAnnouncementsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+          "connection": {
+            "nodeType": "Announcement",
+            "edgeType": "QueryAnnouncementsConnectionEdge",
+            "connectionType": "QueryAnnouncementsConnection"
+          }
+        },
+        {
           "name": "announcementsNow",
           "moduleName": "announcements",
           "type": "query",
+          "returnType": "Announcement",
           "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+        },
+        {
+          "name": "deleteAnnouncement",
+          "moduleName": "announcements",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+        },
+        {
+          "name": "upsertAnnouncement",
+          "moduleName": "announcements",
+          "type": "mutation",
+          "returnType": "MutationUpsertAnnouncementResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpsertAnnouncementResult",
+            "successDataType": "Announcement",
+            "successType": "MutationUpsertAnnouncementSuccess"
+          }
+        },
+        {
+          "name": "announcementsNow",
+          "moduleName": "announcements",
+          "type": "subscription",
+          "returnType": "Announcement",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+        },
+        {
+          "name": "Announcement",
+          "moduleName": "announcements",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+        },
+        {
+          "name": "MutationUpsertAnnouncementResult",
+          "moduleName": "announcements",
+          "type": "type",
+          "returnType": "MutationUpsertAnnouncementResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+          "result": {
+            "errorTypes": [
+              "Error",
+              "ZodError"
+            ],
+            "resultType": "MutationUpsertAnnouncementResult",
+            "successDataType": "Announcement",
+            "successType": "MutationUpsertAnnouncementSuccess"
+          }
+        },
+        {
+          "name": "QueryAnnouncementsConnection",
+          "moduleName": "announcements",
+          "type": "type",
+          "returnType": "QueryAnnouncementsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+          "connection": {
+            "nodeType": "Announcement",
+            "edgeType": "QueryAnnouncementsConnectionEdge",
+            "connectionType": "QueryAnnouncementsConnection"
+          }
         }
       ]
     },
@@ -319,18 +3923,418 @@ export const data: BuiltData = {
       "rawDocs": "---\ninline_types_from: [ProfitsBreakdown]\n---\n\n# Paiements\n\nIntégrations avec différents prestataires de paiements, notamment [Lydia](https://lydia-app.com) et [PayPal](https://paypal.com).\n",
       "shortDescription": "Intégrations avec différents prestataires de paiements, notamment Lydia et PayPal",
       "renderedDocs": "<html><head></head><body>\n<p>Intégrations avec différents prestataires de paiements, notamment <a href=\"https://lydia-app.com\">Lydia</a> et <a href=\"https://paypal.com\">PayPal</a>.</p></body></html>",
-      "types": [],
+      "types": [
+        "LydiaAccount",
+        "MutationFinishPaypalRegistrationPaymentResult",
+        "PaymentMethod",
+        "ProfitsBreakdown",
+        "PromotionType"
+      ],
       "queries": [
+        "lydiaAccount",
+        "lydiaAccounts",
         "lydiaAccountsOfGroup"
+      ],
+      "mutations": [
+        "claimPromotionCode",
+        "finishPaypalRegistrationPayment",
+        "upsertLydiaAccount"
+      ],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "lydiaAccount",
+          "moduleName": "payments",
+          "type": "query",
+          "returnType": "LydiaAccount",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+        },
+        {
+          "name": "lydiaAccounts",
+          "moduleName": "payments",
+          "type": "query",
+          "returnType": "LydiaAccount",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+        },
+        {
+          "name": "lydiaAccountsOfGroup",
+          "moduleName": "payments",
+          "type": "query",
+          "returnType": "LydiaAccount",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+        },
+        {
+          "name": "claimPromotionCode",
+          "moduleName": "payments",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+        },
+        {
+          "name": "finishPaypalRegistrationPayment",
+          "moduleName": "payments",
+          "type": "mutation",
+          "returnType": "MutationFinishPaypalRegistrationPaymentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationFinishPaypalRegistrationPaymentResult",
+            "successDataType": "Boolean",
+            "successType": "MutationFinishPaypalRegistrationPaymentSuccess"
+          }
+        },
+        {
+          "name": "upsertLydiaAccount",
+          "moduleName": "payments",
+          "type": "mutation",
+          "returnType": "LydiaAccount",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+        },
+        {
+          "name": "LydiaAccount",
+          "moduleName": "payments",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+        },
+        {
+          "name": "PaymentMethod",
+          "moduleName": "payments",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/payments/"
+        },
+        {
+          "name": "ProfitsBreakdown",
+          "moduleName": "payments",
+          "type": "type"
+        },
+        {
+          "name": "PromotionType",
+          "moduleName": "payments",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/payments/"
+        },
+        {
+          "name": "MutationFinishPaypalRegistrationPaymentResult",
+          "moduleName": "payments",
+          "type": "type",
+          "returnType": "MutationFinishPaypalRegistrationPaymentResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "MutationFinishPaypalRegistrationPaymentResult",
+            "successDataType": "Boolean",
+            "successType": "MutationFinishPaypalRegistrationPaymentSuccess"
+          }
+        }
+      ]
+    },
+    {
+      "name": "gitlab",
+      "displayName": "Gitlab",
+      "rawDocs": "# Gitlab\n\nRapports utilisateurs et crédits.\n\nChurros est interconnecté avec son dépôt pour tout ce qui concerne:\n\n- la gestion de rapports utilisateurs (signalement de bugs et propositions de fonctionnalités).\n- l'affichage de crédits et le badge \"développeur·euse\" sur les profils (développeur·euse·s ayant fait des commits)\n",
+      "shortDescription": "Rapports utilisateurs et crédits",
+      "renderedDocs": "<html><head></head><body>\n<p>Rapports utilisateurs et crédits.</p>\n<p>Churros est interconnecté avec son dépôt pour tout ce qui concerne:</p>\n<ul>\n<li>la gestion de rapports utilisateurs (signalement de bugs et propositions de fonctionnalités).</li>\n<li>l'affichage de crédits et le badge \"développeur·euse\" sur les profils (développeur·euse·s ayant fait des commits)</li>\n</ul></body></html>",
+      "types": [
+        "Issue",
+        "IssueComment",
+        "IssueState",
+        "QueryCodeContributorsResult"
+      ],
+      "queries": [
+        "codeContributors",
+        "issue",
+        "issuesByUser"
+      ],
+      "mutations": [
+        "createGitlabIssue"
+      ],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "codeContributors",
+          "moduleName": "gitlab",
+          "type": "query",
+          "returnType": "QueryCodeContributorsResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryCodeContributorsResult",
+            "successDataType": "User",
+            "successType": "QueryCodeContributorsSuccess"
+          }
+        },
+        {
+          "name": "issue",
+          "moduleName": "gitlab",
+          "type": "query",
+          "returnType": "Issue",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/"
+        },
+        {
+          "name": "issuesByUser",
+          "moduleName": "gitlab",
+          "type": "query",
+          "returnType": "Issue",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/"
+        },
+        {
+          "name": "createGitlabIssue",
+          "moduleName": "gitlab",
+          "type": "mutation",
+          "returnType": "Int",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/"
+        },
+        {
+          "name": "Issue",
+          "moduleName": "gitlab",
+          "type": "type"
+        },
+        {
+          "name": "IssueComment",
+          "moduleName": "gitlab",
+          "type": "type"
+        },
+        {
+          "name": "IssueState",
+          "moduleName": "gitlab",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/gitlab/"
+        },
+        {
+          "name": "QueryCodeContributorsResult",
+          "moduleName": "gitlab",
+          "type": "type",
+          "returnType": "QueryCodeContributorsResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryCodeContributorsResult",
+            "successDataType": "User",
+            "successType": "QueryCodeContributorsSuccess"
+          }
+        }
+      ]
+    },
+    {
+      "name": "changelogs",
+      "displayName": "Changelogs",
+      "rawDocs": "# Changelogs\n\nL'historique des versions de l'application.\nLes changelogs représentent les changements dans l'application web officielle également, et ne séparent pas les changements de l'API seul de ceux concernant l'application web.\n",
+      "shortDescription": "L'historique des versions de l'application",
+      "renderedDocs": "<html><head></head><body>\n<p>L'historique des versions de l'application.\nLes changelogs représentent les changements dans l'application web officielle également, et ne séparent pas les changements de l'API seul de ceux concernant l'application web.</p></body></html>",
+      "types": [
+        "ChangelogRelease",
+        "QueryCombinedChangelogResult",
+        "QueryUpcomingChangelogResult",
+        "ReleaseChange",
+        "ReleaseChangesMaps"
+      ],
+      "queries": [
+        "changelog",
+        "combinedChangelog",
+        "upcomingChangelog"
+      ],
+      "mutations": [
+        "acknowledgeChangelog"
+      ],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "changelog",
+          "moduleName": "changelogs",
+          "type": "query",
+          "returnType": "ChangelogRelease",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/"
+        },
+        {
+          "name": "combinedChangelog",
+          "moduleName": "changelogs",
+          "type": "query",
+          "returnType": "QueryCombinedChangelogResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryCombinedChangelogResult",
+            "successDataType": "ChangelogRelease",
+            "successType": "QueryCombinedChangelogSuccess"
+          }
+        },
+        {
+          "name": "upcomingChangelog",
+          "moduleName": "changelogs",
+          "type": "query",
+          "returnType": "QueryUpcomingChangelogResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryUpcomingChangelogResult",
+            "successDataType": "ChangelogRelease",
+            "successType": "QueryUpcomingChangelogSuccess"
+          }
+        },
+        {
+          "name": "acknowledgeChangelog",
+          "moduleName": "changelogs",
+          "type": "mutation",
+          "returnType": "Boolean",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/"
+        },
+        {
+          "name": "ChangelogRelease",
+          "moduleName": "changelogs",
+          "type": "type"
+        },
+        {
+          "name": "ReleaseChange",
+          "moduleName": "changelogs",
+          "type": "type"
+        },
+        {
+          "name": "ReleaseChangesMaps",
+          "moduleName": "changelogs",
+          "type": "type"
+        },
+        {
+          "name": "QueryCombinedChangelogResult",
+          "moduleName": "changelogs",
+          "type": "type",
+          "returnType": "QueryCombinedChangelogResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryCombinedChangelogResult",
+            "successDataType": "ChangelogRelease",
+            "successType": "QueryCombinedChangelogSuccess"
+          }
+        },
+        {
+          "name": "QueryUpcomingChangelogResult",
+          "moduleName": "changelogs",
+          "type": "type",
+          "returnType": "QueryUpcomingChangelogResult",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+          "result": {
+            "errorTypes": [
+              "Error"
+            ],
+            "resultType": "QueryUpcomingChangelogResult",
+            "successDataType": "ChangelogRelease",
+            "successType": "QueryUpcomingChangelogSuccess"
+          }
+        }
+      ]
+    },
+    {
+      "name": "logs",
+      "displayName": "Logs",
+      "rawDocs": "# Logs\n\nLogs de l'application, accessibles uniquement par les administrateur·ice·s.\n",
+      "shortDescription": "Logs de l'application, accessibles uniquement par les administrateur·ice·s",
+      "renderedDocs": "<html><head></head><body>\n<p>Logs de l'application, accessibles uniquement par les administrateur·ice·s.</p></body></html>",
+      "types": [
+        "LogEntry",
+        "QueryLogsConnection"
+      ],
+      "queries": [
+        "logs"
       ],
       "mutations": [],
       "subscriptions": [],
       "items": [
         {
-          "name": "lydiaAccountsOfGroup",
-          "moduleName": "payments",
+          "name": "logs",
+          "moduleName": "logs",
           "type": "query",
-          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+          "returnType": "QueryLogsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/logs/",
+          "connection": {
+            "nodeType": "LogEntry",
+            "edgeType": "QueryLogsConnectionEdge",
+            "connectionType": "QueryLogsConnection"
+          }
+        },
+        {
+          "name": "LogEntry",
+          "moduleName": "logs",
+          "type": "type",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/logs/"
+        },
+        {
+          "name": "QueryLogsConnection",
+          "moduleName": "logs",
+          "type": "type",
+          "returnType": "QueryLogsConnection",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/logs/",
+          "connection": {
+            "nodeType": "LogEntry",
+            "edgeType": "QueryLogsConnectionEdge",
+            "connectionType": "QueryLogsConnection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "health-checks",
+      "displayName": "Health Checks",
+      "rawDocs": "# Health Checks\n\nDifférents \"health checks\" de l'application, des tests permettant de vérifier que l'application fonctionne correctement.\nIls sont utilisés pour monitorer que l'application est en bonne santé, et permet aussi d'exposer un endpoint /health dans l'application web.\n",
+      "shortDescription": "Différents \"health checks\" de l'application, des tests permettant de vérifier que l'application fonctionne correctement",
+      "renderedDocs": "<html><head></head><body>\n<p>Différents \"health checks\" de l'application, des tests permettant de vérifier que l'application fonctionne correctement.\nIls sont utilisés pour monitorer que l'application est en bonne santé, et permet aussi d'exposer un endpoint /health dans l'application web.</p></body></html>",
+      "types": [
+        "DatabaseHealthCheck",
+        "HealthCheck",
+        "LdapHealthCheck",
+        "MailHealthCheck",
+        "RedisHealthCheck"
+      ],
+      "queries": [
+        "healthcheck"
+      ],
+      "mutations": [],
+      "subscriptions": [],
+      "items": [
+        {
+          "name": "healthcheck",
+          "moduleName": "health-checks",
+          "type": "query",
+          "returnType": "HealthCheck",
+          "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/health-checks/"
+        },
+        {
+          "name": "DatabaseHealthCheck",
+          "moduleName": "health-checks",
+          "type": "type"
+        },
+        {
+          "name": "HealthCheck",
+          "moduleName": "health-checks",
+          "type": "type"
+        },
+        {
+          "name": "LdapHealthCheck",
+          "moduleName": "health-checks",
+          "type": "type"
+        },
+        {
+          "name": "MailHealthCheck",
+          "moduleName": "health-checks",
+          "type": "type"
+        },
+        {
+          "name": "RedisHealthCheck",
+          "moduleName": "health-checks",
+          "type": "type"
         }
       ]
     }
@@ -880,27 +4884,47 @@ export const data: BuiltData = {
       "name": "Churros API"
     },
     "description": "## Prise en main\n\nL'API de Churros est un API [GraphQL](https://graphql.org/). Pour en savoir plus sur GraphQL, vous\npouvez consulter [la documentation officielle](https://graphql.org/learn/). Mais pour faire simple,\nGraphQL est un langage de requête qui permet de récupérer des données depuis un serveur. Il permet\nde récupérer uniquement les données dont on a besoin, et de les récupérer en une seule requête.\n\n### L'explorateur interactif\n\nAvant de se lancer dans l'utilisation programmatique de l'API, il peut être pratique d'en faire un tour d'horizon avec un _playground_ interactif, disponible en accédant à [churros.app/graphql](https://churros.app/graphql) depuis son navigateur. \n\n### Une première requête\n\nOn peut faire des requêtes GraphQL avec n'importe quel client HTTP. Prenons par exemple la requête suivante:\n\n<pre>\nHTTP/1.1 POST https://churros.app/graphql\n\nContent-Type: application/json\n\n{`{\n  \"query\": \"query { group(uid: \\\"devs\\\") { parent { name } } }\"\n}`}\n</pre>\n\nCette requête récupère le nom du parent du groupe `devs`. On peut voir que la requête est composée\nde deux parties:\n\n- `query`: C'est le type de requête. Ici, c'est une requête de type `query`, qui permet de récupérer\n  des données. Il existe aussi `mutation`, pour modifier, créer ou supprimer des données; et `subscription`, pour s'abonner à des données qui peuvent changer en temps réel (via des [_WebSockets_](/websockets))\n\n- `{ group(uid: \"devs\") { parent { name } } }`: C'est la requête en elle-même. Ici, on demande le\n  nom du parent du groupe `devs`. On peut voir que la requête est composée de plusieurs parties:\n\n  - `group(uid: \"devs\")`: C'est la racine de la requête. Ici, on demande le groupe `devs`. On peut\n  voir que l'on peut passer des arguments à la racine de la requête. Ici, on passe l'argument\n  `uid` avec la valeur `\"devs\"`. On peut voir que l'on peut récupérer plusieurs champs à la racine\n  de la requête. Ici, on récupère le champ `parent`.\n\n  - `parent { name }`: C'est le champ que l'on veut récupérer. Ici, on veut récupérer le champ `name`\n  du parent du groupe `devs`.\n\nOn aura donc la réponse suivante:\n\n```json\n{\n  \"data\": {\n    \"group\": {\n      \"parent\": {\n        \"name\": \"net7\"\n      }\n    }\n  }\n}\n```\n\nOn remarque que la réponse est structurée de la même manière que la requête.\n\n\n### S'authentifier\n\nLa plupart des _queries_ et _mutations_ nécessitent d'être authentifié.\n\nIl y a deux moyens d'authentification:\n\n1. En se connectant avec un compte utilisateur par son mot de passe directement (déconseillé): Voir la [mutation `login`](/users#mutation/login)\n2. Avec une application créée sur Churros (recommandé): Voir la documentation sur l'[OAuth](/oauth)\n\nDans les deux cas, on obtient un token d'authentification. Ce token est à fournir à chaque requête dans le header `Authorization` de la requête HTTP:\n\n```\nAuthorization: Bearer <token>\n```\n\noù `<token>` est le token d'authentification.\n\n## Types spéciaux\n\n### `Result<T>`\n\nCe type représente une réponse de l'API qui pourrait être une erreur. C'est un union constitué de:\n\n- `QueryNomDeLaQuerySuccess`: si la requête réussie. Contient un champ `data` de type `T` qui contient les données de la requête\n- `Error`: si la requête échoue. Contient un champ `message` de type `String` qui contient le message d'erreur.\n- Potentiellement d'autres types d'erreur (par exemple pour la mutation [`authorize`](/oauth#mutation/authorize))\n\n### `Connection<T>`\n\nCes types représentent des réponses paginées de l'API: en effet, il est irréaliste de vouloir renvoyer d'un coup un très grand nombre d'objets, donc l'API n'envoie que les _n_ premiers objets, et fourni un moyen d'avoir accès aux objets suivants si l'on souhaite avoir la liste complète. \n\nDans l'API GraphQL, ces type/Resuls portent comme nom `QueryNomDeLaQueryConnection`, et sont composés de:\n\n- `pageInfo`: informations sur la page courante:\n  - `hasNextPage`: `true` si il y a une page suivante, `false` sinon\n  - `hasPreviousPage`: `true` si il y a une page précédente, `false` sinon\n  - `startCursor`: le curseur du premier élément de la page courante\n  - `endCursor`: le curseur du dernier élément de la page courante\n- `nodes`: la liste des éléments demandés, de type `T`\n- `edges`: une liste d'objets contenant:\n  - `node`: élément de type `T`\n  - `cursor`: le curseur de l'élément\n\nPour récupérer la page suivante, il suffit de ré-appeler la _query_ renvoyant la Connection en question, en fournissant comme argument `after` le champ `endCursor` de la page courante. Par exemple, pour récupérer la page suivante de la liste des groupes:\n\n#### En savoir plus\n\nCe type permet enfait l'implémentation du standard [GraphQL Cursor Connections](https://relay.dev/graphql/connections.htm).\n",
+    "errors": {
+      "result": "^([A-Z]\\w+){2,}Result$",
+      "success": "^([A-Z]\\w+){2,}Success$"
+    },
     "footer": "<p>\n  Churros API, version 0.1.0 (at\n  <a href=\"https://git.inpt.fr/inp-net/churros/-/commit/dev\">\n    <code class=\"no-color\">dev</code></a\n  >)\n</p>\n<a class=\"net7\" href=\"https://net7.dev\">\n  Made with <span style:color=\"red\"><strong>&lt;3</strong></span> by\n  <img data-dark src=\"https://churros.inpt.fr/storage/groups/dark/net7-n7.png\" alt=\"net7\" />\n  <img data-light src=\"https://churros.inpt.fr/storage/groups/net7-n7.png\" alt=\"net7\" />\n</a>\n\n<style>\n  .net7 {\n    display: flex;\n    flex-wrap: wrap;\n    column-gap: 1ch;\n    align-items: center;\n    justify-content: center;\n    margin-top: 5rem;\n    font-family: 'Space Mono', monospace;\n    color: var(--fg);\n    text-decoration: none;\n    border-radius: 2rem;\n    transition: box-shadow 0.2s ease;\n  }\n\n  .net7:hover,\n  .net7:focus-visible {\n    box-shadow: 0 0 50px 3px color-mix(in oklab, var(--fg) 15%, var(--shadow));\n  }\n\n  .net7 img {\n    width: 100px;\n    margin-left: 1em;\n  }\n\n  [data-theme=light] .net7 img[data-dark] {\n    display: none;\n  }\n\n  [data-theme=dark] .net7 img[data-light] {\n    display: none;\n  }\n</style>\n",
     "pages": "docs/",
+    "relay": {
+      "connection": "^([A-Z]\\w+){2,}Connection$"
+    },
     "schema": {
       "static": "./schema.graphql"
     },
     "static": "docs/static",
-    "template": "graphinx/templates/default",
+    "template": "file://../../graphinx-templates/default",
     "modules": {
       "filesystem": {
         "icon": "src/modules/%module%/icon.svg",
         "intro": "src/modules/%module%/README.md",
         "items": [
           {
-            "contribution": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/%module%/",
-            "files": "src/modules/%module%/{resolvers,types}/*.ts",
-            "match": "builder.((query|mutation|subscription)Field|\\w+(Type|Node))\\('(?<name>[^']+)'"
+            "files": "src/modules/%module%/**/*.ts",
+            "match": "//\\s*[gG]raphinx:?\\s*(?<name>[^:]+)"
           },
           {
             "contribution": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/%module%/",
             "files": "src/modules/%module%/types/*.ts",
-            "match": "builder.\\w+(Type|Node)\\(.+, \\{ name: '(?<name>[^']+)' \\}"
+            "match": "variant: '(?<name>[^']+)"
+          },
+          {
+            "files": "src/modules/%module%/types/*.ts",
+            "match": "\\.\\w+Ref<.+>\\('(?<name>[^']+)"
+          },
+          {
+            "contribution": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/%module%/",
+            "files": "src/modules/%module%/{resolvers,types}/*.ts",
+            "match": "builder.((query|mutation|subscription)Field|\\w+(Type|Node|Object|Interface))\\('(?<name>[^']+)'"
+          },
+          {
+            "contribution": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/%module%/",
+            "files": "src/modules/%module%/types/*.ts",
+            "match": "name: '(?<name>[^']+)'"
           }
         ],
         "names": {
@@ -943,16 +4967,535 @@ export const data: BuiltData = {
   },
   "items": [
     {
+      "name": "announcement",
+      "moduleName": "announcements",
+      "type": "query",
+      "returnType": "Announcement",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+    },
+    {
+      "name": "announcements",
+      "moduleName": "announcements",
+      "type": "query",
+      "returnType": "QueryAnnouncementsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+      "connection": {
+        "nodeType": "Announcement",
+        "edgeType": "QueryAnnouncementsConnectionEdge",
+        "connectionType": "QueryAnnouncementsConnection"
+      }
+    },
+    {
       "name": "announcementsNow",
       "moduleName": "announcements",
       "type": "query",
+      "returnType": "Announcement",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+    },
+    {
+      "name": "deleteAnnouncement",
+      "moduleName": "announcements",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+    },
+    {
+      "name": "upsertAnnouncement",
+      "moduleName": "announcements",
+      "type": "mutation",
+      "returnType": "MutationUpsertAnnouncementResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpsertAnnouncementResult",
+        "successDataType": "Announcement",
+        "successType": "MutationUpsertAnnouncementSuccess"
+      }
+    },
+    {
+      "name": "announcementsNow",
+      "moduleName": "announcements",
+      "type": "subscription",
+      "returnType": "Announcement",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+    },
+    {
+      "name": "Announcement",
+      "moduleName": "announcements",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/"
+    },
+    {
+      "name": "barWeek",
+      "moduleName": "bar-weeks",
+      "type": "query",
+      "returnType": "BarWeek",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+    },
+    {
+      "name": "barWeekNow",
+      "moduleName": "bar-weeks",
+      "type": "query",
+      "returnType": "BarWeek",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+    },
+    {
+      "name": "barWeeks",
+      "moduleName": "bar-weeks",
+      "type": "query",
+      "returnType": "BarWeek",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+    },
+    {
+      "name": "deleteBarWeek",
+      "moduleName": "bar-weeks",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+    },
+    {
+      "name": "upsertBarWeek",
+      "moduleName": "bar-weeks",
+      "type": "mutation",
+      "returnType": "MutationUpsertBarWeekResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertBarWeekResult",
+        "successDataType": "BarWeek",
+        "successType": "MutationUpsertBarWeekSuccess"
+      }
+    },
+    {
+      "name": "BarWeek",
+      "moduleName": "bar-weeks",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/"
+    },
+    {
+      "name": "changelog",
+      "moduleName": "changelogs",
+      "type": "query",
+      "returnType": "ChangelogRelease",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/"
+    },
+    {
+      "name": "combinedChangelog",
+      "moduleName": "changelogs",
+      "type": "query",
+      "returnType": "QueryCombinedChangelogResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryCombinedChangelogResult",
+        "successDataType": "ChangelogRelease",
+        "successType": "QueryCombinedChangelogSuccess"
+      }
+    },
+    {
+      "name": "upcomingChangelog",
+      "moduleName": "changelogs",
+      "type": "query",
+      "returnType": "QueryUpcomingChangelogResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryUpcomingChangelogResult",
+        "successDataType": "ChangelogRelease",
+        "successType": "QueryUpcomingChangelogSuccess"
+      }
+    },
+    {
+      "name": "acknowledgeChangelog",
+      "moduleName": "changelogs",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/"
+    },
+    {
+      "name": "ChangelogRelease",
+      "moduleName": "changelogs",
+      "type": "type"
+    },
+    {
+      "name": "ReleaseChange",
+      "moduleName": "changelogs",
+      "type": "type"
+    },
+    {
+      "name": "ReleaseChangesMaps",
+      "moduleName": "changelogs",
+      "type": "type"
+    },
+    {
+      "name": "deleteComment",
+      "moduleName": "comments",
+      "type": "mutation",
+      "returnType": "Comment",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/comments/"
+    },
+    {
+      "name": "upsertComment",
+      "moduleName": "comments",
+      "type": "mutation",
+      "returnType": "Comment",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/comments/"
+    },
+    {
+      "name": "Comment",
+      "moduleName": "comments",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/comments/"
+    },
+    {
+      "name": "Commentable",
+      "moduleName": "comments",
+      "type": "type"
+    },
+    {
+      "name": "CommentsConnection",
+      "moduleName": "comments",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/comments/"
+    },
+    {
+      "name": "major",
+      "moduleName": "curriculum",
+      "type": "query",
+      "returnType": "Major",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "majors",
+      "moduleName": "curriculum",
+      "type": "query",
+      "returnType": "Major",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "minor",
+      "moduleName": "curriculum",
+      "type": "query",
+      "returnType": "Minor",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "minors",
+      "moduleName": "curriculum",
+      "type": "query",
+      "returnType": "QueryMinorsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/",
+      "connection": {
+        "nodeType": "Minor",
+        "edgeType": "QueryMinorsConnectionEdge",
+        "connectionType": "QueryMinorsConnection"
+      }
+    },
+    {
+      "name": "subject",
+      "moduleName": "curriculum",
+      "type": "query",
+      "returnType": "Subject",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "subjects",
+      "moduleName": "curriculum",
+      "type": "query",
+      "returnType": "Subject",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "updateSubjectsExamDates",
+      "moduleName": "curriculum",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "Major",
+      "moduleName": "curriculum",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "Minor",
+      "moduleName": "curriculum",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "Subject",
+      "moduleName": "curriculum",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "TeachingUnit",
+      "moduleName": "curriculum",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/"
+    },
+    {
+      "name": "document",
+      "moduleName": "documents",
+      "type": "query",
+      "returnType": "Document",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "documents",
+      "moduleName": "documents",
+      "type": "query",
+      "returnType": "QueryDocumentsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+      "connection": {
+        "nodeType": "Document",
+        "edgeType": "QueryDocumentsConnectionEdge",
+        "connectionType": "QueryDocumentsConnection"
+      }
     },
     {
       "name": "searchDocuments",
       "moduleName": "documents",
       "type": "query",
+      "returnType": "DocumentSearchResult",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "deleteDocument",
+      "moduleName": "documents",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "deleteDocumentFile",
+      "moduleName": "documents",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "mergeDocuments",
+      "moduleName": "documents",
+      "type": "mutation",
+      "returnType": "Document",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "setDocumentFileIsSolution",
+      "moduleName": "documents",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "uploadDocumentFile",
+      "moduleName": "documents",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "upsertDocument",
+      "moduleName": "documents",
+      "type": "mutation",
+      "returnType": "MutationUpsertDocumentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertDocumentResult",
+        "successDataType": "Document",
+        "successType": "MutationUpsertDocumentSuccess"
+      }
+    },
+    {
+      "name": "Document",
+      "moduleName": "documents",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/"
+    },
+    {
+      "name": "DocumentSearchResult",
+      "moduleName": "documents",
+      "type": "type"
+    },
+    {
+      "name": "DocumentType",
+      "moduleName": "documents",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/documents/"
+    },
+    {
+      "name": "event",
+      "moduleName": "events",
+      "type": "query",
+      "returnType": "Event",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "eventManager",
+      "moduleName": "events",
+      "type": "query",
+      "returnType": "EventManager",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "events",
+      "moduleName": "events",
+      "type": "query",
+      "returnType": "QueryEventsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+      "connection": {
+        "nodeType": "Event",
+        "edgeType": "QueryEventsConnectionEdge",
+        "connectionType": "QueryEventsConnection"
+      }
+    },
+    {
+      "name": "eventsByDay",
+      "moduleName": "events",
+      "type": "query",
+      "returnType": "QueryEventsByDayConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+      "connection": {
+        "nodeType": "EventsByDay",
+        "edgeType": "QueryEventsByDayConnectionEdge",
+        "connectionType": "QueryEventsByDayConnection"
+      }
+    },
+    {
+      "name": "eventsInWeek",
+      "moduleName": "events",
+      "type": "query",
+      "returnType": "Event",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "kioskReload",
+      "moduleName": "events",
+      "type": "query",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "searchEvents",
+      "moduleName": "events",
+      "type": "query",
+      "returnType": "EvenSearchResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "deleteEvent",
+      "moduleName": "events",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "deleteEventManager",
+      "moduleName": "events",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "deleteEventPicture",
+      "moduleName": "events",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "kioskReload",
+      "moduleName": "events",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "updateEventPicture",
+      "moduleName": "events",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "upsertEvent",
+      "moduleName": "events",
+      "type": "mutation",
+      "returnType": "MutationUpsertEventResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertEventResult",
+        "successDataType": "Event",
+        "successType": "MutationUpsertEventSuccess"
+      }
+    },
+    {
+      "name": "upsertManagersOfEvent",
+      "moduleName": "events",
+      "type": "mutation",
+      "returnType": "EventManager",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "event",
+      "moduleName": "events",
+      "type": "subscription",
+      "returnType": "Event",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "kioskReload",
+      "moduleName": "events",
+      "type": "subscription",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "Event",
+      "moduleName": "events",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "EventFrequency",
+      "moduleName": "events",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/events/"
+    },
+    {
+      "name": "EventManager",
+      "moduleName": "events",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "EventManagerPowerLevel",
+      "moduleName": "events",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/events/"
+    },
+    {
+      "name": "EventsByDay",
+      "moduleName": "events",
+      "type": "type"
     },
     {
       "name": "ManagerOfEventInput",
@@ -961,9 +5504,530 @@ export const data: BuiltData = {
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
     },
     {
+      "name": "allForms",
+      "moduleName": "forms",
+      "type": "query",
+      "returnType": "QueryAllFormsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "connection": {
+        "nodeType": "Form",
+        "edgeType": "QueryAllFormsConnectionEdge",
+        "connectionType": "QueryAllFormsConnection"
+      }
+    },
+    {
+      "name": "form",
+      "moduleName": "forms",
+      "type": "query",
+      "returnType": "Form",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "forms",
+      "moduleName": "forms",
+      "type": "query",
+      "returnType": "QueryFormsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "connection": {
+        "nodeType": "Form",
+        "edgeType": "QueryFormsConnectionEdge",
+        "connectionType": "QueryFormsConnection"
+      }
+    },
+    {
+      "name": "searchForms",
+      "moduleName": "forms",
+      "type": "query",
+      "returnType": "FormSearchResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "answerFileQuestion",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "AnswerFileUpload",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "answerFormSection",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "MutationAnswerFormSectionResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationAnswerFormSectionResult",
+        "successDataType": "Answer",
+        "successType": "MutationAnswerFormSectionSuccess"
+      }
+    },
+    {
+      "name": "createLinkedGoogleSheet",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "mailFormAnswers",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "MutationMailFormAnswersResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationMailFormAnswersResult",
+        "successDataType": "String",
+        "successType": "MutationMailFormAnswersSuccess"
+      }
+    },
+    {
+      "name": "setFormAnswersCheckbox",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "Form",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "upsertForm",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "Form",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "upsertFormSection",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "FormSection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "upsertQuestion",
+      "moduleName": "forms",
+      "type": "mutation",
+      "returnType": "Question",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "form",
+      "moduleName": "forms",
+      "type": "subscription",
+      "returnType": "Form",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "Answer",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "AnswerDate",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerFileUpload",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerInput",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "AnswerLongText",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerNumber",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerScale",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerSearchResult",
+      "moduleName": "forms",
+      "type": "type"
+    },
+    {
+      "name": "AnswerSelectMultiple",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerSelectOne",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerText",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswerTime",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswersExportFormats",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "AnswersOfUser",
+      "moduleName": "forms",
+      "type": "type"
+    },
+    {
+      "name": "Form",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "FormSection",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "Question",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "QuestionFileUpload",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "QuestionKind",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "QuestionScalar",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "QuestionScale",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "QuestionScaleInput",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "QuestionSelectMultiple",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "QuestionSelectOne",
+      "moduleName": "forms",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/forms/"
+    },
+    {
+      "name": "codeContributors",
+      "moduleName": "gitlab",
+      "type": "query",
+      "returnType": "QueryCodeContributorsResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryCodeContributorsResult",
+        "successDataType": "User",
+        "successType": "QueryCodeContributorsSuccess"
+      }
+    },
+    {
+      "name": "issue",
+      "moduleName": "gitlab",
+      "type": "query",
+      "returnType": "Issue",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/"
+    },
+    {
+      "name": "issuesByUser",
+      "moduleName": "gitlab",
+      "type": "query",
+      "returnType": "Issue",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/"
+    },
+    {
+      "name": "createGitlabIssue",
+      "moduleName": "gitlab",
+      "type": "mutation",
+      "returnType": "Int",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/"
+    },
+    {
+      "name": "Issue",
+      "moduleName": "gitlab",
+      "type": "type"
+    },
+    {
+      "name": "IssueComment",
+      "moduleName": "gitlab",
+      "type": "type"
+    },
+    {
+      "name": "IssueState",
+      "moduleName": "gitlab",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/gitlab/"
+    },
+    {
+      "name": "buildInfo",
+      "moduleName": "global",
+      "type": "query",
+      "returnType": "BuildInfo",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+    },
+    {
+      "name": "renderMarkdown",
+      "moduleName": "global",
+      "type": "query",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+    },
+    {
+      "name": "uidIsAvailable",
+      "moduleName": "global",
+      "type": "query",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+    },
+    {
+      "name": "Error",
+      "moduleName": "global",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+    },
+    {
+      "name": "ErrorInterface",
+      "moduleName": "global",
+      "type": "type"
+    },
+    {
+      "name": "File",
+      "moduleName": "global",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+    },
+    {
+      "name": "NotFoundError",
+      "moduleName": "global",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+    },
+    {
+      "name": "Pictured",
+      "moduleName": "global",
+      "type": "type"
+    },
+    {
+      "name": "QRCode",
+      "moduleName": "global",
+      "type": "type"
+    },
+    {
+      "name": "SortDirection",
+      "moduleName": "global",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+    },
+    {
+      "name": "StringToIntMapping",
+      "moduleName": "global",
+      "type": "type"
+    },
+    {
+      "name": "UID",
+      "moduleName": "global",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+    },
+    {
+      "name": "Visibility",
+      "moduleName": "global",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+    },
+    {
+      "name": "ZodError",
+      "moduleName": "global",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/global/"
+    },
+    {
+      "name": "ZodFieldError",
+      "moduleName": "global",
+      "type": "type"
+    },
+    {
+      "name": "group",
+      "moduleName": "groups",
+      "type": "query",
+      "returnType": "Group",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "groupMembersCsv",
+      "moduleName": "groups",
+      "type": "query",
+      "returnType": "QueryGroupMembersCsvResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryGroupMembersCsvResult",
+        "successDataType": "String",
+        "successType": "QueryGroupMembersCsvSuccess"
+      }
+    },
+    {
+      "name": "groups",
+      "moduleName": "groups",
+      "type": "query",
+      "returnType": "Group",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "searchGroups",
+      "moduleName": "groups",
+      "type": "query",
+      "returnType": "GroupSearchResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "addGroupMember",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "MutationAddGroupMemberResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationAddGroupMemberResult",
+        "successDataType": "GroupMember",
+        "successType": "MutationAddGroupMemberSuccess"
+      }
+    },
+    {
+      "name": "deleteGroup",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "deleteGroupMember",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "deleteGroupPicture",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "selfJoinGroup",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "GroupMember",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "updateGroupPicture",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "updateRoomOpenState",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "upsertGroup",
+      "moduleName": "groups",
+      "type": "mutation",
+      "returnType": "MutationUpsertGroupResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpsertGroupResult",
+        "successDataType": "Group",
+        "successType": "MutationUpsertGroupSuccess"
+      }
+    },
+    {
       "name": "upsertGroupMember",
       "moduleName": "groups",
       "type": "mutation",
+      "returnType": "GroupMember",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "Group",
+      "moduleName": "groups",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "GroupMember",
+      "moduleName": "groups",
+      "type": "type",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
     },
     {
@@ -973,28 +6037,527 @@ export const data: BuiltData = {
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/groups/"
     },
     {
-      "name": "upsertGroup",
+      "name": "UpsertGroupInput",
       "moduleName": "groups",
-      "type": "mutation",
+      "type": "type",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "healthcheck",
+      "moduleName": "health-checks",
+      "type": "query",
+      "returnType": "HealthCheck",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/health-checks/"
+    },
+    {
+      "name": "DatabaseHealthCheck",
+      "moduleName": "health-checks",
+      "type": "type"
+    },
+    {
+      "name": "HealthCheck",
+      "moduleName": "health-checks",
+      "type": "type"
+    },
+    {
+      "name": "LdapHealthCheck",
+      "moduleName": "health-checks",
+      "type": "type"
+    },
+    {
+      "name": "MailHealthCheck",
+      "moduleName": "health-checks",
+      "type": "type"
+    },
+    {
+      "name": "RedisHealthCheck",
+      "moduleName": "health-checks",
+      "type": "type"
+    },
+    {
+      "name": "Link",
+      "moduleName": "links",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/links/"
+    },
+    {
+      "name": "LinkInput",
+      "moduleName": "links",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/links/"
+    },
+    {
+      "name": "logs",
+      "moduleName": "logs",
+      "type": "query",
+      "returnType": "QueryLogsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/logs/",
+      "connection": {
+        "nodeType": "LogEntry",
+        "edgeType": "QueryLogsConnectionEdge",
+        "connectionType": "QueryLogsConnection"
+      }
+    },
+    {
+      "name": "LogEntry",
+      "moduleName": "logs",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/logs/"
     },
     {
       "name": "notification",
       "moduleName": "notifications",
       "type": "query",
+      "returnType": "Notification",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "notificationSubscription",
+      "moduleName": "notifications",
+      "type": "query",
+      "returnType": "NotificationSubscription",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "notificationSubscriptions",
+      "moduleName": "notifications",
+      "type": "query",
+      "returnType": "NotificationSubscription",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "notifications",
+      "moduleName": "notifications",
+      "type": "query",
+      "returnType": "QueryNotificationsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/",
+      "connection": {
+        "nodeType": "Notification",
+        "edgeType": "QueryNotificationsConnectionEdge",
+        "connectionType": "QueryNotificationsConnection"
+      }
+    },
+    {
+      "name": "notificationsSendCountForArticle",
+      "moduleName": "notifications",
+      "type": "query",
+      "returnType": "Int",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "deleteNotificationSubscription",
+      "moduleName": "notifications",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "sendNotification",
+      "moduleName": "notifications",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "testNotification",
+      "moduleName": "notifications",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "upsertNotificationSubscription",
+      "moduleName": "notifications",
+      "type": "mutation",
+      "returnType": "NotificationSubscription",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "Notification",
+      "moduleName": "notifications",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "NotificationChannel",
+      "moduleName": "notifications",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/notifications/"
+    },
+    {
+      "name": "NotificationSubscriptionKeysInput",
+      "moduleName": "notifications",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "allApps",
+      "moduleName": "oauth",
+      "type": "query",
+      "returnType": "ThirdPartyApp",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "myApps",
+      "moduleName": "oauth",
+      "type": "query",
+      "returnType": "ThirdPartyApp",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "thirdPartyApp",
+      "moduleName": "oauth",
+      "type": "query",
+      "returnType": "ThirdPartyApp",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "activateApp",
+      "moduleName": "oauth",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "authorize",
+      "moduleName": "oauth",
+      "type": "mutation",
+      "returnType": "MutationAuthorizeResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "OAuth2Error"
+        ],
+        "resultType": "MutationAuthorizeResult",
+        "successDataType": "String",
+        "successType": "MutationAuthorizeSuccess"
+      }
     },
     {
       "name": "deactivateApp",
       "moduleName": "oauth",
       "type": "mutation",
+      "returnType": "Boolean",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "editApp",
+      "moduleName": "oauth",
+      "type": "mutation",
+      "returnType": "ThirdPartyApp",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "registerApp",
+      "moduleName": "oauth",
+      "type": "mutation",
+      "returnType": "ThirdPartyAppRegistrationResponse",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "revokeAuthorization",
+      "moduleName": "oauth",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "rotateAppSecret",
+      "moduleName": "oauth",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "thirdPartyApp",
+      "moduleName": "oauth",
+      "type": "subscription",
+      "returnType": "ThirdPartyApp",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "ApiRateLimitHits",
+      "moduleName": "oauth",
+      "type": "type"
+    },
+    {
+      "name": "ApiUsage",
+      "moduleName": "oauth",
+      "type": "type"
+    },
+    {
+      "name": "ApiUsageQueryType",
+      "moduleName": "oauth",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/oauth/"
+    },
+    {
+      "name": "OAuth2Error",
+      "moduleName": "oauth",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/oauth/"
+    },
+    {
+      "name": "OAuth2ErrorCode",
+      "moduleName": "oauth",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/oauth/"
+    },
+    {
+      "name": "ThirdPartyApp",
+      "moduleName": "oauth",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "page",
+      "moduleName": "pages",
+      "type": "query",
+      "returnType": "Page",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/"
+    },
+    {
+      "name": "pages",
+      "moduleName": "pages",
+      "type": "query",
+      "returnType": "QueryPagesConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "connection": {
+        "nodeType": "Page",
+        "edgeType": "QueryPagesConnectionEdge",
+        "connectionType": "QueryPagesConnection"
+      }
+    },
+    {
+      "name": "addFileToPage",
+      "moduleName": "pages",
+      "type": "mutation",
+      "returnType": "MutationAddFileToPageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationAddFileToPageResult",
+        "successDataType": "Page",
+        "successType": "MutationAddFileToPageSuccess"
+      }
+    },
+    {
+      "name": "deletePage",
+      "moduleName": "pages",
+      "type": "mutation",
+      "returnType": "MutationDeletePageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationDeletePageResult",
+        "successDataType": "Page",
+        "successType": "MutationDeletePageSuccess"
+      }
+    },
+    {
+      "name": "removeFileFromPage",
+      "moduleName": "pages",
+      "type": "mutation",
+      "returnType": "MutationRemoveFileFromPageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationRemoveFileFromPageResult",
+        "successDataType": "Page",
+        "successType": "MutationRemoveFileFromPageSuccess"
+      }
+    },
+    {
+      "name": "upsertPage",
+      "moduleName": "pages",
+      "type": "mutation",
+      "returnType": "MutationUpsertPageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpsertPageResult",
+        "successDataType": "Page",
+        "successType": "MutationUpsertPageSuccess"
+      }
+    },
+    {
+      "name": "Page",
+      "moduleName": "pages",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/"
+    },
+    {
+      "name": "PagesConnection",
+      "moduleName": "pages",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/pages/"
+    },
+    {
+      "name": "lydiaAccount",
+      "moduleName": "payments",
+      "type": "query",
+      "returnType": "LydiaAccount",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+    },
+    {
+      "name": "lydiaAccounts",
+      "moduleName": "payments",
+      "type": "query",
+      "returnType": "LydiaAccount",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
     },
     {
       "name": "lydiaAccountsOfGroup",
       "moduleName": "payments",
       "type": "query",
+      "returnType": "LydiaAccount",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+    },
+    {
+      "name": "claimPromotionCode",
+      "moduleName": "payments",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+    },
+    {
+      "name": "finishPaypalRegistrationPayment",
+      "moduleName": "payments",
+      "type": "mutation",
+      "returnType": "MutationFinishPaypalRegistrationPaymentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationFinishPaypalRegistrationPaymentResult",
+        "successDataType": "Boolean",
+        "successType": "MutationFinishPaypalRegistrationPaymentSuccess"
+      }
+    },
+    {
+      "name": "upsertLydiaAccount",
+      "moduleName": "payments",
+      "type": "mutation",
+      "returnType": "LydiaAccount",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+    },
+    {
+      "name": "LydiaAccount",
+      "moduleName": "payments",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/"
+    },
+    {
+      "name": "PaymentMethod",
+      "moduleName": "payments",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/payments/"
+    },
+    {
+      "name": "ProfitsBreakdown",
+      "moduleName": "payments",
+      "type": "type"
+    },
+    {
+      "name": "PromotionType",
+      "moduleName": "payments",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/payments/"
+    },
+    {
+      "name": "article",
+      "moduleName": "posts",
+      "type": "query",
+      "returnType": "Article",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+    },
+    {
+      "name": "homepage",
+      "moduleName": "posts",
+      "type": "query",
+      "returnType": "QueryHomepageConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+      "connection": {
+        "nodeType": "Article",
+        "edgeType": "QueryHomepageConnectionEdge",
+        "connectionType": "QueryHomepageConnection"
+      }
+    },
+    {
+      "name": "searchArticles",
+      "moduleName": "posts",
+      "type": "query",
+      "returnType": "ArticleSearchResultType",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+    },
+    {
+      "name": "deleteArticle",
+      "moduleName": "posts",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+    },
+    {
+      "name": "deleteArticlePicture",
+      "moduleName": "posts",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+    },
+    {
+      "name": "updateArticlePicture",
+      "moduleName": "posts",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+    },
+    {
+      "name": "upsertArticle",
+      "moduleName": "posts",
+      "type": "mutation",
+      "returnType": "MutationUpsertArticleResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertArticleResult",
+        "successDataType": "Article",
+        "successType": "MutationUpsertArticleSuccess"
+      }
+    },
+    {
+      "name": "article",
+      "moduleName": "posts",
+      "type": "subscription",
+      "returnType": "Article",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+    },
+    {
+      "name": "homepage",
+      "moduleName": "posts",
+      "type": "subscription",
+      "returnType": "QueryHomepageConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+      "connection": {
+        "nodeType": "Article",
+        "edgeType": "QueryHomepageConnectionEdge",
+        "connectionType": "QueryHomepageConnection"
+      }
     },
     {
       "name": "Article",
@@ -1006,60 +6569,1943 @@ export const data: BuiltData = {
       "name": "reaction",
       "moduleName": "reactions",
       "type": "query",
+      "returnType": "Reaction",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+    },
+    {
+      "name": "reactions",
+      "moduleName": "reactions",
+      "type": "query",
+      "returnType": "QueryReactionsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/",
+      "connection": {
+        "nodeType": "Reaction",
+        "edgeType": "QueryReactionsConnectionEdge",
+        "connectionType": "QueryReactionsConnection"
+      }
     },
     {
       "name": "deleteReaction",
       "moduleName": "reactions",
       "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+    },
+    {
+      "name": "toggleReaction",
+      "moduleName": "reactions",
+      "type": "mutation",
+      "returnType": "Reactable",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+    },
+    {
+      "name": "upsertReaction",
+      "moduleName": "reactions",
+      "type": "mutation",
+      "returnType": "Int",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+    },
+    {
+      "name": "BooleanMap",
+      "moduleName": "reactions",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+    },
+    {
+      "name": "Counts",
+      "moduleName": "reactions",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
+    },
+    {
+      "name": "Reactable",
+      "moduleName": "reactions",
+      "type": "type"
+    },
+    {
+      "name": "Reaction",
+      "moduleName": "reactions",
+      "type": "type",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/"
     },
     {
       "name": "school",
       "moduleName": "schools",
       "type": "query",
+      "returnType": "School",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "schoolGroups",
+      "moduleName": "schools",
+      "type": "query",
+      "returnType": "SchoolGroup",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "schools",
+      "moduleName": "schools",
+      "type": "query",
+      "returnType": "School",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "deleteSchoolPicture",
+      "moduleName": "schools",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "updateSchool",
+      "moduleName": "schools",
+      "type": "mutation",
+      "returnType": "School",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "updateSchoolPicture",
+      "moduleName": "schools",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "School",
+      "moduleName": "schools",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "SchoolGroup",
+      "moduleName": "schools",
+      "type": "type"
+    },
+    {
+      "name": "SchoolInput",
+      "moduleName": "schools",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/schools/"
+    },
+    {
+      "name": "service",
+      "moduleName": "services",
+      "type": "query",
+      "returnType": "Service",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
+    },
+    {
+      "name": "services",
+      "moduleName": "services",
+      "type": "query",
+      "returnType": "Service",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
     },
     {
       "name": "userServices",
       "moduleName": "services",
       "type": "query",
+      "returnType": "Service",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
+    },
+    {
+      "name": "upsertService",
+      "moduleName": "services",
+      "type": "mutation",
+      "returnType": "MutationUpsertServiceResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertServiceResult",
+        "successDataType": "Service",
+        "successType": "MutationUpsertServiceSuccess"
+      }
+    },
+    {
+      "name": "LogoSourceType",
+      "moduleName": "services",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/services/"
+    },
+    {
+      "name": "Service",
+      "moduleName": "services",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/"
+    },
+    {
+      "name": "shopItem",
+      "moduleName": "shop",
+      "type": "query",
+      "returnType": "ShopItem",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "shopPayments",
+      "moduleName": "shop",
+      "type": "query",
+      "returnType": "ShopPayment",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "deleteItemPicture",
+      "moduleName": "shop",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "deleteShopItem",
+      "moduleName": "shop",
+      "type": "mutation",
+      "returnType": "MutationDeleteShopItemResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationDeleteShopItemResult",
+        "successDataType": "Boolean",
+        "successType": "MutationDeleteShopItemSuccess"
+      }
+    },
+    {
+      "name": "deleteShopOption",
+      "moduleName": "shop",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "paidShopPayment",
+      "moduleName": "shop",
+      "type": "mutation",
+      "returnType": "MutationPaidShopPaymentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationPaidShopPaymentResult",
+        "successDataType": "ShopPayment",
+        "successType": "MutationPaidShopPaymentSuccess"
+      }
     },
     {
       "name": "updateItemPicture",
       "moduleName": "shop",
       "type": "mutation",
+      "returnType": "Picture",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "upsertShopItem",
+      "moduleName": "shop",
+      "type": "mutation",
+      "returnType": "MutationUpsertShopItemResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertShopItemResult",
+        "successDataType": "ShopItem",
+        "successType": "MutationUpsertShopItemSuccess"
+      }
+    },
+    {
+      "name": "upsertShopOptions",
+      "moduleName": "shop",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "upsertShopPayment",
+      "moduleName": "shop",
+      "type": "mutation",
+      "returnType": "MutationUpsertShopPaymentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertShopPaymentResult",
+        "successDataType": "ShopPayment",
+        "successType": "MutationUpsertShopPaymentSuccess"
+      }
+    },
+    {
+      "name": "Picture",
+      "moduleName": "shop",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "ShopItem",
+      "moduleName": "shop",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "ShopItemAnswer",
+      "moduleName": "shop",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "ShopItemOption",
+      "moduleName": "shop",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "ShopItemOptionInput",
+      "moduleName": "shop",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "ShopPayment",
+      "moduleName": "shop",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/"
+    },
+    {
+      "name": "contributionOptions",
+      "moduleName": "student-associations",
+      "type": "query",
+      "returnType": "ContributionOption",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
     },
     {
       "name": "studentAssociation",
       "moduleName": "student-associations",
       "type": "query",
+      "returnType": "StudentAssociation",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+    },
+    {
+      "name": "studentAssociations",
+      "moduleName": "student-associations",
+      "type": "query",
+      "returnType": "StudentAssociation",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+    },
+    {
+      "name": "cancelPendingContribution",
+      "moduleName": "student-associations",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+    },
+    {
+      "name": "contribute",
+      "moduleName": "student-associations",
+      "type": "mutation",
+      "returnType": "MutationContributeResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationContributeResult",
+        "successDataType": "Boolean",
+        "successType": "MutationContributeSuccess"
+      }
+    },
+    {
+      "name": "updateStudentAssociationPicture",
+      "moduleName": "student-associations",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+    },
+    {
+      "name": "registration",
+      "moduleName": "ticketing",
+      "type": "query",
+      "returnType": "QueryRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryRegistrationResult",
+        "successDataType": "Registration",
+        "successType": "QueryRegistrationSuccess"
+      }
+    },
+    {
+      "name": "registrationQRCode",
+      "moduleName": "ticketing",
+      "type": "query",
+      "returnType": "QRCode",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "registrationsOfUser",
+      "moduleName": "ticketing",
+      "type": "query",
+      "returnType": "QueryRegistrationsOfUserConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "connection": {
+        "nodeType": "Registration",
+        "edgeType": "QueryRegistrationsOfUserConnectionEdge",
+        "connectionType": "QueryRegistrationsOfUserConnection"
+      }
+    },
+    {
+      "name": "ticketGroup",
+      "moduleName": "ticketing",
+      "type": "query",
+      "returnType": "TicketGroup",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
     },
     {
       "name": "cancelRegistration",
       "moduleName": "ticketing",
       "type": "mutation",
+      "returnType": "MutationCancelRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationCancelRegistrationResult",
+        "successDataType": "Boolean",
+        "successType": "MutationCancelRegistrationSuccess"
+      }
+    },
+    {
+      "name": "checkIfRegistrationIsPaid",
+      "moduleName": "ticketing",
+      "type": "mutation",
+      "returnType": "Boolean",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "createGoogleWalletPass",
+      "moduleName": "ticketing",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "deleteTicket",
+      "moduleName": "ticketing",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "deleteTicketGroup",
+      "moduleName": "ticketing",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "opposeRegistration",
+      "moduleName": "ticketing",
+      "type": "mutation",
+      "returnType": "MutationOpposeRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationOpposeRegistrationResult",
+        "successDataType": "Boolean",
+        "successType": "MutationOpposeRegistrationSuccess"
+      }
     },
     {
       "name": "paidRegistration",
       "moduleName": "ticketing",
       "type": "mutation",
+      "returnType": "MutationPaidRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationPaidRegistrationResult",
+        "successDataType": "String",
+        "successType": "MutationPaidRegistrationSuccess"
+      }
+    },
+    {
+      "name": "upsertRegistration",
+      "moduleName": "ticketing",
+      "type": "mutation",
+      "returnType": "MutationUpsertRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertRegistrationResult",
+        "successDataType": "Registration",
+        "successType": "MutationUpsertRegistrationSuccess"
+      }
+    },
+    {
+      "name": "upsertTicketGroup",
+      "moduleName": "ticketing",
+      "type": "mutation",
+      "returnType": "TicketGroup",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
     },
     {
-      "name": "deleteGodparentRequest",
+      "name": "registration",
+      "moduleName": "ticketing",
+      "type": "subscription",
+      "returnType": "QueryRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryRegistrationResult",
+        "successDataType": "Registration",
+        "successType": "QueryRegistrationSuccess"
+      }
+    },
+    {
+      "name": "Registration",
+      "moduleName": "ticketing",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "RegistrationVerificationResult",
+      "moduleName": "ticketing",
+      "type": "type"
+    },
+    {
+      "name": "RegistrationVerificationState",
+      "moduleName": "ticketing",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/ticketing/"
+    },
+    {
+      "name": "RegistrationsCounts",
+      "moduleName": "ticketing",
+      "type": "type"
+    },
+    {
+      "name": "Ticket",
+      "moduleName": "ticketing",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "TicketGroup",
+      "moduleName": "ticketing",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "TicketGroupInput",
+      "moduleName": "ticketing",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "TicketInput",
+      "moduleName": "ticketing",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/"
+    },
+    {
+      "name": "allUsers",
       "moduleName": "users",
-      "type": "mutation",
+      "type": "query",
+      "returnType": "QueryAllUsersConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "connection": {
+        "nodeType": "User",
+        "edgeType": "QueryAllUsersConnectionEdge",
+        "connectionType": "QueryAllUsersConnection"
+      }
+    },
+    {
+      "name": "birthdays",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "User",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "existsInSchoolLdap",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "godparentRequest",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "GodparentRequest",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "godparentRequests",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "GodparentRequest",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
     },
     {
       "name": "me",
       "moduleName": "users",
       "type": "query",
+      "returnType": "User",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "quickSignups",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "QueryQuickSignupsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "connection": {
+        "nodeType": "QuickSignup",
+        "edgeType": "QueryQuickSignupsConnectionEdge",
+        "connectionType": "QueryQuickSignupsConnection"
+      }
+    },
+    {
+      "name": "searchUsers",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "UserSearchResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "user",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "User",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "userByEmail",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "User",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "userCandidate",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "UserCandidate",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "userCandidateByEmail",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "UserCandidate",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "userCandidates",
+      "moduleName": "users",
+      "type": "query",
+      "returnType": "QueryUserCandidatesConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "connection": {
+        "nodeType": "UserCandidate",
+        "edgeType": "QueryUserCandidatesConnectionEdge",
+        "connectionType": "QueryUserCandidatesConnection"
+      }
+    },
+    {
+      "name": "acceptRegistration",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationAcceptRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationAcceptRegistrationResult",
+        "successDataType": "User",
+        "successType": "MutationAcceptRegistrationSuccess"
+      }
+    },
+    {
+      "name": "completeRegistration",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationCompleteRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationCompleteRegistrationResult",
+        "successDataType": "CompleteSignupResult",
+        "successType": "MutationCompleteRegistrationSuccess"
+      }
+    },
+    {
+      "name": "createBot",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "User",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "createPasswordReset",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationCreatePasswordResetResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationCreatePasswordResetResult",
+        "successDataType": "Boolean",
+        "successType": "MutationCreatePasswordResetSuccess"
+      }
+    },
+    {
+      "name": "createQuickSignup",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "QuickSignup",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "deleteGodchild",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "deleteGodparentRequest",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "GodparentRequest",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "deleteQuickSignup",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "QuickSignup",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "deleteRegistration",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "deleteToken",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "deleteUserPicture",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "login",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationLoginResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "AwaitingValidationError",
+          "Error"
+        ],
+        "resultType": "MutationLoginResult",
+        "successDataType": "Credential",
+        "successType": "MutationLoginSuccess"
+      }
+    },
+    {
+      "name": "logout",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "refuseRegistration",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "registerGoogleCredential",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationRegisterGoogleCredentialResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationRegisterGoogleCredentialResult",
+        "successDataType": "Boolean",
+        "successType": "MutationRegisterGoogleCredentialSuccess"
+      }
+    },
+    {
+      "name": "renameSession",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "requestEmailChange",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationRequestEmailChangeResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationRequestEmailChangeResult",
+        "successDataType": "Boolean",
+        "successType": "MutationRequestEmailChangeSuccess"
+      }
+    },
+    {
+      "name": "resetPassword",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationResetPasswordResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationResetPasswordResult",
+        "successDataType": "Boolean",
+        "successType": "MutationResetPasswordSuccess"
+      }
+    },
+    {
+      "name": "startRegistration",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationStartRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationStartRegistrationResult",
+        "successDataType": "Boolean",
+        "successType": "MutationStartRegistrationSuccess"
+      }
+    },
+    {
+      "name": "syncUserLdap",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "Boolean",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "updateNotificationSettings",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "NotificationChannel",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "updateUser",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationUpdateUserResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpdateUserResult",
+        "successDataType": "User",
+        "successType": "MutationUpdateUserSuccess"
+      }
+    },
+    {
+      "name": "updateUserCandidate",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationUpdateUserCandidateResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpdateUserCandidateResult",
+        "successDataType": "Boolean",
+        "successType": "MutationUpdateUserCandidateSuccess"
+      }
+    },
+    {
+      "name": "updateUserPermissions",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "User",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "updateUserPicture",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "String",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "upsertGodparentRequest",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationUpsertGodparentRequestResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertGodparentRequestResult",
+        "successDataType": "GodparentRequest",
+        "successType": "MutationUpsertGodparentRequestSuccess"
+      }
+    },
+    {
+      "name": "usePasswordReset",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationUsePasswordResetResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUsePasswordResetResult",
+        "successDataType": "Boolean",
+        "successType": "MutationUsePasswordResetSuccess"
+      }
+    },
+    {
+      "name": "validateEmail",
+      "moduleName": "users",
+      "type": "mutation",
+      "returnType": "MutationValidateEmailResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationValidateEmailResult",
+        "successDataType": "Boolean",
+        "successType": "MutationValidateEmailSuccess"
+      }
+    },
+    {
+      "name": "AwaitingValidationError",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/users/"
+    },
+    {
+      "name": "CompleteSignupResult",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "Credential",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "CredentialType",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/users/"
+    },
+    {
+      "name": "EmailChange",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "FamilyTree",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/packages/api/src/modules/users/"
+    },
+    {
+      "name": "GodparentRequest",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "QuickSignup",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "User",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "UserCandidate",
+      "moduleName": "users",
+      "type": "type",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
+    },
+    {
+      "name": "ArticleSearchResultType",
+      "moduleName": "posts",
+      "type": "type",
+      "returnType": "ArticleSearchResultType",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/"
+    },
+    {
+      "name": "BuildInfo",
+      "moduleName": "global",
+      "type": "type",
+      "returnType": "BuildInfo",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/global/"
+    },
+    {
+      "name": "ContributionOption",
+      "moduleName": "student-associations",
+      "type": "type",
+      "returnType": "ContributionOption",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+    },
+    {
+      "name": "EvenSearchResult",
+      "moduleName": "events",
+      "type": "type",
+      "returnType": "EvenSearchResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/"
+    },
+    {
+      "name": "FormSearchResult",
+      "moduleName": "forms",
+      "type": "type",
+      "returnType": "FormSearchResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/"
+    },
+    {
+      "name": "GroupSearchResult",
+      "moduleName": "groups",
+      "type": "type",
+      "returnType": "GroupSearchResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/"
+    },
+    {
+      "name": "MutationAcceptRegistrationResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationAcceptRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationAcceptRegistrationResult",
+        "successDataType": "User",
+        "successType": "MutationAcceptRegistrationSuccess"
+      }
+    },
+    {
+      "name": "MutationAddFileToPageResult",
+      "moduleName": "pages",
+      "type": "type",
+      "returnType": "MutationAddFileToPageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationAddFileToPageResult",
+        "successDataType": "Page",
+        "successType": "MutationAddFileToPageSuccess"
+      }
+    },
+    {
+      "name": "MutationAddGroupMemberResult",
+      "moduleName": "groups",
+      "type": "type",
+      "returnType": "MutationAddGroupMemberResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationAddGroupMemberResult",
+        "successDataType": "GroupMember",
+        "successType": "MutationAddGroupMemberSuccess"
+      }
+    },
+    {
+      "name": "MutationAnswerFormSectionResult",
+      "moduleName": "forms",
+      "type": "type",
+      "returnType": "MutationAnswerFormSectionResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationAnswerFormSectionResult",
+        "successDataType": "Answer",
+        "successType": "MutationAnswerFormSectionSuccess"
+      }
+    },
+    {
+      "name": "MutationAuthorizeResult",
+      "moduleName": "oauth",
+      "type": "type",
+      "returnType": "MutationAuthorizeResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "OAuth2Error"
+        ],
+        "resultType": "MutationAuthorizeResult",
+        "successDataType": "String",
+        "successType": "MutationAuthorizeSuccess"
+      }
+    },
+    {
+      "name": "MutationCancelRegistrationResult",
+      "moduleName": "ticketing",
+      "type": "type",
+      "returnType": "MutationCancelRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationCancelRegistrationResult",
+        "successDataType": "Boolean",
+        "successType": "MutationCancelRegistrationSuccess"
+      }
+    },
+    {
+      "name": "MutationCompleteRegistrationResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationCompleteRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationCompleteRegistrationResult",
+        "successDataType": "CompleteSignupResult",
+        "successType": "MutationCompleteRegistrationSuccess"
+      }
+    },
+    {
+      "name": "MutationContributeResult",
+      "moduleName": "student-associations",
+      "type": "type",
+      "returnType": "MutationContributeResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationContributeResult",
+        "successDataType": "Boolean",
+        "successType": "MutationContributeSuccess"
+      }
+    },
+    {
+      "name": "MutationCreatePasswordResetResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationCreatePasswordResetResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationCreatePasswordResetResult",
+        "successDataType": "Boolean",
+        "successType": "MutationCreatePasswordResetSuccess"
+      }
+    },
+    {
+      "name": "MutationDeletePageResult",
+      "moduleName": "pages",
+      "type": "type",
+      "returnType": "MutationDeletePageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationDeletePageResult",
+        "successDataType": "Page",
+        "successType": "MutationDeletePageSuccess"
+      }
+    },
+    {
+      "name": "MutationDeleteShopItemResult",
+      "moduleName": "shop",
+      "type": "type",
+      "returnType": "MutationDeleteShopItemResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationDeleteShopItemResult",
+        "successDataType": "Boolean",
+        "successType": "MutationDeleteShopItemSuccess"
+      }
+    },
+    {
+      "name": "MutationFinishPaypalRegistrationPaymentResult",
+      "moduleName": "payments",
+      "type": "type",
+      "returnType": "MutationFinishPaypalRegistrationPaymentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/payments/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationFinishPaypalRegistrationPaymentResult",
+        "successDataType": "Boolean",
+        "successType": "MutationFinishPaypalRegistrationPaymentSuccess"
+      }
+    },
+    {
+      "name": "MutationLoginResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationLoginResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "AwaitingValidationError",
+          "Error"
+        ],
+        "resultType": "MutationLoginResult",
+        "successDataType": "Credential",
+        "successType": "MutationLoginSuccess"
+      }
+    },
+    {
+      "name": "MutationMailFormAnswersResult",
+      "moduleName": "forms",
+      "type": "type",
+      "returnType": "MutationMailFormAnswersResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationMailFormAnswersResult",
+        "successDataType": "String",
+        "successType": "MutationMailFormAnswersSuccess"
+      }
+    },
+    {
+      "name": "MutationOpposeRegistrationResult",
+      "moduleName": "ticketing",
+      "type": "type",
+      "returnType": "MutationOpposeRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationOpposeRegistrationResult",
+        "successDataType": "Boolean",
+        "successType": "MutationOpposeRegistrationSuccess"
+      }
+    },
+    {
+      "name": "MutationPaidRegistrationResult",
+      "moduleName": "ticketing",
+      "type": "type",
+      "returnType": "MutationPaidRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationPaidRegistrationResult",
+        "successDataType": "String",
+        "successType": "MutationPaidRegistrationSuccess"
+      }
+    },
+    {
+      "name": "MutationPaidShopPaymentResult",
+      "moduleName": "shop",
+      "type": "type",
+      "returnType": "MutationPaidShopPaymentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationPaidShopPaymentResult",
+        "successDataType": "ShopPayment",
+        "successType": "MutationPaidShopPaymentSuccess"
+      }
+    },
+    {
+      "name": "MutationRegisterGoogleCredentialResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationRegisterGoogleCredentialResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationRegisterGoogleCredentialResult",
+        "successDataType": "Boolean",
+        "successType": "MutationRegisterGoogleCredentialSuccess"
+      }
+    },
+    {
+      "name": "MutationRemoveFileFromPageResult",
+      "moduleName": "pages",
+      "type": "type",
+      "returnType": "MutationRemoveFileFromPageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationRemoveFileFromPageResult",
+        "successDataType": "Page",
+        "successType": "MutationRemoveFileFromPageSuccess"
+      }
+    },
+    {
+      "name": "MutationRequestEmailChangeResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationRequestEmailChangeResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationRequestEmailChangeResult",
+        "successDataType": "Boolean",
+        "successType": "MutationRequestEmailChangeSuccess"
+      }
+    },
+    {
+      "name": "MutationResetPasswordResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationResetPasswordResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationResetPasswordResult",
+        "successDataType": "Boolean",
+        "successType": "MutationResetPasswordSuccess"
+      }
+    },
+    {
+      "name": "MutationStartRegistrationResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationStartRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationStartRegistrationResult",
+        "successDataType": "Boolean",
+        "successType": "MutationStartRegistrationSuccess"
+      }
+    },
+    {
+      "name": "MutationUpdateUserCandidateResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationUpdateUserCandidateResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpdateUserCandidateResult",
+        "successDataType": "Boolean",
+        "successType": "MutationUpdateUserCandidateSuccess"
+      }
+    },
+    {
+      "name": "MutationUpdateUserResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationUpdateUserResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpdateUserResult",
+        "successDataType": "User",
+        "successType": "MutationUpdateUserSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertAnnouncementResult",
+      "moduleName": "announcements",
+      "type": "type",
+      "returnType": "MutationUpsertAnnouncementResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpsertAnnouncementResult",
+        "successDataType": "Announcement",
+        "successType": "MutationUpsertAnnouncementSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertArticleResult",
+      "moduleName": "posts",
+      "type": "type",
+      "returnType": "MutationUpsertArticleResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertArticleResult",
+        "successDataType": "Article",
+        "successType": "MutationUpsertArticleSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertBarWeekResult",
+      "moduleName": "bar-weeks",
+      "type": "type",
+      "returnType": "MutationUpsertBarWeekResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/bar-weeks/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertBarWeekResult",
+        "successDataType": "BarWeek",
+        "successType": "MutationUpsertBarWeekSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertDocumentResult",
+      "moduleName": "documents",
+      "type": "type",
+      "returnType": "MutationUpsertDocumentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertDocumentResult",
+        "successDataType": "Document",
+        "successType": "MutationUpsertDocumentSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertEventResult",
+      "moduleName": "events",
+      "type": "type",
+      "returnType": "MutationUpsertEventResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertEventResult",
+        "successDataType": "Event",
+        "successType": "MutationUpsertEventSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertGodparentRequestResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationUpsertGodparentRequestResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertGodparentRequestResult",
+        "successDataType": "GodparentRequest",
+        "successType": "MutationUpsertGodparentRequestSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertGroupResult",
+      "moduleName": "groups",
+      "type": "type",
+      "returnType": "MutationUpsertGroupResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpsertGroupResult",
+        "successDataType": "Group",
+        "successType": "MutationUpsertGroupSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertPageResult",
+      "moduleName": "pages",
+      "type": "type",
+      "returnType": "MutationUpsertPageResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "result": {
+        "errorTypes": [
+          "Error",
+          "ZodError"
+        ],
+        "resultType": "MutationUpsertPageResult",
+        "successDataType": "Page",
+        "successType": "MutationUpsertPageSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertRegistrationResult",
+      "moduleName": "ticketing",
+      "type": "type",
+      "returnType": "MutationUpsertRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertRegistrationResult",
+        "successDataType": "Registration",
+        "successType": "MutationUpsertRegistrationSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertServiceResult",
+      "moduleName": "services",
+      "type": "type",
+      "returnType": "MutationUpsertServiceResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/services/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertServiceResult",
+        "successDataType": "Service",
+        "successType": "MutationUpsertServiceSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertShopItemResult",
+      "moduleName": "shop",
+      "type": "type",
+      "returnType": "MutationUpsertShopItemResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertShopItemResult",
+        "successDataType": "ShopItem",
+        "successType": "MutationUpsertShopItemSuccess"
+      }
+    },
+    {
+      "name": "MutationUpsertShopPaymentResult",
+      "moduleName": "shop",
+      "type": "type",
+      "returnType": "MutationUpsertShopPaymentResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/shop/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUpsertShopPaymentResult",
+        "successDataType": "ShopPayment",
+        "successType": "MutationUpsertShopPaymentSuccess"
+      }
+    },
+    {
+      "name": "MutationUsePasswordResetResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationUsePasswordResetResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationUsePasswordResetResult",
+        "successDataType": "Boolean",
+        "successType": "MutationUsePasswordResetSuccess"
+      }
+    },
+    {
+      "name": "MutationValidateEmailResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "MutationValidateEmailResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "MutationValidateEmailResult",
+        "successDataType": "Boolean",
+        "successType": "MutationValidateEmailSuccess"
+      }
+    },
+    {
+      "name": "NotificationSubscription",
+      "moduleName": "notifications",
+      "type": "type",
+      "returnType": "NotificationSubscription",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/"
+    },
+    {
+      "name": "QueryAllFormsConnection",
+      "moduleName": "forms",
+      "type": "type",
+      "returnType": "QueryAllFormsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "connection": {
+        "nodeType": "Form",
+        "edgeType": "QueryAllFormsConnectionEdge",
+        "connectionType": "QueryAllFormsConnection"
+      }
+    },
+    {
+      "name": "QueryAllUsersConnection",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "QueryAllUsersConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "connection": {
+        "nodeType": "User",
+        "edgeType": "QueryAllUsersConnectionEdge",
+        "connectionType": "QueryAllUsersConnection"
+      }
+    },
+    {
+      "name": "QueryAnnouncementsConnection",
+      "moduleName": "announcements",
+      "type": "type",
+      "returnType": "QueryAnnouncementsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/announcements/",
+      "connection": {
+        "nodeType": "Announcement",
+        "edgeType": "QueryAnnouncementsConnectionEdge",
+        "connectionType": "QueryAnnouncementsConnection"
+      }
+    },
+    {
+      "name": "QueryCodeContributorsResult",
+      "moduleName": "gitlab",
+      "type": "type",
+      "returnType": "QueryCodeContributorsResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/gitlab/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryCodeContributorsResult",
+        "successDataType": "User",
+        "successType": "QueryCodeContributorsSuccess"
+      }
+    },
+    {
+      "name": "QueryCombinedChangelogResult",
+      "moduleName": "changelogs",
+      "type": "type",
+      "returnType": "QueryCombinedChangelogResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryCombinedChangelogResult",
+        "successDataType": "ChangelogRelease",
+        "successType": "QueryCombinedChangelogSuccess"
+      }
+    },
+    {
+      "name": "QueryDocumentsConnection",
+      "moduleName": "documents",
+      "type": "type",
+      "returnType": "QueryDocumentsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/documents/",
+      "connection": {
+        "nodeType": "Document",
+        "edgeType": "QueryDocumentsConnectionEdge",
+        "connectionType": "QueryDocumentsConnection"
+      }
+    },
+    {
+      "name": "QueryEventsByDayConnection",
+      "moduleName": "events",
+      "type": "type",
+      "returnType": "QueryEventsByDayConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+      "connection": {
+        "nodeType": "EventsByDay",
+        "edgeType": "QueryEventsByDayConnectionEdge",
+        "connectionType": "QueryEventsByDayConnection"
+      }
+    },
+    {
+      "name": "QueryEventsConnection",
+      "moduleName": "events",
+      "type": "type",
+      "returnType": "QueryEventsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/events/",
+      "connection": {
+        "nodeType": "Event",
+        "edgeType": "QueryEventsConnectionEdge",
+        "connectionType": "QueryEventsConnection"
+      }
+    },
+    {
+      "name": "QueryFormsConnection",
+      "moduleName": "forms",
+      "type": "type",
+      "returnType": "QueryFormsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/forms/",
+      "connection": {
+        "nodeType": "Form",
+        "edgeType": "QueryFormsConnectionEdge",
+        "connectionType": "QueryFormsConnection"
+      }
+    },
+    {
+      "name": "QueryGroupMembersCsvResult",
+      "moduleName": "groups",
+      "type": "type",
+      "returnType": "QueryGroupMembersCsvResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/groups/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryGroupMembersCsvResult",
+        "successDataType": "String",
+        "successType": "QueryGroupMembersCsvSuccess"
+      }
+    },
+    {
+      "name": "QueryHomepageConnection",
+      "moduleName": "posts",
+      "type": "type",
+      "returnType": "QueryHomepageConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/posts/",
+      "connection": {
+        "nodeType": "Article",
+        "edgeType": "QueryHomepageConnectionEdge",
+        "connectionType": "QueryHomepageConnection"
+      }
+    },
+    {
+      "name": "QueryLogsConnection",
+      "moduleName": "logs",
+      "type": "type",
+      "returnType": "QueryLogsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/logs/",
+      "connection": {
+        "nodeType": "LogEntry",
+        "edgeType": "QueryLogsConnectionEdge",
+        "connectionType": "QueryLogsConnection"
+      }
+    },
+    {
+      "name": "QueryMinorsConnection",
+      "moduleName": "curriculum",
+      "type": "type",
+      "returnType": "QueryMinorsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/curriculum/",
+      "connection": {
+        "nodeType": "Minor",
+        "edgeType": "QueryMinorsConnectionEdge",
+        "connectionType": "QueryMinorsConnection"
+      }
+    },
+    {
+      "name": "QueryNotificationsConnection",
+      "moduleName": "notifications",
+      "type": "type",
+      "returnType": "QueryNotificationsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/notifications/",
+      "connection": {
+        "nodeType": "Notification",
+        "edgeType": "QueryNotificationsConnectionEdge",
+        "connectionType": "QueryNotificationsConnection"
+      }
+    },
+    {
+      "name": "QueryPagesConnection",
+      "moduleName": "pages",
+      "type": "type",
+      "returnType": "QueryPagesConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/pages/",
+      "connection": {
+        "nodeType": "Page",
+        "edgeType": "QueryPagesConnectionEdge",
+        "connectionType": "QueryPagesConnection"
+      }
+    },
+    {
+      "name": "QueryQuickSignupsConnection",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "QueryQuickSignupsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "connection": {
+        "nodeType": "QuickSignup",
+        "edgeType": "QueryQuickSignupsConnectionEdge",
+        "connectionType": "QueryQuickSignupsConnection"
+      }
+    },
+    {
+      "name": "QueryReactionsConnection",
+      "moduleName": "reactions",
+      "type": "type",
+      "returnType": "QueryReactionsConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/reactions/",
+      "connection": {
+        "nodeType": "Reaction",
+        "edgeType": "QueryReactionsConnectionEdge",
+        "connectionType": "QueryReactionsConnection"
+      }
+    },
+    {
+      "name": "QueryRegistrationResult",
+      "moduleName": "ticketing",
+      "type": "type",
+      "returnType": "QueryRegistrationResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryRegistrationResult",
+        "successDataType": "Registration",
+        "successType": "QueryRegistrationSuccess"
+      }
+    },
+    {
+      "name": "QueryRegistrationsOfUserConnection",
+      "moduleName": "ticketing",
+      "type": "type",
+      "returnType": "QueryRegistrationsOfUserConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/ticketing/",
+      "connection": {
+        "nodeType": "Registration",
+        "edgeType": "QueryRegistrationsOfUserConnectionEdge",
+        "connectionType": "QueryRegistrationsOfUserConnection"
+      }
+    },
+    {
+      "name": "QueryUpcomingChangelogResult",
+      "moduleName": "changelogs",
+      "type": "type",
+      "returnType": "QueryUpcomingChangelogResult",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/changelogs/",
+      "result": {
+        "errorTypes": [
+          "Error"
+        ],
+        "resultType": "QueryUpcomingChangelogResult",
+        "successDataType": "ChangelogRelease",
+        "successType": "QueryUpcomingChangelogSuccess"
+      }
+    },
+    {
+      "name": "QueryUserCandidatesConnection",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "QueryUserCandidatesConnection",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/",
+      "connection": {
+        "nodeType": "UserCandidate",
+        "edgeType": "QueryUserCandidatesConnectionEdge",
+        "connectionType": "QueryUserCandidatesConnection"
+      }
+    },
+    {
+      "name": "StudentAssociation",
+      "moduleName": "student-associations",
+      "type": "type",
+      "returnType": "StudentAssociation",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/student-associations/"
+    },
+    {
+      "name": "ThirdPartyAppRegistrationResponse",
+      "moduleName": "oauth",
+      "type": "type",
+      "returnType": "ThirdPartyAppRegistrationResponse",
+      "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/oauth/"
+    },
+    {
+      "name": "UserSearchResult",
+      "moduleName": "users",
+      "type": "type",
+      "returnType": "UserSearchResult",
       "contributeURL": "https://git.inpt.fr/inp-net/churros/-/blob/main/src/modules/users/"
     }
   ]

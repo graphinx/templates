@@ -1,5 +1,9 @@
 <script lang="ts">
-	import { PUBLIC_API_URL, PUBLIC_API_WEBSOCKET_URL } from '$env/static/public';
+	import {
+		PUBLIC_API_URL,
+		PUBLIC_API_WEBSOCKET_URL,
+		PUBLIC_DEFAULT_RATE_LIMIT
+	} from '$env/static/public';
 	import SearchBar from '$lib/SearchBar.svelte';
 	import { tocShown } from '$lib/TableOfContents.svelte';
 	import { currentTheme } from '$lib/theme';
@@ -21,17 +25,34 @@
 	{/if}
 	<h1>{data.config.branding.name}</h1>
 </header>
+<dl class="basic-info">
+	{#if PUBLIC_API_URL}
+		<dt>Endpoint URL</dt>
+		<dd><a href={PUBLIC_API_URL}><code>{PUBLIC_API_URL}</code></a></dd>
 
-{#if PUBLIC_API_URL}
-	<p>The GraphQL Endpoint is</p>
-	<pre>{PUBLIC_API_URL}</pre>
-
-	{#if PUBLIC_API_WEBSOCKET_URL}
-		<p>The API also supports real-time data via a websocket at</p>
-		<pre>{PUBLIC_API_WEBSOCKET_URL}</pre>
+		{#if PUBLIC_API_WEBSOCKET_URL}
+			<dt>Subscriptions endpoint URL</dt>
+			<dd><code>{PUBLIC_API_WEBSOCKET_URL}</code></dd>
+		{/if}
 	{/if}
-{/if}
-
+	{#if data.config.relay}
+		<dt>Pagination</dt>
+		<dd>
+			<a href="https://graphql.org/learn/pagination/#complete-connection-model">GraphQL Relay</a>
+			(nodes on <code>{data.config.relay.node ?? 'edges.node'}</code>)
+		</dd>
+	{/if}
+	{#if data.config.errors}
+		<dt>Errors types</dt>
+		<dd>
+			Success data on <code>{data.config.errors.data ?? 'data'}</code>
+		</dd>
+	{/if}
+	{#if PUBLIC_DEFAULT_RATE_LIMIT}
+		<dt>Rate limit</dt>
+		<dd><strong>{PUBLIC_DEFAULT_RATE_LIMIT}</strong> (unless specified)</dd>
+	{/if}
+</dl>
 <section class="search">
 	<SearchBar bind:query></SearchBar>
 </section>
@@ -60,6 +81,10 @@
 		flex-direction: row;
 		gap: 1rem;
 	}
+	.basic-info {
+		display: grid;
+		grid-template-columns: repeat(2, auto);
+	}
 	.search {
 		display: flex;
 		justify-content: center;
@@ -69,7 +94,7 @@
 		border-radius: 1rem;
 		background-color: var(--shadow);
 	}
-    .description {
-        margin: 3.5rem 0;
-    }
+	.description {
+		margin: 3.5rem 0;
+	}
 </style>

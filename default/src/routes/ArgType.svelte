@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { data } from '$lib/data.generated';
 	import { linkToItem } from '$lib/links';
 	import type { ModuleItem } from 'graphinx';
 	import {
@@ -17,6 +18,7 @@
 		isScalarType,
 		isUnionType
 	} from 'graphql';
+	import { drillToNamedType } from '$lib/schema-utils';
 
 	export let schema: GraphQLSchema;
 	export let allItems: ModuleItem[];
@@ -29,40 +31,25 @@
 	export let underlyingType: GraphQLNamedType | undefined = undefined;
 
 	$: item = isNamedType(typ) ? allItems.find((i) => i.name === typ.name) : undefined;
+	$: resultSuccessType = item?.result?.successDataType
+		? allItems.find((i) => i.name === item.result?.successDataType)
+		: undefined;
+	$: resultErrorTypes = item?.result?.errorTypes
+		? item.result.errorTypes.map((name) => allItems.find((i) => i.name === name)).filter(Boolean)
+		: [];
+	$: connectionNodeType = item?.connection?.nodeType
+		? allItems.find((i) => i.name === item.connection?.nodeType)
+		: undefined;
+
+	$: if (resultSuccessType)
+		underlyingType = drillToNamedType(schema.getType(resultSuccessType.name)) ?? underlyingType;
+	$: if (connectionNodeType)
+		underlyingType = drillToNamedType(schema.getType(connectionNodeType.name)) ?? underlyingType;
+
 
 	export let enumWasExpanded = false;
 	$: enumWasExpanded = willExpandEnum(typ);
-
-	$: successTypes = schema
-		? Object.fromEntries(
-				Object.values(schema.getTypeMap())
-					.filter(isObjectType)
-					.filter((type) => type.name.endsWith('Success'))
-					.map((t) => [t.name, Object.values(t.getFields()).find((f) => f.name === 'data')?.type])
-			)
-		: {};
-
-	$: edgeTypes = schema
-		? Object.fromEntries(
-				Object.values(schema.getTypeMap())
-					.filter(isObjectType)
-					.filter((type) => type.name.endsWith('ConnectionEdge'))
-					.map((t) => [t.name, Object.values(t.getFields()).find((f) => f.name === 'node')?.type])
-			)
-		: {};
-
 	$: enumValues = getEnumValues(typ);
-
-	$: {
-		if (typ && isUnionType(typ) && typ.name?.endsWith('Result')) {
-			const maybeUnderlying = successTypes[typ.name?.replace('Result', 'Success')];
-			if (isNamedType(maybeUnderlying)) underlyingType ??= maybeUnderlying;
-		} else if (isNamedType(typ) && typ?.name?.endsWith('Connection')) {
-			// biome-ignore lint/style/noNonNullAssertion: Connection types always have their corresponding Edge type
-			const maybeUnderlying = edgeTypes[`${typ.name}Edge`]!;
-			if (isNamedType(maybeUnderlying)) underlyingType ??= maybeUnderlying;
-		}
-	}
 
 	function getEnumValues(t: GraphQLType): GraphQLEnumValue[] {
 		try {
@@ -99,14 +86,13 @@
 </script>
 
 <!-- Need to avoid extraneous whitespace, so the code is ugly like that. Sowwy ._. -->
-{#if !typ}(none){:else}{#if isEnumType(typ)}{#if !enumValues || !willExpandEnum(typ)}<a
+{#if !typ}(none){:else}{#if isEnumType(typ)}{#if !willExpandEnum(typ)}<a
 				href={linkToItem(item)}
 				title={(enumValues || []).map((v) => v.name).join(' | ')}
 				class="type enum">{typ.name}</a
 			>{:else}{#if nullable}({/if}{#each Object.entries(enumValues) as [i, value]}<span
 					class="type enum enum-value"
-					><svelte:self {allItems} nullable={false} {inline} {noExpandEnums} typ={value}
-					></svelte:self></span
+					>{value.name}</span
 				>{#if Number(i) < enumValues.length - 1}<span class="type enum enum-value-separator"
 						>&nbsp;|&#x20;</span
 					>{/if}{/each}{#if nullable}){/if}{/if}{:else if isInputObjectType(typ)}<a
@@ -114,20 +100,26 @@
 			class="type input">{typ.name}</a
 		>{:else if isInterfaceType(typ)}<span class="type interface">{typ.name}</span
 		>{:else if isListType(typ)}<span class="type array">[</span><svelte:self
+			{schema}
 			{allItems}
 			noExpandEnums={true}
 			{nullable}
 			{inline}
 			typ={typ.ofType}
 		/><span class="type array">]</span>{:else if isNonNullType(typ)}<svelte:self
+			{schema}
 			{allItems}
 			{noExpandEnums}
 			{inline}
 			nullable={false}
 			typ={typ.ofType}
-		/>{:else if isObjectType(typ)}{#if typ.name?.endsWith('Connection') && underlyingType}<span
-				class="type connection"
-				><a class="type connection" href={linkToItem(item)}>Connection</a>&lt;<svelte:self
+		/>{:else if isObjectType(typ)}{#if connectionNodeType}<span class="type connection"
+				><span
+					class="type connection"
+					title="Returns a paginated object. Items are accessible in the field {data.config.relay
+						?.node ?? 'edges.node'}">Connection</span
+				>&lt;<svelte:self
+					{schema}
 					{allItems}
 					{noExpandEnums}
 					{inline}
@@ -136,9 +128,14 @@
 				></svelte:self>&gt;</span
 			>{:else}<a class="type object" href={linkToItem(item)}>{typ.name}</a
 			>{/if}{:else if isScalarType(typ)}<span class="type scalar">{typ.name}</span
-		>{:else if isUnionType(typ)}{#if typ.name?.endsWith('Result') && underlyingType}<span
-				class="type errorable"
-				><a class="type errorable" href={linkToItem(item)}>Result</a>&lt;<svelte:self
+		>{:else if isUnionType(typ)}{#if resultSuccessType}<span class="type errorable"
+				><span
+					class="type errorable"
+					title="May return a success object that has data in the field {data.config.errors
+						?.data}, or one of these errors: {resultErrorTypes.map((i) => i?.name).join(', ')}"
+					>Result</span
+				>&lt;<svelte:self
+					{schema}
 					{allItems}
 					{inline}
 					{noExpandEnums}
@@ -148,7 +145,7 @@
 			>{:else}
 			{#if willExpandEnum(typ)}{#if nullable}({/if}<span class="type union">
 					{#each Object.entries(getUnionValues(typ)) as [i, value]}
-						<svelte:self {allItems} nullable={false} noExpandEnums {inline} typ={value}
+						<svelte:self {schema} {allItems} nullable={false} noExpandEnums {inline} typ={value}
 						></svelte:self>{#if Number(i) < getUnionValues(typ).length - 1}&nbsp;<strong>|</strong
 							>&nbsp;{/if}{/each}</span
 				>{#if nullable}){/if}{:else}<a href={linkToItem(item)}>{typ.name}</a>{/if}{/if}{:else}<span
