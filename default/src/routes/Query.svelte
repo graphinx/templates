@@ -50,6 +50,7 @@
 	}
 
 	$: hash = kind !== 'field' ? linkToItem(item) : undefined;
+	$: showArgumentTypesInHeader = !mobile && !(kind === 'field' && args.length > 2);
 
 	$: headingLevel = $page.url.pathname === '/' ? 'h4' : 'h3';
 </script>
@@ -86,7 +87,7 @@
 			<code class="no-color"
 				>{query.name}({#if !mobile}&#8203;{/if}{#if args && args.length >= (mobile ? 3 : 5)}<span
 						class="too-many-args">...</span
-					>{:else}{#each Object.entries(args) as [i, { name, type, defaultValue }]}{name}{#if !mobile}:&nbsp;<ArgType
+					>{:else}{#each Object.entries(args) as [i, { name, type, defaultValue }]}{name}{#if showArgumentTypesInHeader}:&nbsp;<ArgType
 								{allItems}
 								{schema}
 								noExpandEnums={Boolean(defaultValue)}
@@ -127,7 +128,7 @@
 			{/if}
 		</section>
 	{/if}
-	{#if args.length > 0}
+	{#if args.length > 0 && (args.some( (arg) => arg.description?.trim() ) || !showArgumentTypesInHeader)}
 		<section class="args">
 			<p class="subtitle">Arguments</p>
 			<ul>
