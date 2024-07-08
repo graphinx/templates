@@ -2,34 +2,16 @@
 	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import GraphinxCredits from '$lib/GraphinxCredits.svelte';
-	import TableOfContents, { tocIsFloating, tocShown } from '$lib/TableOfContents.svelte';
-	import { colorNames } from '$lib/colors';
+	import TableOfContents, { tocIsFloating } from '$lib/TableOfContents.svelte';
+	import { loadColorNames } from '$lib/colors';
+	import { currentTheme, setupThemeListener } from '$lib/theme';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
-	import { currentTheme } from '$lib/theme';
 
 	export let data: LayoutData;
 
-	onMount(() => {
-		if (!browser) return;
-
-		const colorsStylesheet = [...document.styleSheets].find((d) => d.href?.endsWith('colors.css'));
-
-		const colorsRootCssRule = [...(colorsStylesheet?.cssRules ?? [])].find(
-			(r) => r instanceof CSSStyleRule && r.selectorText === ':root'
-		) as CSSStyleRule;
-
-		$colorNames = [...colorsRootCssRule.style].map((n) => n.replace(/^--/, ''));
-
-		$currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-		window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-			$currentTheme = e.matches ? 'dark' : 'light';
-		});
-
-		currentTheme.subscribe((theme) => {
-			document.documentElement.setAttribute('data-theme', theme);
-		});
-	});
+	onMount(loadColorNames);
+	onMount(setupThemeListener);
 </script>
 
 <svelte:head>

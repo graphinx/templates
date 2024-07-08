@@ -144,8 +144,6 @@
 					</li>
 				{/each}
 			</ul>
-		{:else if isScalarType(type)}
-			<ArgType {allItems} {schema} nullable={false} typ={type}></ArgType>
 		{/if}
 	</section>
 </article>

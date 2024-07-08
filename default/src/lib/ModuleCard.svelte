@@ -1,22 +1,22 @@
 <script lang="ts">
-import ModuleIcon from "$lib/ModuleIcon.svelte";
-import { MODULES_COLORS } from "$lib/colors";
+	import ModuleIcon from '$lib/ModuleIcon.svelte';
+	import { moduleColor } from '$lib/colors';
 
-export let module: {
-	name: string;
-	displayName: string;
-	shortDescription: string;
-};
+	export let module: {
+		name: string;
+		displayName: string;
+		shortDescription: string;
+	};
 </script>
 
 <a
-	style:--color="var(--{MODULES_COLORS[module.name] ?? 'fg'})"
+	style:--color="var(--{moduleColor(module.name) ?? 'fg'})"
 	href="/{module.name}"
 	class="module-link"
 >
 	<div class="card">
 		<h4 class="toc-exclude">
-			<ModuleIcon big name={module.name}></ModuleIcon>
+			<ModuleIcon big {...module}></ModuleIcon>
 			{module.displayName}
 		</h4>
 		<p>{module.shortDescription}</p>

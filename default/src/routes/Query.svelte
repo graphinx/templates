@@ -17,6 +17,7 @@
 	import ArgType from './ArgType.svelte';
 	import { linkToItem } from '$lib/links';
 	import type { ModuleItem } from 'graphinx';
+	import TypeDef from './TypeDef.svelte';
 
 	export let schema: GraphQLSchema;
 	export let allItems: ModuleItem[];
@@ -28,6 +29,7 @@
 
 	$: item = allItems.find((i) => i.name === query.name);
 	$: args = query.args ?? [];
+	$: unwrappedReturnType = firstNonWrapperType(query.type);
 
 	let mobile = false;
 	onMount(() => {
@@ -38,10 +40,13 @@
 		if (isEnumType(t)) return 'enum';
 		return isNamedType(t) ? t.name : t.ofType ? syntaxHighlightTypeName(t.ofType) : 'Unknown';
 	}
-
-	function expandTypedef(t: GraphQLType): boolean {
+	// if the item's return type is only referenced in one type, and it's an object, we can expand it into its fields
+	function expandTypedef(t: GraphQLType) {
 		const name = firstNonWrapperType(t)?.name ?? '';
-		return name.includes('Input') || name.includes('HealthCheck');
+		const item = allItems.find((i) => i.name === name);
+		if (!item) return false;
+		console.log({ item, n: query.name });
+		return item.referencedBy.length === 1;
 	}
 
 	function firstNonWrapperType(t: GraphQLType): GraphQLNamedType | null {
@@ -76,13 +81,18 @@
 					this={typeIsEnumAndWasExpanded ? 'a' : 'span'}
 					href="#{query.name}"
 					class="field-name">{query.name}</svelte:element
-				>: <ArgType
-					{allItems}
-					{schema}
-					bind:enumWasExpanded={typeIsEnumAndWasExpanded}
-					typ={query.type}
-				></ArgType></code
-			>
+				>:
+			</code><ArgType
+				linkify={!unwrappedReturnType || !expandTypedef(unwrappedReturnType)}
+				noExpandEnums={Boolean(unwrappedReturnType && expandTypedef(unwrappedReturnType))}
+				{allItems}
+				{schema}
+				bind:enumWasExpanded={typeIsEnumAndWasExpanded}
+				typ={query.type}
+			></ArgType>
+			{#if unwrappedReturnType && expandTypedef(unwrappedReturnType)}
+				<TypeDef headingLevel={null} {allItems} {schema} type={unwrappedReturnType}></TypeDef>
+			{/if}
 		{:else}
 			<code class="no-color"
 				>{query.name}({#if !mobile}&#8203;{/if}{#if args && args.length >= (mobile ? 3 : 5)}<span

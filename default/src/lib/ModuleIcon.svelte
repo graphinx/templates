@@ -1,23 +1,28 @@
 <script lang="ts">
-import { kebabToPascal } from "./casing";
-import { MODULES_COLORS } from "./colors";
+	import { moduleColor } from './colors';
+	import ModuleAllIcon from './icons/ModuleAllIcon.svelte';
 
-export let name: string;
-export let inline = false;
-export let big = false;
+	export let name: string;
+	export let iconSvg: string | undefined = undefined;
+	export let inline = false;
+	export let big = false;
 </script>
 
-{#await import(`$lib/icons/Module${kebabToPascal(name.replace('.', ''))}Icon.svelte`) then icon}
+{#if iconSvg || name === 'index'}
 	<div
 		class:inline
 		class:big
 		class="icon"
 		{...$$restProps}
-		style:--color="var(--{MODULES_COLORS[name]})"
+		style:--color="var(--{moduleColor(name)})"
 	>
-		<svelte:component this={icon.default} />
+		{#if name === 'index'}
+			<ModuleAllIcon />
+		{:else}
+			{@html iconSvg}
+		{/if}
 	</div>
-{/await}
+{/if}
 
 <style>
 	.icon.inline {

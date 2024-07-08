@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { data } from '$lib/data.generated';
 	import ModuleCard from '$lib/ModuleCard.svelte';
 	import type { Module } from 'graphinx';
 
@@ -10,7 +11,11 @@
 		<ModuleCard {module} />
 	{/each}
 	<ModuleCard
-		module={{ name: 'all', displayName: 'Tout', shortDescription: 'Tout sur une seule page' }}
+		module={{
+			name: 'index',
+			displayName: data.config.modules?.index?.title ?? 'Index',
+			shortDescription: data.config.modules?.index?.description ?? 'Every item on a single page'
+		}}
 	/>
 </section>
 

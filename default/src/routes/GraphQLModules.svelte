@@ -2,7 +2,7 @@
 	import { dev } from '$app/environment';
 	import { page } from '$app/stores';
 	import ModuleIcon from '$lib/ModuleIcon.svelte';
-	import { MODULES_COLORS } from '$lib/colors';
+	import { moduleColor } from '$lib/colors';
 	import EditIcon from '$lib/icons/EditIcon.svelte';
 	import ExternalLinkIcon from '$lib/icons/ExternalLinkIcon.svelte';
 	import type { Module, ModuleItem } from 'graphinx';
@@ -29,11 +29,11 @@
 	}
 </script>
 
-{#each modules as { name, displayName, renderedDocs, types, queries, mutations, subscriptions, contributeURL, sourceCodeURL }}
-	<section class="module" id={name} style:--color="var(--{MODULES_COLORS[name]})">
+{#each modules as { name, displayName, renderedDocs, types, queries, mutations, subscriptions, contributeURL, sourceCodeURL, iconSvg }}
+	<section class="module" id={name} style:--color="var(--{moduleColor(name)})">
 		{#if renderTitle}
 			<h2 data-toc-title={displayName}>
-				<ModuleIcon inline {name}></ModuleIcon>
+				<ModuleIcon inline {iconSvg} {name}></ModuleIcon>
 
 				{displayName}
 
@@ -61,7 +61,7 @@
 				{@const type = findTypeInSchema(schema, typeName)}
 				{#if type}
 					{@const item = allItems.find((i) => i.name === typeName)}
-					{#if !item?.connection && !item?.result}
+					{#if !item?.connection && !item?.result && item.referencedBy.length !== 1}
 						<TypeDef
 							{schema}
 							{allItems}

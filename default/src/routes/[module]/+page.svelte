@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ModuleIcon from '$lib/ModuleIcon.svelte';
-	import { MODULES_COLORS } from '$lib/colors';
+	import { moduleColor } from '$lib/colors';
 	import EditIcon from '$lib/icons/EditIcon.svelte';
 	import { buildSchema } from 'graphql';
 	import GraphQlModules from '../GraphQLModules.svelte';
@@ -22,7 +22,7 @@
 	{#if data.modules.length === 1}
 		{@const module = data.modules[0]}
 
-		<ModuleIcon --module-color={MODULES_COLORS[module.name]} inline name={module.name}></ModuleIcon>
+		<ModuleIcon --module-color={moduleColor(module.name)} inline {...module}></ModuleIcon>
 
 		{module.displayName}
 

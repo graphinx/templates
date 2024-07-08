@@ -51,12 +51,17 @@
         "PUBLIC_API_URL",
         "PUBLIC_DEFAULT_RATE_LIMIT"
       ]
+    },
+    "metadata": {
+      "modules": {
+        "color": "A color name to use as that module's accent color. Available color names are pink, red, orange, blue, cyan, magenta, green and yellow"
+      }
     }
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
     "fuse.js": "^7.0.0",
-    "graphinx": "0.9.0",
+    "graphinx": "^0.10.0",
     "graphql": "^16.9.0",
     "linkifyjs": "^4.1.3",
     "svelte-param-store": "^0.0.4"
