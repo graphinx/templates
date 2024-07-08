@@ -57,7 +57,24 @@
 	<SearchBar bind:query></SearchBar>
 </section>
 
-<section class="description">{@html data.descriptionHtml}</section>
+<section class="description">
+	{@html data.descriptionHtml}
+
+	{#if data.queryTypeDescriptionHtml}
+		<h2>Queries</h2>
+		{@html data.queryTypeDescriptionHtml}
+	{/if}
+
+	{#if data.mutationTypeDescriptionHtml}
+		<h2>Mutations</h2>
+		{@html data.mutationTypeDescriptionHtml}
+	{/if}
+
+	{#if data.subscriptionTypeDescriptionHtml}
+		<h2>Subscriptions</h2>
+		{@html data.subscriptionTypeDescriptionHtml}
+	{/if}
+</section>
 
 <h2>Modules</h2>
 <ModulesList modules={data.modules} />
