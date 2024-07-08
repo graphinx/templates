@@ -6,6 +6,7 @@
 	import { findTypeInSchema } from '$lib/schema-utils';
 	import type { ModuleItem } from 'graphinx';
 	import {
+		GraphQLInterfaceType,
 		type GraphQLNamedType,
 		type GraphQLSchema,
 		isEnumType,
@@ -13,7 +14,8 @@
 		isInterfaceType,
 		isObjectType,
 		isScalarType,
-		isUnionType
+		isUnionType,
+		Kind
 	} from 'graphql';
 	import ArgType from './ArgType.svelte';
 	import Query from './Query.svelte';
@@ -22,8 +24,17 @@
 	export let type: GraphQLNamedType;
 	export let allItems: ModuleItem[];
 	export let schema: GraphQLSchema;
-	export let renderTitle = false;
-	export let moduleName: string;
+	export let headingLevel: null | 'h3' | 'h4' = 'h3';
+	export let moduleName: string | undefined = undefined;
+	$: implementedInterfaces = (
+		isObjectType(type)
+			? type
+					.getInterfaces()
+					.map((intf) => [intf, allItems.find((i) => i.name === intf.name)])
+					.filter(([, i]) => Boolean(i))
+			: []
+	) as Array<[GraphQLInterfaceType, ModuleItem]>;
+	$: moduleName ??= allItems.find((i) => i.name === type.name)?.moduleName;
 	$: item = allItems.find((i) => i.name === type.name);
 	$: fields =
 		isObjectType(type) || isInputObjectType(type) || isInterfaceType(type)
@@ -31,21 +42,29 @@
 			: [];
 </script>
 
-<article>
+<article class:tight={!headingLevel}>
 	<section class="doc">
-		<HashLink
-			data-toc-title={type.name}
-			element={renderTitle ? 'h4' : 'h3'}
-			href={linkToItem(item)}
-		>
-			{#if type.astNode?.kind}
-				<TypeKindIndicator kind={type.astNode?.kind}></TypeKindIndicator>
-			{/if}
-			<code class="no-color">{type.name}</code>
-			{#if item?.sourceCodeURL}
-				<a href={item.sourceCodeURL} class="source-code">[src]</a>
-			{/if}
-		</HashLink>
+		{#if headingLevel}
+			<HashLink data-toc-title={type.name} element={headingLevel} href={linkToItem(item)}>
+				{#if type.astNode?.kind}
+					<TypeKindIndicator kind={type.astNode?.kind}></TypeKindIndicator>
+				{/if}
+				<code class="no-color">{type.name}</code>
+				{#if item?.sourceCodeURL}
+					<a href={item.sourceCodeURL} class="source-code">[src]</a>
+				{/if}
+				{#if implementedInterfaces.length > 0}
+					<span class="implements">
+						<em>implements</em>
+						{#each implementedInterfaces.entries() as [i, [intf, item]]}
+							{#if i > 0},
+							{/if}
+							<a href={linkToItem(item)}>{item.name}</a>
+						{/each}
+					</span>
+				{/if}
+			</HashLink>
+		{/if}
 		{#await markdownToHtml(type.description ?? '', allItems) then doc}
 			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html doc}
@@ -62,6 +81,30 @@
 					</li>
 				{/each}
 			</ul>
+			{#each implementedInterfaces as [intf, item]}
+				{@const intfFields = Object.values(intf.getFields()).filter(
+					(f) => !fields.some((f2) => f2.name === f.name)
+				)}
+				{#if intfFields.length > 0}
+					<p class="from-interface">
+						<em
+							title="Those fields are available on {type.name} because it implements the {intf.name} interface"
+							>from</em
+						>
+						<a href={linkToItem(item)} title={intf.description}>
+							<TypeKindIndicator kind={Kind.INTERFACE_TYPE_DEFINITION}></TypeKindIndicator>
+							{item.name}
+						</a>
+					</p>
+					<ul>
+						{#each intfFields as field}
+							<li>
+								<Query {allItems} {schema} kind="field" query={field}></Query>
+							</li>
+						{/each}
+					</ul>
+				{/if}
+			{/each}
 		{:else if isEnumType(type)}
 			<ul>
 				{#each type.getValues() ?? [] as { name, description }}
@@ -109,6 +152,26 @@
 
 <style>
 	.source-code {
+		margin-left: 1em;
+	}
+
+	article.tight {
+		margin: 0;
+	}
+
+	.implements {
+		font-size: 0.75em;
+		font-weight: normal;
+		margin-left: 0.5em;
+	}
+
+	.from-interface {
+		font-size: 0.75em;
+	}
+
+	.from-interface em,
+	.implements em {
+		margin-right: 0.75em;
 		margin-left: 1em;
 	}
 </style>

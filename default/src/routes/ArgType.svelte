@@ -21,6 +21,7 @@
 	import { drillToNamedType } from '$lib/schema-utils';
 
 	export let schema: GraphQLSchema;
+	export let linkify = true;
 	export let allItems: ModuleItem[];
 	export let typ: GraphQLType;
 	export let inline = false;
@@ -45,7 +46,6 @@
 		underlyingType = drillToNamedType(schema.getType(resultSuccessType.name)) ?? underlyingType;
 	$: if (connectionNodeType)
 		underlyingType = drillToNamedType(schema.getType(connectionNodeType.name)) ?? underlyingType;
-
 
 	export let enumWasExpanded = false;
 	$: enumWasExpanded = willExpandEnum(typ);
@@ -87,16 +87,15 @@
 
 <!-- Need to avoid extraneous whitespace, so the code is ugly like that. Sowwy ._. -->
 {#if !typ}(none){:else}{#if isEnumType(typ)}{#if !willExpandEnum(typ)}<a
-				href={linkToItem(item)}
+				href={linkify ? linkToItem(item) : undefined}
 				title={(enumValues || []).map((v) => v.name).join(' | ')}
 				class="type enum">{typ.name}</a
 			>{:else}{#if nullable}({/if}{#each Object.entries(enumValues) as [i, value]}<span
-					class="type enum enum-value"
-					>{value.name}</span
+					class="type enum enum-value">{value.name}</span
 				>{#if Number(i) < enumValues.length - 1}<span class="type enum enum-value-separator"
 						>&nbsp;|&#x20;</span
 					>{/if}{/each}{#if nullable}){/if}{/if}{:else if isInputObjectType(typ)}<a
-			href={linkToItem(item)}
+			href={linkify ? linkToItem(item) : undefined}
 			class="type input">{typ.name}</a
 		>{:else if isInterfaceType(typ)}<span class="type interface">{typ.name}</span
 		>{:else if isListType(typ)}<span class="type array">[</span><svelte:self
@@ -126,7 +125,7 @@
 					{nullable}
 					typ={underlyingType}
 				></svelte:self>&gt;</span
-			>{:else}<a class="type object" href={linkToItem(item)}>{typ.name}</a
+			>{:else}<a class="type object" href={linkify ? linkToItem(item) : undefined}>{typ.name}</a
 			>{/if}{:else if isScalarType(typ)}<span class="type scalar">{typ.name}</span
 		>{:else if isUnionType(typ)}{#if resultSuccessType}<span class="type errorable"
 				><span
@@ -148,9 +147,10 @@
 						<svelte:self {schema} {allItems} nullable={false} noExpandEnums {inline} typ={value}
 						></svelte:self>{#if Number(i) < getUnionValues(typ).length - 1}&nbsp;<strong>|</strong
 							>&nbsp;{/if}{/each}</span
-				>{#if nullable}){/if}{:else}<a href={linkToItem(item)}>{typ.name}</a>{/if}{/if}{:else}<span
-			class="type unknown">unknown</span
-		>{/if}<span class:nullable class:non-nullable={isNonNullType(typ)}
+				>{#if nullable}){/if}{:else}<a href={linkify ? linkToItem(item) : undefined}>{typ.name}</a
+				>{/if}{/if}{:else}<span class="type unknown">unknown</span>{/if}<span
+		class:nullable
+		class:non-nullable={isNonNullType(typ)}
 		>{#if invertNullabilitySign}{#if !isNonNullType(typ) && nullable}{#if explicitNullabilitySign}&nbsp;|&#x20;null{:else}<span
 						title="Peut être null">?</span
 					>{/if}{/if}{:else if isNonNullType(typ)}!{/if}</span

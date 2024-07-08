@@ -62,7 +62,13 @@
 				{#if type}
 					{@const item = allItems.find((i) => i.name === typeName)}
 					{#if !item?.connection && !item?.result}
-						<TypeDef {schema} {allItems} moduleName={name} {type} {renderTitle} />
+						<TypeDef
+							{schema}
+							{allItems}
+							moduleName={name}
+							{type}
+							headingLevel={renderTitle ? 'h4' : 'h3'}
+						/>
 					{/if}
 				{:else if dev}
 					<article class="error">
