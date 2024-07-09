@@ -2,6 +2,11 @@
 
 See [Graphinx's main repository](https://github.com/graphinx/graphinx) for more information.
 
-List of templates:
+## List of templates
 
 - [default](./default)
+- [markdown](./markdown)
+
+## Contributing a new template
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md)
