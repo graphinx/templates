@@ -18,7 +18,7 @@ Here's how to create a new template:
         - `variables`: an array of env variables to put in the file
     - `metadata`: Serves as documentation only for now
         - `modules`: Object mapping metadata keys to a description. Documents metadata that can be passed to modules' intro through YAML frontmatter.
-4. Specify a script named `build`, that graphinx will run after installing dependencies
+4. Specify a `package.json` script named `build`, that graphinx will run after installing dependencies
 
 ### Multiple templates in one repository
 
