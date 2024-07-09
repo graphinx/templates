@@ -40,8 +40,8 @@
   },
   "homepage": "https://github.com/graphinx/templates/tree/main/markdown#readme",
   "dependencies": {
-    "graphql": "^16.9.0",
-    "graphinx": "^0.10.0"
+    "graphinx": "^0.11.0",
+    "graphql": "^16.9.0"
   },
   "scripts": {
     "build": "tsx src/entrypoint.ts",
