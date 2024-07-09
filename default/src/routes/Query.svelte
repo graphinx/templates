@@ -45,13 +45,20 @@
 		const name = firstNonWrapperType(t)?.name ?? '';
 		const item = allItems.find((i) => i.name === name);
 		if (!item) return false;
-		console.log({ item, n: query.name });
 		return item.referencedBy.length === 1;
 	}
 
 	function firstNonWrapperType(t: GraphQLType): GraphQLNamedType | null {
 		if (!isNamedType(t)) return t.ofType ? firstNonWrapperType(t.ofType) : null;
 		return t;
+	}
+
+	function defaultValueString(v: unknown): string {
+		try {
+			return JSON.stringify(v);
+		} catch (error) {
+			return `(unserializable: ${error})`;
+		}
 	}
 
 	$: hash = kind !== 'field' ? linkToItem(item) : undefined;
@@ -154,7 +161,7 @@
 							<span class="default-value">
 								<code class="no-color">
 									= <span class="literal {pascalToKebab(syntaxHighlightTypeName(arg.type))}"
-										>{arg.defaultValue}</span
+										>{defaultValueString(arg.defaultValue)}</span
 									>
 								</code>
 							</span>
