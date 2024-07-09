@@ -1,0 +1,54 @@
+{
+  "name": "@graphinx/markdown",
+  "version": "0.11.0",
+  "module": "dist/index.js",
+  "type": "module",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "graphinx": {
+    "inject": "src/data.generated.ts",
+    "pages": "out",
+    "static": "out",
+    "output": "out"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "nodemon": "^3.1.4",
+    "tsx": "^4.16.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/graphinx/templates.git#main"
+  },
+  "keywords": [
+    "graphinx",
+    "graphinx-template"
+  ],
+  "author": "Ewen Le Bihan <hey@ewen.works>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/graphinx/templates/issues"
+  },
+  "homepage": "https://github.com/graphinx/templates/tree/main/markdown#readme",
+  "dependencies": {
+    "graphql": "^16.9.0",
+    "graphinx": "^0.10.0"
+  },
+  "scripts": {
+    "build": "tsx src/entrypoint.ts",
+    "make:source": "bun build ./src/index.ts --target node --outdir ./dist",
+    "make:declaration": "tsc --project tsconfig.type.json --outdir ./dist",
+    "dev": "bun mock-data && nodemon -e ts . --exec 'bun run build'",
+    "release": "mkdir -p dist && bun make:source && bun make:declaration && npm publish --access public",
+    "mock-data": "graphinx -c ../../graphinx/example/.graphinx.yaml --generate ./src/data.generated.ts"
+  }
+}

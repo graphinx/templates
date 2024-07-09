@@ -44,6 +44,8 @@
   "graphinx": {
     "inject": "src/lib/data.generated.ts",
     "pages": "src/routes",
+    "output": "build",
+    "static": "static",
     "dotenv": {
       "path": ".env",
       "variables": [
