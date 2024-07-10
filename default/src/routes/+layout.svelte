@@ -7,6 +7,7 @@
 	import { currentTheme, setupThemeListener } from '$lib/theme';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
+	import TryIt from '$lib/TryIt.svelte';
 
 	export let data: LayoutData;
 
@@ -18,6 +19,8 @@
 	<link rel="stylesheet" href="/fonts.css" />
 	<link rel="stylesheet" href="/colors.css" />
 </svelte:head>
+
+<TryIt />
 
 <main class:floating-toc={$tocIsFloating}>
 	<div class="toc" class:floating={$tocIsFloating}>

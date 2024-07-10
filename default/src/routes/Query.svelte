@@ -18,6 +18,7 @@
 	import { linkToItem } from '$lib/links';
 	import type { ModuleItem } from 'graphinx';
 	import TypeDef from './TypeDef.svelte';
+	import * as tryit from '$lib/TryIt.svelte';
 
 	export let schema: GraphQLSchema;
 	export let allItems: ModuleItem[];
@@ -116,6 +117,12 @@
 							>{/if}{#if Number(i) < args.length - 1},&#x20;&#8203;{/if}{/each}{/if})</code
 			>&#x20;&rarr;&nbsp;<code class="no-color"
 				><ArgType {allItems} {schema} inline typ={query.type}></ArgType></code
+			>
+			<button
+				on:click={() =>
+					tryit.summon(
+						`query {\n\t${query.name}${query.args.length > 0 ? `(${query.args.map((a) => `a: ${a.defaultValue ? JSON.stringify(a.defaultValue) : 'null'}`)})` : ''} ${'fields' in query.type ? '{\n\t\t__typename\n\t}' : ''}\n}`
+					)}>try</button
 			>
 		{/if}
 	</HashLink>
