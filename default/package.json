@@ -3,23 +3,25 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "vite dev",
+    "dev": "test -f .env || cp .env.example .env && test -d ../.example || yarn seed && vite dev",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
     "format": "prettier --write .",
-    "rebuild-graphinx": "cd ../../graphinx && bun dev-tarball && cd example && yarn && yarn graphinx --generate ../../graphinx-templates/default/src/lib/data.generated.ts && cd ../../graphinx-templates/default && yarn add graphinx@file:../../graphinx/dev-tarballs/graphinx.tgz && yarn"
+    "seed": "rm -rf ../.example && mkdir ../.example && degit graphinx/graphinx/example ../.example && graphinx --config ../.example/.graphinx.yaml generate src/lib/data.generated.ts"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.1",
     "@sveltejs/kit": "^2.5.5",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
+    "@types/degit": "^2",
     "@types/eslint": "8.56.7",
     "@types/lodash.throttle": "^4.1.9",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
+    "degit": "^2.8.4",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.35.1",
