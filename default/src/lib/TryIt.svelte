@@ -1,35 +1,55 @@
 <script lang="ts" context="module">
 	export function summon(defaultDocument: string) {
 		tryitText.set(defaultDocument);
+		tryitOpen.set(true);
 		const dialog = document.getElementById('tryit') as HTMLDialogElement;
 		dialog.showModal();
+	}
+
+	export function close() {
+		const dialog = document.getElementById('tryit') as HTMLDialogElement;
+		dialog.close();
+		tryitOpen.set(false);
 	}
 </script>
 
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { PUBLIC_API_URL } from '$env/static/public';
 	import CodeMirror, { basicSetup } from '$lib/CodeMirror.svelte';
 	import { data } from '$lib/data.generated';
 	import { graphql as graphqlLangageSupport } from 'cm6-graphql';
 	import { buildSchema, Kind, parse, type DocumentNode, type TypeNode } from 'graphql';
+	import hljs from 'highlight.js';
+	import 'highlight.js/styles/atom-one-dark-reasonable.min.css';
 	import { onMount, tick } from 'svelte';
-	import { writable, type Writable } from 'svelte/store';
+	import { type Writable } from 'svelte/store';
+	import { fade } from 'svelte/transition';
+	import ButtonRainbowOutline from './ButtonRainbowOutline.svelte';
 	import CloseIcon from './icons/CloseIcon.svelte';
+	import CollapseIcon from './icons/CollapseIcon.svelte';
+	import ExpandIcon from './icons/ExpandIcon.svelte';
 	import PadlockIcon from './icons/PadlockIcon.svelte';
 	import PlayIcon from './icons/PlayIcon.svelte';
-	import { tryitText } from './tryit';
-	import { PUBLIC_API_URL } from '$env/static/public';
-	import ExpandIcon from './icons/ExpandIcon.svelte';
-	import CollapseIcon from './icons/CollapseIcon.svelte';
-	import 'highlight.js/styles/atom-one-dark-reasonable.min.css';
-	import hljs from 'highlight.js';
-	import { highlightActiveLine } from '@codemirror/view';
-	import { fade } from 'svelte/transition';
-	import { browser } from '$app/environment';
-	import ButtonRainbowOutline from './ButtonRainbowOutline.svelte';
+	import {
+		authenticationType,
+		authorizationHeader,
+		logout,
+		maybeFinishAuthentication,
+		startAuthentication,
+		tryitOpen,
+		tryitText,
+		tryitVariables
+	} from './tryit';
+	import { page } from '$app/stores';
 
 	let schema = buildSchema(data.schema);
 	let docStore: Writable<string> | undefined;
 	let token: string | null = null;
+
+	let authentificationAvailable = Boolean(authenticationType());
+
+	$: if (!$tryitVariables) $tryitVariables = {};
 
 	let resultDataHeight = 0;
 	onMount(async () => {
@@ -100,11 +120,11 @@
 			method: 'post',
 			body: JSON.stringify({
 				query: $docStore,
-				variables: variableValues
+				variables: $tryitVariables
 			}),
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: token ? `Bearer ${token}` : '',
+				...authorizationHeader(token),
 				...headerDefs
 			}
 		})
@@ -124,53 +144,46 @@
 		sending = false;
 	}
 
-	let variableValues: Record<string, string> = {};
-	let headerDefs: Record<string, string> = {
-		// 'X-Custom-Header': 'feur'
-	};
+	let headerDefs: Record<string, string> = {};
 
 	let dialog: HTMLDialogElement;
 
-	onMount(() => {
-		$tryitText = `mutation l($password: String!) { 
-				login(email: "lebihae", password: $password)  { 
-					...on MutationLoginSuccess {
-						data{token}
-					}
-					...on Error {
-						message
-					}
-				}
-			}`;
-		variableDefs = [['password', 'String!']];
-		variableValues = { password: 'feur' };
-		dialog.showModal();
+	onMount(async () => {
+		const maybeToken = await maybeFinishAuthentication($page.url);
+		if (maybeToken) token = maybeToken;
 	});
+
+	$: if ($tryitOpen) dialog.showModal();
 </script>
 
 <dialog id="tryit" bind:this={dialog}>
 	<div class="modal-content">
 		<header>
 			<h1>Test it live!</h1>
-			<button
-				on:click={() => {
-					const newVal = token ? null : 'quoicoufeurshikanokono';
-					console.log(`Token: ${token} -> ${newVal}`);
-					token = newVal;
-				}}
-				class="auth"
-				style:color="var(--{token ? 'red' : 'cyan'})"
-			>
-				<PadlockIcon unlocked={Boolean(token)} />
-				{#if token}
-					Log out
-				{:else}
-					Authenticate
-				{/if}
+			{#if authentificationAvailable}
+				<button
+					on:click={async () => {
+						if (token) {
+							await logout();
+							token = null;
+						} else {
+							await startAuthentication();
+						}
+					}}
+					class="auth"
+					style:color="var(--{token ? 'red' : 'cyan'})"
+				>
+					<PadlockIcon unlocked={Boolean(token)} />
+					{#if token}
+						Log out
+					{:else}
+						Authenticate
+					{/if}
 
-				<!-- <dialog id="tryit-auth"></dialog> -->
-			</button>
-			<button class="close" on:click={() => dialog.close()}>
+					<!-- <dialog id="tryit-auth"></dialog> -->
+				</button>
+			{/if}
+			<button class="close regular" on:click={close}>
 				<CloseIcon />
 			</button>
 		</header>
@@ -265,7 +278,7 @@
 								name="${name}"
 								id="tryit-variable-{name}"
 								placeholder={type}
-								bind:value={variableValues[name]}
+								bind:value={$tryitVariables[name]}
 							/>
 						</dd>
 					{/each}
@@ -274,10 +287,10 @@
 			<div class="headers">
 				<h2>Headers</h2>
 				<dl>
-					{#if token}
-						<dt>Authorization</dt>
-						<dd class="locked">Bearer {@html '&bull;'.repeat(token.length)}</dd>
-					{/if}
+					{#each Object.entries(authorizationHeader(token?.replaceAll(/./g, '&bull;'))) as [key, value] (key)}
+						<dt><label for="tryit-header-{key}">{key}</label></dt>
+						<dd class="locked">{@html value}</dd>
+					{/each}
 					{#each Object.keys(headerDefs) as key (key)}
 						<dt><label for="tryit-header-{key}">{key}</label></dt>
 						<dd>
@@ -348,17 +361,17 @@
 		font-size: 2rem;
 	}
 
-	.editor button.regular:hover,
-	.editor button.regular:focus-visible {
+	button.regular:hover,
+	button.regular:focus-visible {
 		background-color: var(--bg);
 		border-color: color-mix(in srgb, var(--fg) 50%, var(--shadow));
 	}
 
-	.editor button.regular:active {
+	button.regular:active {
 		border-color: var(--fg);
 	}
 
-	.editor button.regular {
+	button.regular {
 		padding: 0.5em;
 		border-radius: 0.5em;
 		display: flex;
@@ -490,6 +503,20 @@
 	.editor dd.locked {
 		border: 2px dashed var(--bg);
 		color: var(--muted);
+		overflow-x: hidden;
+		white-space: nowrap;
+		position: relative;
+	}
+
+	/* Fade out overflowing value */
+	.editor dd.locked::after {
+		content: '';
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 20%;
+		background: linear-gradient(to left, var(--shadow) 0%, transparent 100%);
 	}
 
 	.editor dd:not(.locked) {

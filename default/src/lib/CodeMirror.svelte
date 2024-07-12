@@ -2,7 +2,7 @@
 <script context="module" lang="ts">
 	import { EditorView, minimalSetup, basicSetup } from 'codemirror';
 	import { ViewPlugin } from '@codemirror/view';
-	import { StateEffect } from '@codemirror/state';
+	import { EditorState, StateEffect } from '@codemirror/state';
 	export { minimalSetup, basicSetup };
 </script>
 
@@ -23,6 +23,8 @@
 	});
 
 	export let view = null;
+
+	let state: EditorState | null = null;
 
 	/* `doc` is deliberately made non-reactive for not storing a reduntant string
    besides the editor. Also, setting doc to undefined will not trigger an
@@ -112,11 +114,17 @@
 			return false;
 		}
 
+		state = EditorState.create({
+			doc: initialDoc,
+			extensions
+		});
+
 		view = new EditorView({
 			doc: initialDoc,
 			extensions,
 			parent: dom,
-			dispatchTransactions: _editorTxHandler
+			dispatchTransactions: _editorTxHandler,
+			state
 		});
 		return true;
 	}
