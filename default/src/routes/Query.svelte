@@ -127,7 +127,7 @@
 				><ArgType {allItems} {schema} inline typ={query.type}></ArgType></code
 			>
 			{#if tryitQuery}
-				<button on:click={() => tryit.summon(tryitQuery)}>try</button>
+				<button on:click={async () => tryit.summon(tryitQuery)}>try</button>
 			{/if}
 		{/if}
 	</HashLink>

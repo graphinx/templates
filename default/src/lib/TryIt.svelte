@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
-	export function summon(defaultDocument: string) {
-		tryitText.set(defaultDocument);
+	export async function summon(defaultDocument: string | Promise<string>) {
+		tryitText.set(await defaultDocument);
 		tryitOpen.set(true);
 		const dialog = document.getElementById('tryit') as HTMLDialogElement;
 		dialog.showModal();
@@ -262,7 +262,7 @@
 							<pre class="errored">{serverError}</pre>
 						{:else}
 							<pre
-								style:height={resultDataHeight - resultHeaderHeight + 'px'}
+								style:height={resultDataHeight - 2*resultHeaderHeight + 'px'}
 								class="data">{@html serverDataHighlighted}</pre>
 						{/if}
 					</section>

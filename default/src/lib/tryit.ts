@@ -22,6 +22,11 @@ import {
 	type GraphQLInputType
 } from 'graphql';
 import PKCE from 'js-pkce';
+// @ts-expect-error dont know why but it works so f it
+import * as prettier from 'prettier/standalone.mjs';
+// @ts-expect-error dont know why but it works so f it
+import parserGraphql from 'prettier/plugins/graphql.mjs';
+// const parserGraphql = parsers.graphql;
 import { get, writable } from 'svelte/store';
 import { drillToNamedType } from './schema-utils';
 
@@ -134,7 +139,7 @@ export function restoreTryitState() {
 	tryitOpen.set(JSON.parse(sessionStorage.getItem('tryitOpen') || 'false'));
 }
 
-export function exampleQuery(
+export async function exampleQuery(
 	schema: GraphQLSchema,
 	kind: 'query' | 'mutation' | 'subscription' | 'field',
 	query: GraphQLField<unknown, unknown>
@@ -152,14 +157,13 @@ export function exampleQuery(
 			.map(
 				(a) =>
 					`${a.name}: ${exampleValue({
-						...a,
-						indentation: query.args.length >= 3 ? 2 : 0
+						...a
 					})}`
 			);
 		if (filledArgs.length < 3) {
 			field += `(${filledArgs.join(', ')})`;
 		} else {
-			field += `(\n${filledArgs.join(',\n')}\n\t)`;
+			field += `(\n${filledArgs.join(',\n')}\n)`;
 		}
 	}
 
@@ -173,40 +177,36 @@ export function exampleQuery(
 			if (a.name.toLowerCase().includes('Error')) return -1;
 			return 1;
 		})[0];
-		selection = `{\n\t\t... on ${possibleType.name} ${exampleSelection(possibleType, 2)}\n\t}`;
+		selection = `{\n... on ${possibleType.name} ${exampleSelection(possibleType, 2)}\n}`;
 	}
 
-	return `${kind} {
-	${field} ${selection}
-}`;
+	return prettier.format(`${kind} { ${field} ${selection} }`, {
+		parser: 'graphql',
+		plugins: [parserGraphql]
+	});
 }
 
 function exampleValue({
 	type,
-	defaultValue,
-	indentation = 0
+	defaultValue
 }: {
 	type: GraphQLInputType;
 	defaultValue?: unknown;
-	indentation?: number;
 }): string {
-	if (indentation < 0) indentation = 0;
-	const indent = '\t'.repeat(indentation);
-
 	if (defaultValue !== undefined && defaultValue !== null) {
-		return indent + JSON.stringify(defaultValue);
+		return JSON.stringify(defaultValue);
 	}
 
 	if (isNonNullType(type)) {
-		return exampleValue({ defaultValue, type: type.ofType, indentation });
+		return exampleValue({ defaultValue, type: type.ofType });
 	}
 
 	if (isListType(type)) {
-		return `[${exampleValue({ defaultValue, type: type.ofType, indentation })}]`;
+		return `[${exampleValue({ defaultValue, type: type.ofType })}]`;
 	}
 
 	if (isEnumType(type)) {
-		return indent + type.getValues()[0].name;
+		return type.getValues()[0].name;
 	}
 
 	if (isInputObjectType(type)) {
@@ -215,57 +215,47 @@ function exampleValue({
 		) as Array<GraphQLArgument & { type: GraphQLNonNull<GraphQLInputType> }>;
 
 		const filledFields = requiredFields.map(
-			(f) =>
-				`${f.name}: ${exampleValue({ type: f.type.ofType, defaultValue: f.defaultValue, indentation })}`
+			(f) => `${f.name}: ${exampleValue({ type: f.type.ofType, defaultValue: f.defaultValue })}`
 		);
 
-		return (
-			indent +
-			(filledFields.length < 3
-				? `{${filledFields.join(', ')}}`
-				: `{\n\t\t${filledFields.join(',\n\t\t')}\n\t}`)
-		);
+		return filledFields.length < 3
+			? `{${filledFields.join(', ')}}`
+			: `{\n${filledFields.join(',\n')}\n}`;
 	}
 
 	if (isScalarType(type)) {
 		switch (type.name) {
 			case 'String':
-				return indent + '"example"';
+				return '"example"';
 			case 'Int':
-				return indent + '42';
+				return '42';
 			case 'Float':
-				return indent + '3.14';
+				return '3.14';
 			case 'Boolean':
-				return indent + 'true';
+				return 'true';
 			default:
-				return indent + '"example"';
+				return '"example"';
 		}
 	}
 
-	return indent + 'null';
+	return 'null';
 }
 
-function exampleSelection(
-	type: GraphQLObjectType,
-	indentation: number,
-	hideProtip = false
-): string {
+function exampleSelection(type: GraphQLObjectType, hideProtip = false): string {
 	const field = Object.values(type.getFields())[0];
-	const indent = '\t'.repeat(indentation);
 
 	const protip =
 		!hideProtip && Object.values(type.getFields()).length > 1
-			? `\n${indent}\t# other fields...\n${indent}\t# protip: use ctrl+space\n${indent}`
+			? `\n# other fields...\n# protip: use ctrl+space\n`
 			: '';
 
-	if (!field) return `{\n${indent}\t__typename${protip}}`;
+	if (!field) return `{\n__typename${protip}}`;
 	if (field && isObjectType(drillToNamedType(field.type))) {
 		const innerSelection = exampleSelection(
 			drillToNamedType(field.type) as GraphQLObjectType,
-			indentation + 1,
 			Boolean(protip)
 		);
-		return `{\n${indent}\t${field.name} ${innerSelection}${protip}\n${indent}}`;
+		return `{\n${field.name} ${innerSelection}${protip}\n}`;
 	}
-	return `{\n${indent}\t${field.name}${protip}\n${indent}}`;
+	return `{\n${field.name}${protip}\n}`;
 }
