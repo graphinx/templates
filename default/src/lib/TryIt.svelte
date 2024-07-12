@@ -252,7 +252,14 @@
 						<dt>
 							<label for="tryit-variable-{name}">${name}</label>
 						</dt>
-						<dd>
+						<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+						<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<dd
+							on:click={(e) => {
+								if (e.target !== e.currentTarget) return;
+								e.currentTarget.querySelector('input')?.focus();
+							}}
+						>
 							<input
 								type="text"
 								name="${name}"
@@ -408,6 +415,10 @@
 		font-size: 0.9rem;
 	}
 
+	.result-data .errored {
+		color: var(--red);
+	}
+
 	.editor > div {
 		padding: 0 1.5em;
 		border-radius: 1rem;
@@ -472,6 +483,8 @@
 		border-radius: 0.5em;
 		margin-left: 0;
 		padding: 0.5em 1em;
+		border: 2px solid transparent;
+
 	}
 
 	.editor dd.locked {
@@ -483,6 +496,14 @@
 		background-color: var(--bg);
 	}
 
+	.editor dd:hover {
+		border-color: var(--muted);
+	}
+
+	.editor dd:focus-within {
+		border-color: var(--fg);
+	}
+
 	.editor dd input {
 		background-color: var(--bg);
 		border: none;
@@ -490,6 +511,11 @@
 		font-size: 1em;
 		color: currentColor;
 		width: 100%;
+	}
+
+	.editor dd input:focus {
+		border: none;
+		outline: none;
 	}
 
 	.editor dd input::placeholder {

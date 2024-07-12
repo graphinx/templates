@@ -2,7 +2,7 @@
 	export let stopped = true;
 </script>
 
-<button on:click {...$$restProps} class="rainbow" class:stopped>
+<button on:click {...$$restProps} class:stopped>
 	<slot />
 </button>
 
@@ -13,16 +13,12 @@
 		box-sizing: border-box;
 	}
 
-	.rainbow {
-		--bg: #e22ba5;
-	}
-
-	.rainbow[disabled] {
+	button[disabled] {
 		--bg: #db49ab;
-        cursor: wait;
+		cursor: wait;
 	}
 
-	.rainbow.stopped::before {
+	button.stopped::before {
 		animation: none;
 		opacity: 0;
 		animation:
@@ -52,7 +48,11 @@
 		--bg: #a81078;
 	}
 
-	.rainbow {
+	button {
+		--width: 3px;
+		--border-color: var(--blue);
+		--bg: #e22ba5;
+
 		position: relative;
 		z-index: 0;
 		transition: all 0.2s ease;
@@ -85,7 +85,7 @@
 			width: 200%;
 			height: 200%;
 			scale: 2;
-			background-color: var(--cyan);
+			background-color: var(--border-color);
 			background-repeat: no-repeat;
 			background-size:
 				50% 50%,
@@ -95,13 +95,12 @@
 				100% 0,
 				100% 100%,
 				0 100%;
-			background-image: linear-gradient(var(--cyan), var(--cyan)),
+			background-image: linear-gradient(var(--border-color), var(--border-color)),
 				linear-gradient(var(--bg), var(--bg)), linear-gradient(var(--bg), var(--bg)),
 				linear-gradient(var(--bg), var(--bg));
 		}
 
 		&::after {
-			--width: 2px;
 			content: '';
 			position: absolute;
 			z-index: -1;
@@ -114,7 +113,7 @@
 		}
 	}
 
-	.rainbow::before {
+	button::before {
 		animation: rotation 1s ease infinite;
 	}
 

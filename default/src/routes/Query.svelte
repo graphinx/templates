@@ -121,7 +121,7 @@
 			<button
 				on:click={() =>
 					tryit.summon(
-						`query {\n\t${query.name}${query.args.length > 0 ? `(${query.args.map((a) => `a: ${a.defaultValue ? JSON.stringify(a.defaultValue) : 'null'}`)})` : ''} ${'fields' in query.type ? '{\n\t\t__typename\n\t}' : ''}\n}`
+						`query {\n\t${query.name}${query.args.length > 0 ? `(${query.args.map((a) => `${a.name}: ${a.defaultValue ? JSON.stringify(a.defaultValue) : 'null'}`).join(', ')})` : ''} ${unwrappedReturnType && 'fields' in unwrappedReturnType ? '{\n\t\t__typename\n\t}' : ''}\n}`
 					)}>try</button
 			>
 		{/if}
