@@ -69,6 +69,7 @@
     "cheerio": "^1.0.0-rc.12",
     "cm6-graphql": "patch:cm6-graphql@npm%3A0.0.15#~/.yarn/patches/cm6-graphql-npm-0.0.15-fe23fd2b32.patch",
     "codemirror": "^6.0.1",
+    "format-graphql": "^1.5.0",
     "fuse.js": "^7.0.0",
     "graphinx": "^0.11.0",
     "graphql": "^16.9.0",

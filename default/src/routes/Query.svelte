@@ -5,13 +5,19 @@
 	import { pascalToKebab } from '$lib/casing';
 	import { markdownToHtml } from '$lib/markdown';
 	import {
+		type GraphQLArgument,
+		GraphQLEnumType,
 		type GraphQLField,
 		type GraphQLNamedType,
 		type GraphQLSchema,
 		type GraphQLType,
 		isEnumType,
 		isInputObjectType,
-		isNamedType
+		isListType,
+		isNamedType,
+		isNonNullType,
+		isObjectType,
+		isScalarType
 	} from 'graphql';
 	import { onMount } from 'svelte';
 	import ArgType from './ArgType.svelte';
@@ -19,6 +25,7 @@
 	import type { ModuleItem } from 'graphinx';
 	import TypeDef from './TypeDef.svelte';
 	import * as tryit from '$lib/TryIt.svelte';
+	import { exampleQuery } from '$lib/tryit';
 
 	export let schema: GraphQLSchema;
 	export let allItems: ModuleItem[];
@@ -62,6 +69,7 @@
 		}
 	}
 
+	$: tryitQuery = exampleQuery(schema, kind, query);
 	$: hash = kind !== 'field' ? linkToItem(item) : undefined;
 	$: showArgumentTypesInHeader = !mobile && !(kind === 'field' && args.length > 2);
 
@@ -118,12 +126,9 @@
 			>&#x20;&rarr;&nbsp;<code class="no-color"
 				><ArgType {allItems} {schema} inline typ={query.type}></ArgType></code
 			>
-			<button
-				on:click={() =>
-					tryit.summon(
-						`query {\n\t${query.name}${query.args.length > 0 ? `(${query.args.map((a) => `${a.name}: ${a.defaultValue ? JSON.stringify(a.defaultValue) : 'null'}`).join(', ')})` : ''} ${unwrappedReturnType && 'fields' in unwrappedReturnType ? '{\n\t\t__typename\n\t}' : ''}\n}`
-					)}>try</button
-			>
+			{#if tryitQuery}
+				<button on:click={() => tryit.summon(tryitQuery)}>try</button>
+			{/if}
 		{/if}
 	</HashLink>
 	{#if query.description}

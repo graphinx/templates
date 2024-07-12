@@ -52,16 +52,24 @@
 	$: if (!$tryitVariables) $tryitVariables = {};
 
 	let resultDataHeight = 0;
+	let resultHeaderHeight = 0;
 	onMount(async () => {
 		if (!browser) return;
 		const result = document.querySelector('.result');
 		const resultHeader = document.querySelector('.result h2');
 		await tick();
-		if (result && resultHeader)
-			resultDataHeight =
-				result.getBoundingClientRect().height - resultHeader.getBoundingClientRect().height;
-		console.log(result?.getBoundingClientRect());
-		console.log({ resultDataHeight });
+		if (result && resultHeader) {
+			resultHeaderHeight = resultHeader.getBoundingClientRect().height;
+			await tick();
+			resultDataHeight = result.getBoundingClientRect().height - resultHeaderHeight;
+		}
+		// listen for .result height changes
+		const observer = new ResizeObserver((entries) => {
+			for (let entry of entries) {
+				resultDataHeight = entry.contentRect.height - resultHeaderHeight;
+			}
+		});
+		if (result) observer.observe(result);
 	});
 
 	function ensureMinimumNewlines(text: string, min: number) {
@@ -119,7 +127,7 @@
 		await fetch(PUBLIC_API_URL, {
 			method: 'post',
 			body: JSON.stringify({
-				query: $docStore,
+				query: $docStore || $tryitText,
 				variables: $tryitVariables
 			}),
 			headers: {
@@ -253,7 +261,9 @@
 						{:else if serverError}
 							<pre class="errored">{serverError}</pre>
 						{:else}
-							<pre class="data">{@html serverDataHighlighted}</pre>
+							<pre
+								style:height={resultDataHeight - resultHeaderHeight + 'px'}
+								class="data">{@html serverDataHighlighted}</pre>
 						{/if}
 					</section>
 				{/key}
@@ -497,7 +507,6 @@
 		margin-left: 0;
 		padding: 0.5em 1em;
 		border: 2px solid transparent;
-
 	}
 
 	.editor dd.locked {
