@@ -1,0 +1,19 @@
+<script lang="ts">
+	export let unlocked = false;
+</script>
+
+{#if unlocked}
+	<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+		><path
+			fill="currentColor"
+			d="M7 10h13a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 13.262-3.131l-1.789.894A5 5 0 0 0 7 9zm-2 2v8h14v-8zm5 3h4v2h-4z"
+		/></svg
+	>
+{:else}
+	<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+		><path
+			fill="currentColor"
+			d="M19 10h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1V9a7 7 0 0 1 14 0zM5 12v8h14v-8zm6 2h2v4h-2zm6-4V9A5 5 0 0 0 7 9v1z"
+		/></svg
+	>
+{/if}
