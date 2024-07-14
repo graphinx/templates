@@ -36,3 +36,19 @@
 		filter: invert(1);
 	}
 }
+
+.hljs-attr {
+	color: var(--orange) !important;
+}
+.hljs-number {
+	color: var(--yellow) !important;
+}
+.hljs-string {
+	color: var(--green) !important;
+}
+.hljs-punctuation {
+	color: var(--muted) !important;
+}
+.hljs-literal {
+	color: var(--yellow) !important;
+}
