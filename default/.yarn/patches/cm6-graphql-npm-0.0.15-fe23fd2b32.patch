@@ -1,0 +1,12 @@
+diff --git a/package.json b/package.json
+index 74a3fb5832c89819856a7e8f51eb2c2a44cbd50c..f67af9a54d662e4980361398fa2b63875e12ea59 100644
+--- a/package.json
++++ b/package.json
+@@ -2,6 +2,7 @@
+   "name": "cm6-graphql",
+   "version": "0.0.15",
+   "description": "GraphQL language support for CodeMirror 6",
++  "type": "module",
+   "scripts": {
+     "build": "cm-buildhelper src/index.ts",
+     "prepare": "yarn build",

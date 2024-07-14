@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { beforeNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import GraphinxCredits from '$lib/GraphinxCredits.svelte';
 	import TableOfContents, { tocIsFloating } from '$lib/TableOfContents.svelte';
+	import TryIt from '$lib/TryIt.svelte';
 	import { loadColorNames } from '$lib/colors';
 	import { currentTheme, setupThemeListener } from '$lib/theme';
+	import { restoreTryitState, saveTryitState } from '$lib/tryit';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
 
@@ -12,12 +15,16 @@
 
 	onMount(loadColorNames);
 	onMount(setupThemeListener);
+	onMount(restoreTryitState);
+	beforeNavigate(() => saveTryitState());
 </script>
 
 <svelte:head>
 	<link rel="stylesheet" href="/fonts.css" />
 	<link rel="stylesheet" href="/colors.css" />
 </svelte:head>
+
+<TryIt />
 
 <main class:floating-toc={$tocIsFloating}>
 	<div class="toc" class:floating={$tocIsFloating}>
