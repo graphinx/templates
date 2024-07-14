@@ -237,7 +237,7 @@ export async function exampleQuery(
 			if (a.name.toLowerCase().includes('Error')) return -1;
 			return 1;
 		})[0];
-		selection = `{\n... on ${possibleType.name} ${exampleSelection(possibleType, 2)}\n}`;
+		selection = `{\n... on ${possibleType.name} ${exampleSelection(possibleType)}\n}`;
 	}
 
 	return prettier.format(`${kind} { ${field} ${selection} }`, {
@@ -313,7 +313,7 @@ function exampleSelection(type: GraphQLObjectType, hideProtip = false): string {
 	if (field && isObjectType(drillToNamedType(field.type))) {
 		const innerSelection = exampleSelection(
 			drillToNamedType(field.type) as GraphQLObjectType,
-			Boolean(protip)
+			true
 		);
 		return `{\n${field.name} ${innerSelection}${protip}\n}`;
 	}

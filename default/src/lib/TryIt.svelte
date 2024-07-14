@@ -44,7 +44,9 @@
 		tryitVariables
 	} from './tryit';
 	import { page } from '$app/stores';
+	import { theme as codemirrorTheme } from './codemirror';
 
+	let dialog: HTMLDialogElement;
 	let schema = buildSchema(data.schema);
 	let docStore: Writable<string> | undefined;
 	let token: string | null = null;
@@ -55,29 +57,30 @@
 
 	let resultDataHeight = 0;
 	let resultHeaderHeight = 0;
-	async function computeHeights() {
-		if (!browser) return;
-		const result = document.querySelector('.result');
-		const resultHeader = document.querySelector('.result h2');
+	async function computeDimensions() {
+		if (!browser || !dialog) return;
+		const editor = dialog.querySelector('.modal-content');
+		const result = editor?.querySelector('.result');
+		const resultHeader = editor?.querySelector('.result h2');
 		await tick();
-		if (result && resultHeader) {
-			resultHeaderHeight = resultHeader.getBoundingClientRect().height;
+		if (result && resultHeader && editor) {
 			await tick();
+			resultHeaderHeight = resultHeader.getBoundingClientRect().height;
 			resultDataHeight = result.getBoundingClientRect().height - resultHeaderHeight;
 		}
 	}
 
 	onMount(async () => {
-		await computeHeights();
+		await computeDimensions();
 		// listen for .result height changes
 		const observer = new ResizeObserver(() => {
-			computeHeights();
+			computeDimensions();
 		});
 		const result = document.querySelector('.result');
 		if (result) observer.observe(result);
 	});
 
-	tryitOpen.subscribe(computeHeights);
+	tryitOpen.subscribe(computeDimensions);
 
 	function ensureMinimumNewlines(text: string, min: number) {
 		let lines = text.split('\n');
@@ -163,8 +166,6 @@
 	let newHeaderKey = '';
 	let newHeaderValue = '';
 
-	let dialog: HTMLDialogElement;
-
 	onMount(async () => {
 		const maybeToken = await maybeFinishAuthentication($page.url);
 		if (maybeToken) token = maybeToken;
@@ -202,6 +203,20 @@
 				<CloseIcon />
 			</button>
 		</header>
+		<section class="execute">
+			<ButtonRainbowOutline disabled={sending} stopped={!sending} on:click={sendRequest}>
+				<div class="play-icon">
+					{#if sending}
+						<span class="animated-dots">
+							<span class="dot-1">·</span><span class="dot-2">·</span><span class="dot-3">·</span>
+						</span>
+					{:else}
+						<PlayIcon />
+					{/if}
+				</div>
+				Execute
+			</ButtonRainbowOutline>
+		</section>
 		<section class="editor" data-expanded-zone={expandedZone}>
 			<div class="codemirror">
 				<h2>
@@ -219,23 +234,11 @@
 						{/if}
 					</button>
 				</h2>
-				<CodeMirror bind:docStore doc="" extensions={[basicSetup, graphqlLangageSupport(schema)]} />
-				<div class="actions">
-					<ButtonRainbowOutline disabled={sending} stopped={!sending} on:click={sendRequest}>
-						<div class="play-icon">
-							{#if sending}
-								<span class="animated-dots">
-									<span class="dot-1">·</span><span class="dot-2">·</span><span class="dot-3"
-										>·</span
-									>
-								</span>
-							{:else}
-								<PlayIcon />
-							{/if}
-						</div>
-						Execute
-					</ButtonRainbowOutline>
-				</div>
+				<CodeMirror
+					bind:docStore
+					doc=""
+					extensions={[basicSetup, graphqlLangageSupport(schema), codemirrorTheme]}
+				/>
 			</div>
 			<div class="result">
 				<h2>
@@ -364,7 +367,7 @@
 		max-width: 1200px;
 		padding: 0.5em 2em;
 		display: grid;
-		grid-template-rows: 5rem auto;
+		grid-template-rows: 5rem 2rem auto;
 	}
 
 	button {
@@ -416,11 +419,14 @@
 		border: transparent 2px solid;
 	}
 
-	.codemirror .actions {
-		position: absolute;
-		bottom: 1rem;
-		right: 1rem;
+	.execute {
+		position: sticky;
 		z-index: 10;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		height: 3rem;
 	}
 
 	.play-icon {
@@ -431,10 +437,10 @@
 	}
 
 	.editor .codemirror {
-		background-color: white;
+		/* background-color: white;
 		color: black;
 		--fg: black;
-		--bg: white;
+		--bg: white; */
 		position: relative;
 		overflow: auto;
 	}
@@ -471,7 +477,7 @@
 	.editor > div {
 		padding: 0 1.5em;
 		border-radius: 1rem;
-		background-color: var(--shadow);
+		background-color: var(--bg-darker);
 		transition: opacity 200ms ease;
 	}
 
@@ -479,7 +485,6 @@
 	.editor .headers {
 		overflow: auto;
 	}
-
 
 	.editor .variables h2 + p {
 		margin-top: -1rem;
@@ -530,7 +535,7 @@
 		column-gap: 0.75rem;
 		row-gap: 1rem;
 	}
-	
+
 	.editor dt {
 		display: flex;
 		align-self: center;

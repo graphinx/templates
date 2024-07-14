@@ -2,8 +2,11 @@
 	/* Colors by function */
 	--fg: white;
 	--bg: #050d1b;
+	--bg-darker: #0b1a33;
 	--shadow: #0a192f;
+	--shadow-2: #1f3658;
 	--muted: #536686;
+	--selection-on-shadow: #8bb0ff33;
 
 	/* Colors by name */
 	--green: #1fda6d;
@@ -20,7 +23,10 @@
 	:root {
 		--fg: #050d1b;
 		--bg: #e4f5fc;
+		--bg-darker: #d0e1e9;
+		--selection-on-shadow: #0b224927;
 		--shadow: #c5dae2;
+		--shadow-2: #96b4be;
 		--muted: #536686;
 		--green: #05b950;
 		--magenta: #b15be2;
