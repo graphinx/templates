@@ -1,13 +1,15 @@
 <script lang="ts" context="module">
 	export async function summon(defaultDocument: string | Promise<string>) {
+		const dialog = document.getElementById('tryit') as HTMLDialogElement;
+		if (!dialog) return;
 		tryitText.set(await defaultDocument);
 		tryitOpen.set(true);
-		const dialog = document.getElementById('tryit') as HTMLDialogElement;
 		dialog.showModal();
 	}
 
 	export function close() {
 		const dialog = document.getElementById('tryit') as HTMLDialogElement;
+		if (!dialog) return;
 		dialog.close();
 		tryitOpen.set(false);
 	}
@@ -53,7 +55,7 @@
 
 	let resultDataHeight = 0;
 	let resultHeaderHeight = 0;
-	onMount(async () => {
+	async function computeHeights() {
 		if (!browser) return;
 		const result = document.querySelector('.result');
 		const resultHeader = document.querySelector('.result h2');
@@ -63,14 +65,19 @@
 			await tick();
 			resultDataHeight = result.getBoundingClientRect().height - resultHeaderHeight;
 		}
+	}
+
+	onMount(async () => {
+		await computeHeights();
 		// listen for .result height changes
-		const observer = new ResizeObserver((entries) => {
-			for (let entry of entries) {
-				resultDataHeight = entry.contentRect.height - resultHeaderHeight;
-			}
+		const observer = new ResizeObserver(() => {
+			computeHeights();
 		});
+		const result = document.querySelector('.result');
 		if (result) observer.observe(result);
 	});
+
+	tryitOpen.subscribe(computeHeights);
 
 	function ensureMinimumNewlines(text: string, min: number) {
 		let lines = text.split('\n');
@@ -153,6 +160,8 @@
 	}
 
 	let headerDefs: Record<string, string> = {};
+	let newHeaderKey = '';
+	let newHeaderValue = '';
 
 	let dialog: HTMLDialogElement;
 
@@ -161,7 +170,7 @@
 		if (maybeToken) token = maybeToken;
 	});
 
-	$: if ($tryitOpen) dialog.showModal();
+	$: if ($tryitOpen) dialog?.showModal();
 </script>
 
 <dialog id="tryit" bind:this={dialog}>
@@ -175,7 +184,7 @@
 							await logout();
 							token = null;
 						} else {
-							await startAuthentication();
+							await startAuthentication(docStore ? $docStore : undefined);
 						}
 					}}
 					class="auth"
@@ -187,8 +196,6 @@
 					{:else}
 						Authenticate
 					{/if}
-
-					<!-- <dialog id="tryit-auth"></dialog> -->
 				</button>
 			{/if}
 			<button class="close regular" on:click={close}>
@@ -262,14 +269,15 @@
 							<pre class="errored">{serverError}</pre>
 						{:else}
 							<pre
-								style:height={resultDataHeight - 2*resultHeaderHeight + 'px'}
-								class="data">{@html serverDataHighlighted}</pre>
+								style:height={resultDataHeight - resultHeaderHeight + 'px'}
+								class="data"><!-- eslint-disable svelte/no-at-html-tags -->{@html serverDataHighlighted}</pre>
 						{/if}
 					</section>
 				{/key}
 			</div>
 			<div class="variables">
 				<h2>Variables</h2>
+				<p>Add variables to your GraphQL document, give them values here</p>
 				<dl>
 					{#each variableDefs as [name, type] (name)}
 						<dt>
@@ -299,8 +307,26 @@
 				<dl>
 					{#each Object.entries(authorizationHeader(token?.replaceAll(/./g, '&bull;'))) as [key, value] (key)}
 						<dt><label for="tryit-header-{key}">{key}</label></dt>
+						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 						<dd class="locked">{@html value}</dd>
 					{/each}
+					<dt class="new-header">
+						<input type="text" placeholder="New header..." bind:value={newHeaderKey} />
+					</dt>
+					<dd class="new-header">
+						<input
+							type="text"
+							placeholder="Value"
+							bind:value={newHeaderValue}
+							on:blur={() => {
+								if (newHeaderKey && newHeaderValue) {
+									headerDefs[newHeaderKey] = newHeaderValue;
+									newHeaderKey = '';
+									newHeaderValue = '';
+								}
+							}}
+						/>
+					</dd>
 					{#each Object.keys(headerDefs) as key (key)}
 						<dt><label for="tryit-header-{key}">{key}</label></dt>
 						<dd>
@@ -454,6 +480,14 @@
 		overflow: auto;
 	}
 
+
+	.editor .variables h2 + p {
+		margin-top: -1rem;
+		margin-bottom: 1rem;
+		padding-top: 0;
+		color: var(--muted);
+	}
+
 	.editor > div h2 {
 		display: flex;
 		align-items: center;
@@ -496,20 +530,21 @@
 		column-gap: 0.75rem;
 		row-gap: 1rem;
 	}
-
+	
 	.editor dt {
 		display: flex;
 		align-self: center;
+		max-width: 100px;
 	}
 
-	.editor dd {
+	.editor dl > * {
 		border-radius: 0.5em;
 		margin-left: 0;
 		padding: 0.5em 1em;
 		border: 2px solid transparent;
 	}
 
-	.editor dd.locked {
+	.editor dl > .locked {
 		border: 2px dashed var(--bg);
 		color: var(--muted);
 		overflow-x: hidden;
@@ -518,7 +553,7 @@
 	}
 
 	/* Fade out overflowing value */
-	.editor dd.locked::after {
+	.editor dl > .locked::after {
 		content: '';
 		position: absolute;
 		right: 0;
@@ -528,19 +563,19 @@
 		background: linear-gradient(to left, var(--shadow) 0%, transparent 100%);
 	}
 
-	.editor dd:not(.locked) {
+	.editor dl > :has(input) {
 		background-color: var(--bg);
 	}
 
-	.editor dd:hover {
+	.editor dl > *:has(input):hover {
 		border-color: var(--muted);
 	}
 
-	.editor dd:focus-within {
+	.editor dl > *:has(input):focus-within {
 		border-color: var(--fg);
 	}
 
-	.editor dd input {
+	.editor dl input {
 		background-color: var(--bg);
 		border: none;
 		padding: none;
@@ -549,12 +584,12 @@
 		width: 100%;
 	}
 
-	.editor dd input:focus {
+	.editor dl input:focus {
 		border: none;
 		outline: none;
 	}
 
-	.editor dd input::placeholder {
+	.editor dl input::placeholder {
 		color: var(--muted);
 	}
 

@@ -15,6 +15,9 @@
 	<div class="header-content">
 		<slot />
 	</div>
+	<div class="header-end">
+		<slot name="end" />
+	</div>
 </svelte:element>
 
 <style>
@@ -42,5 +45,9 @@
 		.header-content {
 			overflow: auto hidden;
 		}
+	}
+
+	.header-end {
+		margin-left: auto;
 	}
 </style>

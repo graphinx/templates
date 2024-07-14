@@ -2,30 +2,24 @@
 	import { page } from '$app/stores';
 	import HashLink from '$lib/HashLink.svelte';
 	import LiveIndicator from '$lib/LiveIndicator.svelte';
+	import * as tryit from '$lib/TryIt.svelte';
 	import { pascalToKebab } from '$lib/casing';
+	import { linkToItem } from '$lib/links';
 	import { markdownToHtml } from '$lib/markdown';
+	import { exampleQuery } from '$lib/tryit';
+	import type { ModuleItem } from 'graphinx';
 	import {
-		type GraphQLArgument,
-		GraphQLEnumType,
 		type GraphQLField,
 		type GraphQLNamedType,
 		type GraphQLSchema,
 		type GraphQLType,
 		isEnumType,
 		isInputObjectType,
-		isListType,
-		isNamedType,
-		isNonNullType,
-		isObjectType,
-		isScalarType
+		isNamedType
 	} from 'graphql';
 	import { onMount } from 'svelte';
 	import ArgType from './ArgType.svelte';
-	import { linkToItem } from '$lib/links';
-	import type { ModuleItem } from 'graphinx';
 	import TypeDef from './TypeDef.svelte';
-	import * as tryit from '$lib/TryIt.svelte';
-	import { exampleQuery } from '$lib/tryit';
 
 	export let schema: GraphQLSchema;
 	export let allItems: ModuleItem[];
@@ -43,6 +37,18 @@
 	onMount(() => {
 		mobile = window.innerWidth < 768;
 	});
+
+	/**
+	 * Used to insert the "Try it" button in line with the description
+	 * Returns [first paragraph innerHTML, rest of the html]
+	 * @param renderedMarkdown
+	 */
+	function unwrapFirstParagraph(renderedMarkdown: string): [string, string] {
+		// Parsing HTML with Regex is A-OK here since this HTML was generated from markdown
+		const firstParagraph = renderedMarkdown.match(/<p>(.*?)<\/p>/)?.[1] ?? '';
+		const rest = renderedMarkdown.replace(/<p>.*?<\/p>/, '');
+		return [firstParagraph, rest];
+	}
 
 	function syntaxHighlightTypeName(t: GraphQLType): string {
 		if (isEnumType(t)) return 'enum';
@@ -126,16 +132,32 @@
 			>&#x20;&rarr;&nbsp;<code class="no-color"
 				><ArgType {allItems} {schema} inline typ={query.type}></ArgType></code
 			>
-			{#if tryitQuery}
-				<button on:click={async () => tryit.summon(tryitQuery)}>try</button>
-			{/if}
 		{/if}
+		<svelte:fragment slot="end">
+			{#if !query.description}
+				{#await tryitQuery then q}
+					{#if q}
+						<button class="try" on:click={() => tryit.summon(q)}>Try it</button>
+					{/if}
+				{/await}
+			{/if}
+		</svelte:fragment>
 	</HashLink>
 	{#if query.description}
 		<section class="doc">
 			{#await markdownToHtml(query.description, $page.data.allResolvers) then doc}
+				{@const [firstParagraphInner, remainingHTML] = unwrapFirstParagraph(doc)}
 				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-				{@html doc}
+				<p>
+					{@html firstParagraphInner}
+					{#await tryitQuery then q}
+						{#if q}
+							<button class="try inline" on:click={() => tryit.summon(q)}>Try it</button>
+						{/if}
+					{/await}
+				</p>
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html remainingHTML}
 			{:catch error}
 				<p>Impossible de rendre la documentation pour {query.name}: {error}</p>
 			{/await}
@@ -239,5 +261,40 @@
 	.doc {
 		padding-top: 0.25rem;
 		padding-bottom: 0.75rem;
+	}
+
+	button {
+		border: none;
+		box-shadow: none;
+		font-size: 1em;
+	}
+
+	button.try {
+		margin-left: auto;
+		border: 2px solid var(--muted);
+		border-radius: 999999px;
+		padding: 0.25em 0.5em;
+		cursor: pointer;
+		font-weight: bold;
+		display: inline-block;
+		width: max-content;
+	}
+
+	button.try:hover,
+	button.try:focus-visible {
+		background-color: var(--fg);
+		border-color: var(--fg);
+		color: var(--bg);
+	}
+
+	button.try.inline {
+		padding: 0.125em 0.5em;
+		font-size: 0.85em;
+	}
+
+	@media (max-width: 700px) {
+		button.try {
+			display: none;
+		}
 	}
 </style>

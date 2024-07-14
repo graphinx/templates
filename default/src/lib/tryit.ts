@@ -1,5 +1,9 @@
 import {
+	PUBLIC_API_URL,
 	PUBLIC_AUTH_HEADER,
+	PUBLIC_AUTH_LOGOUT_QUERY,
+	PUBLIC_AUTH_QUERY,
+	PUBLIC_AUTH_QUERY_PATH,
 	PUBLIC_AUTH_TYPE,
 	PUBLIC_OAUTH_AUTHORIZE_URL,
 	PUBLIC_OAUTH_CLIENT_ID,
@@ -7,9 +11,9 @@ import {
 	PUBLIC_OAUTH_TOKEN_URL
 } from '$env/static/public';
 import {
-	GraphQLNonNull,
-	GraphQLObjectType,
-	GraphQLSchema,
+	type GraphQLNonNull,
+	type GraphQLObjectType,
+	type GraphQLSchema,
 	isEnumType,
 	isInputObjectType,
 	isListType,
@@ -34,11 +38,10 @@ export const tryitText = writable('');
 export const tryitOpen = writable(false);
 export const tryitVariables = writable<Record<string, string>>({});
 
-export function authenticationType(): 'OAuth' | 'OpenID' | 'UserPassword' | null {
-	if (['OAuth', 'OpenID', 'UserPassword'].includes(PUBLIC_AUTH_TYPE)) {
-		return PUBLIC_AUTH_TYPE as 'OAuth' | 'OpenID' | 'UserPassword';
+export function authenticationType(): 'OAuth' | 'Token' | 'UserPassword' | null {
+	if (['OAuth', 'Token', 'UserPassword'].includes(PUBLIC_AUTH_TYPE)) {
+		return PUBLIC_AUTH_TYPE as 'OAuth' | 'Token' | 'UserPassword';
 	}
-	console.log(oauth2Client());
 	return null;
 }
 
@@ -74,10 +77,18 @@ function oauth2Client() {
 	});
 }
 
-export async function startAuthentication() {
+export async function startAuthentication(currentQuery: string | undefined) {
+	saveTryitState(currentQuery);
 	switch (authenticationType()) {
 		case 'OAuth':
 			return startOAuthAuthentication();
+
+		case 'UserPassword':
+			return startUserPasswordAuthentication();
+
+		case 'Token':
+			window.sessionStorage.setItem('accessToken', window.prompt('Token') ?? '');
+			return;
 
 		default:
 			break;
@@ -90,6 +101,34 @@ async function startOAuthAuthentication() {
 			tryit: 'open'
 		})
 	);
+}
+
+async function startUserPasswordAuthentication() {
+	const user = window.prompt('User');
+	const password = window.prompt('Password');
+	if (PUBLIC_AUTH_TYPE === 'Basic') {
+		window.sessionStorage.setItem('accessToken', btoa(`${user}:${password}`));
+		return;
+	}
+	const response = await fetch(PUBLIC_API_URL, {
+		method: 'post',
+		body: JSON.stringify({
+			query: PUBLIC_AUTH_QUERY,
+			variables: { user, password }
+		}),
+		headers: {
+			'Content-Type': 'application/json'
+		}
+	}).then((r) => r.json());
+	const path = PUBLIC_AUTH_QUERY_PATH.split('.').toReversed();
+	console.log({ response });
+	let token = response.data;
+	while (path.length && token) {
+		console.log({ path, token });
+		// biome-ignore lint/style/noNonNullAssertion: checked by while loop
+		token = token[path.pop()!];
+	}
+	if (typeof token === 'string') window.sessionStorage.setItem('accessToken', token);
 }
 
 export async function maybeFinishAuthentication(url: URL): Promise<string | undefined> {
@@ -117,7 +156,11 @@ export async function logout() {
 		case 'OAuth':
 			return logoutOAuth2();
 
+		case 'UserPassword':
+			return logoutUserPassword();
+
 		default:
+			window.sessionStorage.removeItem('accessToken');
 			break;
 	}
 }
@@ -126,8 +169,25 @@ async function logoutOAuth2() {
 	sessionStorage.removeItem('accessToken');
 }
 
-export function saveTryitState() {
-	sessionStorage.setItem('tryitText', get(tryitText));
+async function logoutUserPassword() {
+	if (PUBLIC_AUTH_LOGOUT_QUERY) {
+		await fetch(PUBLIC_API_URL, {
+			method: 'post',
+			body: JSON.stringify({
+				query: PUBLIC_AUTH_LOGOUT_QUERY
+			}),
+			headers: {
+				'Content-Type': 'application/json',
+				...authorizationHeader(sessionStorage.getItem('accessToken'))
+			}
+		});
+	}
+	sessionStorage.removeItem('accessToken');
+}
+
+export function saveTryitState(text = '') {
+	console.log(`saving tryit state: ${text}`);
+	sessionStorage.setItem('tryitText', text || get(tryitText));
 	sessionStorage.setItem('tryitVariables', JSON.stringify(get(tryitVariables)));
 	sessionStorage.setItem('tryitOpen', JSON.stringify(get(tryitOpen)));
 }
@@ -170,7 +230,7 @@ export async function exampleQuery(
 	let selection = '';
 
 	if (unwrappedReturnType && isObjectType(unwrappedReturnType)) {
-		selection = exampleSelection(unwrappedReturnType, 1);
+		selection = exampleSelection(unwrappedReturnType);
 	} else if (unwrappedReturnType && isUnionType(unwrappedReturnType)) {
 		const possibleType = unwrappedReturnType.getTypes().toSorted((a) => {
 			// prefer types that don't have error in their name, it's more interesting
@@ -246,7 +306,7 @@ function exampleSelection(type: GraphQLObjectType, hideProtip = false): string {
 
 	const protip =
 		!hideProtip && Object.values(type.getFields()).length > 1
-			? `\n# other fields...\n# protip: use ctrl+space\n`
+			? '\n# other fields...\n# protip: use ctrl+space\n'
 			: '';
 
 	if (!field) return `{\n__typename${protip}}`;

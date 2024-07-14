@@ -16,7 +16,7 @@
 	onMount(loadColorNames);
 	onMount(setupThemeListener);
 	onMount(restoreTryitState);
-	beforeNavigate(saveTryitState);
+	beforeNavigate(() => saveTryitState());
 </script>
 
 <svelte:head>
