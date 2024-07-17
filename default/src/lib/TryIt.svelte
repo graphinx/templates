@@ -50,6 +50,7 @@
 	let schema = buildSchema(data.schema);
 	let docStore: Writable<string> | undefined;
 	let token: string | null = null;
+	let authenticating = false;
 
 	let authentificationAvailable = Boolean(authenticationType());
 
@@ -167,8 +168,10 @@
 	let newHeaderValue = '';
 
 	onMount(async () => {
+		authenticating = true;
 		const maybeToken = await maybeFinishAuthentication($page.url);
 		if (maybeToken) token = maybeToken;
+		authenticating = false;
 	});
 
 	$: if ($tryitOpen) dialog?.showModal();
@@ -185,14 +188,26 @@
 							await logout();
 							token = null;
 						} else {
+							authenticating = true;
 							await startAuthentication(docStore ? $docStore : undefined);
+							token = window.sessionStorage.getItem('accessToken');
+							authenticating = false;
+							if (!token) {
+								serverError = "Couldn't authenticate";
+								await new Promise((r) => setTimeout(r, 1000));
+								serverError = '';
+							}
 						}
 					}}
 					class="auth"
 					style:color="var(--{token ? 'red' : 'cyan'})"
 				>
 					<PadlockIcon unlocked={Boolean(token)} />
-					{#if token}
+					{#if authenticating}
+						Authenticating<span class="animated-dots">
+							<span class="dot-1">·</span><span class="dot-2">·</span><span class="dot-3">·</span>
+						</span>
+					{:else if token}
 						Log out
 					{:else}
 						Authenticate

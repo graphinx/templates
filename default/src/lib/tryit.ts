@@ -120,14 +120,15 @@ async function startUserPasswordAuthentication() {
 			'Content-Type': 'application/json'
 		}
 	}).then((r) => r.json());
-	const path = PUBLIC_AUTH_QUERY_PATH.split('.').toReversed();
-	console.log({ response });
+	const accessPathStack = PUBLIC_AUTH_QUERY_PATH.split('.').toReversed();
+	console.log({ response, path: accessPathStack, PUBLIC_AUTH_QUERY_PATH });
 	let token = response.data;
-	while (path.length && token) {
-		console.log({ path, token });
+	while (accessPathStack.length && token) {
+		console.log({ path: accessPathStack, token });
 		// biome-ignore lint/style/noNonNullAssertion: checked by while loop
-		token = token[path.pop()!];
+		token = token[accessPathStack.pop()!];
 	}
+	console.log({ token });
 	if (typeof token === 'string') window.sessionStorage.setItem('accessToken', token);
 }
 
@@ -137,6 +138,8 @@ export async function maybeFinishAuthentication(url: URL): Promise<string | unde
 			return (await maybeFinishAuthenticationOAuth2(url)) ?? undefined;
 
 		default:
+			if (sessionStorage.getItem('accessToken'))
+				return sessionStorage.getItem('accessToken') ?? undefined;
 			break;
 	}
 }
