@@ -524,6 +524,7 @@
 		grid-template-rows: auto min(250px, 40%);
 		gap: 2rem;
 		transition: all 200ms ease;
+		overflow-y: hidden;
 	}
 
 	.editor[data-expanded-zone='response'] {
