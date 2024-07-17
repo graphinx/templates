@@ -44,6 +44,10 @@
 	@media (max-width: 1000px) {
 		.header-content {
 			overflow: auto hidden;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			flex: 1;
 		}
 	}
 

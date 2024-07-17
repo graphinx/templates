@@ -97,41 +97,52 @@
 		{#if hasAvailableSubscription}
 			<LiveIndicator></LiveIndicator>
 		{/if}
-		{#if kind === 'field' && args && args.length === 0}
-			<code class="no-color"
-				><svelte:element
-					this={typeIsEnumAndWasExpanded ? 'a' : 'span'}
-					href="#{query.name}"
-					class="field-name">{query.name}</svelte:element
-				>:
-			</code><ArgType
-				linkify={!unwrappedReturnType || !expandTypedef(unwrappedReturnType)}
-				noExpandEnums={Boolean(unwrappedReturnType && expandTypedef(unwrappedReturnType))}
-				{allItems}
-				{schema}
-				bind:enumWasExpanded={typeIsEnumAndWasExpanded}
-				typ={query.type}
-			></ArgType>
-			{#if unwrappedReturnType && expandTypedef(unwrappedReturnType)}
-				<TypeDef headingLevel={null} {allItems} {schema} type={unwrappedReturnType}></TypeDef>
-			{/if}
-		{:else}
-			<code class="no-color"
-				>{query.name}({#if !mobile}&#8203;{/if}{#if args && args.length >= (mobile ? 3 : 5)}<span
-						class="too-many-args">...</span
-					>{:else}{#each Object.entries(args) as [i, { name, type, defaultValue }]}{name}{#if showArgumentTypesInHeader}:&nbsp;<ArgType
-								{allItems}
-								{schema}
-								noExpandEnums={Boolean(defaultValue)}
-								inline
-								typ={type}
-
-							></ArgType>{/if}{#if defaultValue !== null && defaultValue !== undefined}&nbsp;=&nbsp;<span
-								class="literal {pascalToKebab(syntaxHighlightTypeName(type))}">{defaultValue}</span
-							>{/if}{#if Number(i) < args.length - 1},&#x20;&#8203;{/if}{/each}{/if})</code
-			>&#x20;&rarr;&nbsp;<code class="no-color"
-				><ArgType {allItems} {schema} inline typ={query.type}></ArgType></code
+		{#if mobile}
+			<span class="simple-query-signature"
+				>{query.name}{#if args && args.length > 0 && args.length < 3}(<wbr
+					/>{#each args.entries() as [i, arg]}{#if i > 0},
+							<wbr />{/if}{arg.name}{/each}<wbr />){/if}</span
 			>
+		{:else}
+			<span class="rich-query-signature">
+				{#if kind === 'field' && args && args.length === 0}
+					<code class="no-color"
+						><svelte:element
+							this={typeIsEnumAndWasExpanded ? 'a' : 'span'}
+							href="#{query.name}"
+							class="field-name">{query.name}</svelte:element
+						>:
+					</code><ArgType
+						linkify={!unwrappedReturnType || !expandTypedef(unwrappedReturnType)}
+						noExpandEnums={Boolean(unwrappedReturnType && expandTypedef(unwrappedReturnType))}
+						{allItems}
+						{schema}
+						bind:enumWasExpanded={typeIsEnumAndWasExpanded}
+						typ={query.type}
+					></ArgType>
+					{#if unwrappedReturnType && expandTypedef(unwrappedReturnType)}
+						<TypeDef headingLevel={null} {allItems} {schema} type={unwrappedReturnType}></TypeDef>
+					{/if}
+				{:else}
+					<code class="no-color"
+						>{query.name}({#if !mobile}&#8203;{/if}{#if args && args.length >= (mobile ? 3 : 5)}<span
+								class="too-many-args">...</span
+							>{:else}{#each Object.entries(args) as [i, { name, type, defaultValue }]}{name}{#if showArgumentTypesInHeader}:&nbsp;<ArgType
+										{allItems}
+										{schema}
+										noExpandEnums={Boolean(defaultValue)}
+										inline
+										typ={type}
+
+									></ArgType>{/if}{#if defaultValue !== null && defaultValue !== undefined}&nbsp;=&nbsp;<span
+										class="literal {pascalToKebab(syntaxHighlightTypeName(type))}"
+										>{defaultValue}</span
+									>{/if}{#if Number(i) < args.length - 1},&#x20;&#8203;{/if}{/each}{/if})</code
+					>&#x20;&rarr;&nbsp;<code class="no-color"
+						><ArgType {allItems} {schema} inline typ={query.type}></ArgType></code
+					>
+				{/if}
+			</span>
 		{/if}
 		<svelte:fragment slot="end">
 			{#if !query.description}
@@ -179,7 +190,7 @@
 			{/if}
 		</section>
 	{/if}
-	{#if args.length > 0 && (args.some( (arg) => arg.description?.trim() ) || !showArgumentTypesInHeader)}
+	{#if args.length > 0 && (mobile || args.some( (arg) => arg.description?.trim() ) || !showArgumentTypesInHeader)}
 		<section class="args">
 			<p class="subtitle">Arguments</p>
 			<ul>
@@ -295,6 +306,17 @@
 	@media (max-width: 700px) {
 		button.try {
 			display: none;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.simple-query-signature {
+			display: inline;
+			word-break: break-word;
+		}
+
+		.doc :global(p) {
+			word-break: break-word;
 		}
 	}
 </style>
