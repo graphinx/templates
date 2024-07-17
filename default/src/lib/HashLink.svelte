@@ -41,12 +41,16 @@
 		align-items: center;
 	}
 
+	.header-content {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+	}
+
 	@media (max-width: 1000px) {
 		.header-content {
 			overflow: auto hidden;
-			display: flex;
 			flex-wrap: wrap;
-			align-items: center;
 			flex: 1;
 		}
 	}

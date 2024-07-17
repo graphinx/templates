@@ -207,6 +207,8 @@ export async function exampleQuery(
 	kind: 'query' | 'mutation' | 'subscription' | 'field',
 	query: GraphQLField<unknown, unknown>
 ) {
+	// TODO support subscriptions
+	if (kind === "subscription") return "";
 	if (kind === 'field') return '';
 	const unwrappedReturnType = drillToNamedType(query.type);
 	let field = query.name;

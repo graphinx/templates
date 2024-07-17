@@ -11,6 +11,7 @@ export let noInteractions = false;
 		padding: 0.25em 0.75em;
 		border: 1px currentcolor solid;
 		border-radius: 10000000px;
+		width: max-content;
 
 		/* animation: glow 1s ease infinite alternate; */
 	}

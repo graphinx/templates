@@ -1,15 +1,22 @@
 <script>
-import { page } from "$app/stores";
-import Pill from "./Pill.svelte";
+	import { page } from '$app/stores';
+	import Pill from './Pill.svelte';
+	export let href = '';
+	export let mobile = false;
 </script>
 
 <svelte:element
-	this={$page.url.pathname === '/websockets' ? 'span' : 'a'}
-	href="/websockets"
+	this={href ? 'a' : 'span'}
+	{href}
 	class="live-indicator"
-	title="Disponible aussi comme une subscription"
+	title="Also available as a subscription"
 >
-	<Pill noInteractions={$page.url.pathname === '/websockets'}><span class="dot"></span> LIVE</Pill>
+	{#if mobile}
+		<span class="dot" class:mobile></span> LIVE
+	{:else}
+		<Pill noInteractions={$page.url.pathname === '/websockets'}><span class="dot"></span> LIVE</Pill
+		>
+	{/if}
 </svelte:element>
 
 <style>
@@ -28,5 +35,9 @@ import Pill from "./Pill.svelte";
 		content: '';
 		background: currentcolor;
 		border-radius: 100000px;
+	}
+
+	.dot.mobile::before {
+		margin-right: 0.25em;
 	}
 </style>

@@ -29,9 +29,14 @@
 	// export let showReturnType = false;
 	export let typeIsEnumAndWasExpanded = false;
 
-	$: item = allItems.find((i) => i.name === query.name);
+	$: item = allItems.find((i) => i.name === query.name && i.type === kind);
 	$: args = query.args ?? [];
 	$: unwrappedReturnType = firstNonWrapperType(query.type);
+	$: hasAvailableSubscription = Boolean(subscriptionItem);
+	$: subscriptionItem =
+		kind !== 'field' && schema.getSubscriptionType()?.getFields()?.[query.name]
+			? allItems.find((i) => i.name === query.name && i.type === 'subscription')
+			: undefined;
 
 	let mobile = false;
 	onMount(() => {
@@ -94,8 +99,8 @@
 		href={hash}
 		element={kind === 'field' ? 'span' : headingLevel}
 	>
-		{#if hasAvailableSubscription}
-			<LiveIndicator></LiveIndicator>
+		{#if hasAvailableSubscription && kind !== 'subscription'}
+			<LiveIndicator {mobile} href={kind !== 'field' ? linkToItem(subscriptionItem) : ''}></LiveIndicator>
 		{/if}
 		{#if mobile}
 			<span class="simple-query-signature"
@@ -252,6 +257,10 @@
 
 	.literal.enum {
 		color: var(--yellow);
+	}
+
+	.literal.boolean {
+		color: var(--red);
 	}
 
 	.literal.int,

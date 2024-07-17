@@ -234,7 +234,7 @@
 		</section>
 		<section class="editor" data-expanded-zone={expandedZone}>
 			<div class="codemirror">
-				<h2>
+				<h2 class="toc-exclude">
 					Query
 					<button
 						class="regular"
@@ -256,7 +256,7 @@
 				/>
 			</div>
 			<div class="result">
-				<h2>
+				<h2 class="toc-exclude">
 					Result
 
 					<button
@@ -294,7 +294,7 @@
 				{/key}
 			</div>
 			<div class="variables">
-				<h2>Variables</h2>
+				<h2 class="toc-exclude">Variables</h2>
 				<p>Add variables to your GraphQL document, give them values here</p>
 				<dl>
 					{#each variableDefs as [name, type] (name)}
@@ -321,7 +321,7 @@
 				</dl>
 			</div>
 			<div class="headers">
-				<h2>Headers</h2>
+				<h2 class="toc-exclude">Headers</h2>
 				<dl>
 					{#each Object.entries(authorizationHeader(token?.replaceAll(/./g, '&bull;'))) as [key, value] (key)}
 						<dt><label for="tryit-header-{key}">{key}</label></dt>
