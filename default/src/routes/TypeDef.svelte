@@ -107,9 +107,9 @@
 			{/each}
 		{:else if isEnumType(type)}
 			<ul>
-				{#each type.getValues() ?? [] as { name, description }}
-					<li>
-						<code class="no-color">
+				{#each type.getValues() ?? [] as { name, description, deprecationReason }}
+					<li title={deprecationReason}>
+						<code class="no-color" class:deprecated={deprecationReason}>
 							{#if description}
 								<strong>{name}</strong>
 							{:else}{name}{/if}
@@ -171,5 +171,9 @@
 	.implements em {
 		margin-right: 0.75em;
 		margin-left: 1em;
+	}
+
+	.deprecated {
+		text-decoration: line-through;
 	}
 </style>

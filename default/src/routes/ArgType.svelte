@@ -6,6 +6,7 @@
 		type GraphQLEnumValue,
 		type GraphQLNamedType,
 		type GraphQLObjectType,
+		GraphQLScalarType,
 		type GraphQLSchema,
 		type GraphQLType,
 		isEnumType,
@@ -19,6 +20,7 @@
 		isUnionType
 	} from 'graphql';
 	import { drillToNamedType } from '$lib/schema-utils';
+	import LinkIcon from '$lib/icons/LinkIcon.svelte';
 
 	export let schema: GraphQLSchema;
 	export let linkify = true;
@@ -30,7 +32,7 @@
 	export let invertNullabilitySign = true;
 	export let explicitNullabilitySign = false;
 	export let underlyingType: GraphQLNamedType | undefined = undefined;
-
+	
 	$: item = isNamedType(typ) ? allItems.find((i) => i.name === typ.name) : undefined;
 	$: resultSuccessType = item?.result?.successDataType
 		? allItems.find((i) => i.name === item.result?.successDataType)
@@ -103,12 +105,14 @@
 			{allItems}
 			noExpandEnums={true}
 			{nullable}
+			{linkify}
 			{inline}
 			typ={typ.ofType}
 		/><span class="type array">]</span>{:else if isNonNullType(typ)}<svelte:self
 			{schema}
 			{allItems}
 			{noExpandEnums}
+			{linkify}
 			{inline}
 			nullable={false}
 			typ={typ.ofType}
@@ -122,12 +126,13 @@
 					{allItems}
 					{noExpandEnums}
 					{inline}
+					{linkify}
 					{nullable}
 					typ={underlyingType}
 				></svelte:self>&gt;</span
 			>{:else}<a class="type object" href={linkify ? linkToItem(item) : undefined}>{typ.name}</a
 			>{/if}{:else if isScalarType(typ)}<span class="type scalar">{typ.name}</span
-		>{:else if isUnionType(typ)}{#if resultSuccessType}<span class="type errorable"
+		>{:else if isUnionType(typ)}{#if item?.result?.successDataType}<span class="type errorable"
 				><span
 					class="type errorable"
 					title="May return a success object that has data in the field {data.config.errors
@@ -136,10 +141,11 @@
 				>&lt;<svelte:self
 					{schema}
 					{allItems}
+					{linkify}
 					{inline}
 					{noExpandEnums}
 					{nullable}
-					typ={underlyingType}
+					typ={underlyingType ?? new GraphQLScalarType({ name: item.result.successDataType })}
 				></svelte:self>&gt;</span
 			>{:else}
 			{#if willExpandEnum(typ)}{#if nullable}({/if}<span class="type union">

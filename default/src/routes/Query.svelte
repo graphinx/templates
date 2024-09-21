@@ -100,10 +100,11 @@
 		element={kind === 'field' ? 'span' : headingLevel}
 	>
 		{#if hasAvailableSubscription && kind !== 'subscription'}
-			<LiveIndicator {mobile} href={kind !== 'field' ? linkToItem(subscriptionItem) : ''}></LiveIndicator>
+			<LiveIndicator {mobile} href={kind !== 'field' ? linkToItem(subscriptionItem) : ''}
+			></LiveIndicator>
 		{/if}
 		{#if mobile}
-			<span class="simple-query-signature"
+			<span class="simple-query-signature" class:striked={query.deprecationReason}
 				>{query.name}{#if args && args.length > 0 && args.length < 3}(<wbr
 					/>{#each args.entries() as [i, arg]}{#if i > 0},
 							<wbr />{/if}{arg.name}{/each}<wbr />){/if}</span
@@ -111,12 +112,15 @@
 		{:else}
 			<span class="rich-query-signature">
 				{#if kind === 'field' && args && args.length === 0}
-					<code class="no-color"
+					<code
+						class="no-color"
+						class:striked={query.deprecationReason}
+						title={query.deprecationReason}
 						><svelte:element
 							this={typeIsEnumAndWasExpanded ? 'a' : 'span'}
 							href="#{query.name}"
 							class="field-name">{query.name}</svelte:element
-						>:
+						></code><code class="no-color">:
 					</code><ArgType
 						linkify={!unwrappedReturnType || !expandTypedef(unwrappedReturnType)}
 						noExpandEnums={Boolean(unwrappedReturnType && expandTypedef(unwrappedReturnType))}
@@ -180,7 +184,7 @@
 		</section>
 	{/if}
 
-	{#if 'isDeprecated' in query && query.isDeprecated}
+	{#if query.deprecationReason}
 		<section class="deprecated">
 			<p class="subtitle">Déprécié</p>
 			{#if query.deprecationReason}
@@ -282,6 +286,10 @@
 		padding-top: 0.25rem;
 		padding-bottom: 0.75rem;
 	}
+	
+	.striked {
+	    text-decoration: line-through; 
+	}
 
 	button {
 		border: none;
@@ -311,7 +319,7 @@
 		padding: 0.125em 0.5em;
 		font-size: 0.85em;
 	}
-
+	
 	@media (max-width: 700px) {
 		button.try {
 			display: none;
