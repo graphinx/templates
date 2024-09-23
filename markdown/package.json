@@ -40,7 +40,7 @@
   },
   "homepage": "https://github.com/graphinx/templates/tree/main/markdown#readme",
   "dependencies": {
-    "graphinx": "^0.11.0",
+    "graphinx": "^0.12.1",
     "graphql": "^16.9.0"
   },
   "scripts": {
