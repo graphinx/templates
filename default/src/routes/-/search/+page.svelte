@@ -2,8 +2,8 @@
 	import { page } from '$app/stores';
 	import ModuleCard from '$lib/ModuleCard.svelte';
 	import Fuse from 'fuse.js';
-	import Query from '../Query.svelte';
-	import TypeDef from '../TypeDef.svelte';
+	import Query from '../../Query.svelte';
+	import TypeDef from '../../TypeDef.svelte';
 	import type { PageData } from './$types';
 	import { buildSchema, isNamedType } from 'graphql';
 	import {

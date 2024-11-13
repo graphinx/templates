@@ -4,7 +4,7 @@
 </script>
 
 <search>
-	<form action="/search" method="get">
+	<form action="/-/search" method="get">
 		<input placeholder="Search…" bind:value={query} name="q" type="search" /><button
 			type="submit"
 		>
