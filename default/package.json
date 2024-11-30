@@ -80,7 +80,7 @@
     "codemirror": "^6.0.1",
     "format-graphql": "^1.5.0",
     "fuse.js": "^7.0.0",
-    "graphinx": "^0.12.0",
+    "graphinx": "^0.12.2",
     "graphql": "^16.9.0",
     "highlight.js": "^11.10.0",
     "js-pkce": "^1.4.0",
