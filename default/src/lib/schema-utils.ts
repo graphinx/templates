@@ -1,4 +1,4 @@
-import type { GraphQLSchema, GraphQLType } from 'graphql';
+import type { GraphQLNamedType, GraphQLSchema, GraphQLType } from 'graphql';
 import { isNamedType } from 'graphql';
 
 export function findQueryInSchema(schema: GraphQLSchema, name: string) {

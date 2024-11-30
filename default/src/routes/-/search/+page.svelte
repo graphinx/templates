@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { page } from '$app/stores';
 	import ModuleCard from '$lib/ModuleCard.svelte';
 	import Fuse from 'fuse.js';
@@ -18,32 +20,41 @@
 		return value !== null;
 	}
 
-	export let data: PageData;
-	$: ({ modules, schema: schemaRaw } = data);
-	$: schema = buildSchema(schemaRaw);
+	interface Props {
+		data: PageData;
+	}
 
-	$: queries = modules.flatMap((module) =>
-		module.queries
-			.map((q) => findQueryInSchema(schema, q))
-			.filter(nonNullable)
-			.map((q) => ({ ...q, module }))
+	let { data }: Props = $props();
+	let { modules, schema: schemaRaw } = $derived(data);
+	let schema = $derived(buildSchema(schemaRaw));
+
+	let queries = $derived(
+		modules.flatMap((module) =>
+			module.queries
+				.map((q) => findQueryInSchema(schema, q))
+				.filter(nonNullable)
+				.map((q) => ({ ...q, module }))
+		)
 	);
-	$: mutations = modules.flatMap((module) =>
-		module.mutations
-			.map((m) => findMutationInSchema(schema, m))
-			.filter(nonNullable)
-			.map((m) => ({ ...m, module }))
+	let mutations = $derived(
+		modules.flatMap((module) =>
+			module.mutations
+				.map((m) => findMutationInSchema(schema, m))
+				.filter(nonNullable)
+				.map((m) => ({ ...m, module }))
+		)
 	);
 
-	$: types = modules.flatMap((module) =>
-		module.types
-			.map((t) => findTypeInSchema(schema, t))
-			.filter(nonNullable)
-			.map((t) => ({ ...t, module }))
+	let types = $derived(
+		modules.flatMap((module) =>
+			module.types
+				.map((t) => findTypeInSchema(schema, t))
+				.filter(nonNullable)
+				.map((t) => ({ ...t, module }))
+		)
 	);
 
-	let query = '';
-	$: if (browser) query = $page.url.searchParams.get('q') || '';
+	let query = $derived($page.url.searchParams.get('q') || '');
 
 	function search(searchQuery: string) {
 		if (searchQuery.length < 3) return { resultsCount: 0, results: [], modulesResults: [] };
@@ -79,7 +90,7 @@
 		};
 	}
 
-	$: ({ resultsCount, results, modulesResults } = search(query));
+	let { resultsCount, results, modulesResults } = $derived(search(query));
 
 	function resultKind({ item }: (typeof results)[number]) {
 		if (queries.some((query) => query.name === item.name)) return 'query';

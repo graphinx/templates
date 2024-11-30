@@ -8,10 +8,15 @@
 	import { loadColorNames } from '$lib/colors';
 	import { currentTheme, setupThemeListener } from '$lib/theme';
 	import { restoreTryitState, saveTryitState } from '$lib/tryit';
-	import { onMount } from 'svelte';
+	import { onMount, type Snippet } from 'svelte';
 	import type { LayoutData } from './$types';
 
-	export let data: LayoutData;
+	interface Props {
+		data: LayoutData;
+		children?: Snippet;
+	}
+
+	let { data, children }: Props = $props();
 
 	onMount(loadColorNames);
 	onMount(setupThemeListener);
@@ -39,9 +44,9 @@
 		></TableOfContents>
 	</div>
 	<div class="content">
-		<slot />
+		{@render children?.()}
 		<footer>
-			<!-- svelte-ignore a11y-missing-attribute -->
+			<!-- svelte-ignore a11y_missing_attribute -->
 			<img src={data.config.branding.logo[$currentTheme]} aria-hidden="true" />
 			{#if data.config.footer}
 				<section>
@@ -74,7 +79,7 @@
 		transition: grid-template-columns 0.5s;
 	}
 
-	main:not(.floating-toc):has(aside.toc *) {
+	main:not(.floating-toc):has(:global(aside.toc *)) {
 		grid-template-columns: var(--toc-width) 1fr;
 	}
 
@@ -102,7 +107,7 @@
 		overflow-x: auto;
 	}
 
-	.toc:not(.floating):has(aside.toc *) + .content {
+	.toc:not(.floating):has(:global(aside.toc *)) + .content {
 		max-width: calc(100vw - 2 * var(--side-padding));
 		overflow-x: auto;
 	}

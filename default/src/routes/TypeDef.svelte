@@ -1,7 +1,7 @@
 <script lang="ts">
 	import HashLink from '$lib/HashLink.svelte';
 	import TypeKindIndicator from '$lib/TypeKindIndicator.svelte';
-	import { pascalToKebab } from '$lib/casing';
+	import { linkToItem } from '$lib/links';
 	import { markdownToHtml } from '$lib/markdown';
 	import { findTypeInSchema } from '$lib/schema-utils';
 	import type { ModuleItem } from 'graphinx';
@@ -13,37 +13,51 @@
 		isInputObjectType,
 		isInterfaceType,
 		isObjectType,
-		isScalarType,
 		isUnionType,
 		Kind
 	} from 'graphql';
 	import ArgType from './ArgType.svelte';
 	import Query from './Query.svelte';
-	import { linkToItem } from '$lib/links';
 
-	export let type: GraphQLNamedType;
-	export let allItems: ModuleItem[];
-	export let schema: GraphQLSchema;
-	export let headingLevel: null | 'h3' | 'h4' = 'h3';
-	export let moduleName: string | undefined = undefined;
-	$: implementedInterfaces = (
-		isObjectType(type)
+	interface Props {
+		type: GraphQLNamedType;
+		allItems: ModuleItem[];
+		schema: GraphQLSchema;
+		headingLevel?: null | 'h3' | 'h4';
+		moduleName?: string | undefined;
+	}
+
+	let {
+		type,
+		allItems,
+		schema,
+		headingLevel = 'h3',
+		moduleName = $bindable(undefined)
+	}: Props = $props();
+
+	let implementedInterfaces = $derived(
+		(isObjectType(type)
 			? type
 					.getInterfaces()
 					.map((intf) => [intf, allItems.find((i) => i.name === intf.name)])
 					.filter(([, i]) => Boolean(i))
-			: []
-	) as Array<[GraphQLInterfaceType, ModuleItem]>;
-	$: moduleName ??= allItems.find((i) => i.name === type.name)?.moduleName;
-	$: item = allItems.find((i) => i.name === type.name);
-	$: fields =
+			: []) as Array<[GraphQLInterfaceType, ModuleItem]>
+	);
+
+	$effect(() => {
+		moduleName ??= allItems.find((i) => i.name === type.name)?.moduleName;
+	});
+
+	let item = $derived(allItems.find((i) => i.name === type.name));
+	let fields = $derived(
 		isObjectType(type) || isInputObjectType(type) || isInterfaceType(type)
 			? Object.values(type.getFields())
-			: [];
+			: []
+	);
 </script>
 
 <article class:tight={!headingLevel}>
-	<section class="doc">
+	<!-- <section class="doc">
 		{#if headingLevel}
 			<HashLink data-toc-title={type.name} element={headingLevel} href={linkToItem(item)}>
 				{#if type.astNode?.kind}
@@ -66,13 +80,12 @@
 			</HashLink>
 		{/if}
 		{#await markdownToHtml(type.description ?? '', allItems) then doc}
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 			{@html doc}
 		{:catch error}
 			<p>Impossible de rendre la documentation pour {type.name}: {error}</p>
 		{/await}
-	</section>
-	<section class="fields">
+	</section> -->
+	<!-- <section class="fields">
 		{#if fields.length > 0}
 			<ul>
 				{#each fields as field}
@@ -116,7 +129,6 @@
 						</code>
 						<div class="doc">
 							{#await markdownToHtml(description ?? '', allItems) then doc}
-								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html doc}
 							{:catch error}
 								<p>Impossible de rendre la documentation pour {name}: {error}</p>
@@ -135,7 +147,6 @@
 						<ArgType {allItems} {schema} nullable={false} typ={t}></ArgType>
 						<div class="doc">
 							{#await markdownToHtml(t.description ?? '', allItems) then doc}
-								<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 								{@html doc}
 							{:catch error}
 								<p>Impossible de rendre la documentation pour {moduleName}: {error}</p>
@@ -145,7 +156,7 @@
 				{/each}
 			</ul>
 		{/if}
-	</section>
+	</section> -->
 </article>
 
 <style>

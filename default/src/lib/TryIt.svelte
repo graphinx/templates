@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	export async function summon(defaultDocument: string | Promise<string>) {
 		const dialog = document.getElementById('tryit') as HTMLDialogElement;
 		if (!dialog) return;
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 	import { PUBLIC_API_URL } from '$env/static/public';
 	import CodeMirror, { basicSetup } from '$lib/CodeMirror.svelte';
 	import { data } from '$lib/data.generated';
@@ -28,6 +29,7 @@
 	import { type Writable } from 'svelte/store';
 	import { fade } from 'svelte/transition';
 	import ButtonRainbowOutline from './ButtonRainbowOutline.svelte';
+	import { theme as codemirrorTheme } from './codemirror';
 	import CloseIcon from './icons/CloseIcon.svelte';
 	import CollapseIcon from './icons/CollapseIcon.svelte';
 	import ExpandIcon from './icons/ExpandIcon.svelte';
@@ -43,21 +45,21 @@
 		tryitText,
 		tryitVariables
 	} from './tryit';
-	import { page } from '$app/stores';
-	import { theme as codemirrorTheme } from './codemirror';
 
-	let dialog: HTMLDialogElement;
+	let dialog: HTMLDialogElement = $state();
 	let schema = buildSchema(data.schema);
-	let docStore: Writable<string> | undefined;
-	let token: string | null = null;
-	let authenticating = false;
+	let docStore: Writable<string> = $state();
+	let token: string | null = $state(null);
+	let authenticating = $state(false);
 
 	let authentificationAvailable = Boolean(authenticationType());
 
-	$: if (!$tryitVariables) $tryitVariables = {};
+	$effect(() => {
+		if (!$tryitVariables) $tryitVariables = {};
+	});
 
-	let resultDataHeight = 0;
-	let resultHeaderHeight = 0;
+	let resultDataHeight = $state(0);
+	let resultHeaderHeight = $state(0);
 	async function computeDimensions() {
 		if (!browser || !dialog) return;
 		const editor = dialog.querySelector('.modal-content');
@@ -95,12 +97,14 @@
 		docStore?.set(ensureMinimumNewlines(txt, 10));
 	});
 
-	let queryDocument: DocumentNode | undefined;
-	$: try {
-		queryDocument = parse($docStore ?? '');
-	} catch (e) {
-		// console.error(e);
-	}
+	let queryDocument: DocumentNode | undefined = $state();
+	$effect(() => {
+		try {
+			queryDocument = parse($docStore ?? '');
+		} catch (e) {
+			// console.error(e);
+		}
+	});
 
 	function printType(t: TypeNode): string {
 		if (t.kind === Kind.NAMED_TYPE) {
@@ -114,24 +118,26 @@
 		return `[${printType(t.type)}]`;
 	}
 
-	$: variableDefs = [
-		...new Set(
-			queryDocument?.definitions
-				.filter((def) => def.kind === Kind.OPERATION_DEFINITION)
-				.flatMap(
-					(def) =>
-						def.variableDefinitions?.map(
-							({ variable: { name }, type }) => [name.value, printType(type)] as const
-						) ?? []
-				)
-		)
-	].sort();
+	let variableDefs = $derived(
+		[
+			...new Set(
+				queryDocument?.definitions
+					.filter((def) => def.kind === Kind.OPERATION_DEFINITION)
+					.flatMap(
+						(def) =>
+							def.variableDefinitions?.map(
+								({ variable: { name }, type }) => [name.value, printType(type)] as const
+							) ?? []
+					)
+			)
+		].sort()
+	);
 
-	let expandedZone: '' | 'request' | 'response' = '';
+	let expandedZone: '' | 'request' | 'response' = $state('');
 
-	let sending = false;
-	let serverError = '';
-	let serverDataHighlighted = '';
+	let sending = $state(false);
+	let serverError = $state('');
+	let serverDataHighlighted = $state('');
 	async function sendRequest() {
 		sending = true;
 		// await fetch(`${PUBLIC_API_URL}?query=${encodeURIComponent($docStore ?? '')}`, {
@@ -163,9 +169,9 @@
 		sending = false;
 	}
 
-	let headerDefs: Record<string, string> = {};
-	let newHeaderKey = '';
-	let newHeaderValue = '';
+	let headerDefs: Record<string, string> = $state({});
+	let newHeaderKey = $state('');
+	let newHeaderValue = $state('');
 
 	onMount(async () => {
 		authenticating = true;
@@ -174,7 +180,9 @@
 		authenticating = false;
 	});
 
-	$: if ($tryitOpen) dialog?.showModal();
+	$effect(() => {
+		if ($tryitOpen) dialog?.showModal();
+	});
 </script>
 
 <dialog id="tryit" bind:this={dialog}>
@@ -183,7 +191,7 @@
 			<h1>Test it live!</h1>
 			{#if authentificationAvailable}
 				<button
-					on:click={async () => {
+					onclick={async () => {
 						if (token) {
 							await logout();
 							token = null;
@@ -214,12 +222,12 @@
 					{/if}
 				</button>
 			{/if}
-			<button class="close regular" on:click={close}>
+			<button class="close regular" onclick={close}>
 				<CloseIcon />
 			</button>
 		</header>
 		<section class="execute">
-			<ButtonRainbowOutline disabled={sending} stopped={!sending} on:click={sendRequest}>
+			<ButtonRainbowOutline disabled={sending} stopped={!sending} onclick={sendRequest}>
 				<div class="play-icon">
 					{#if sending}
 						<span class="animated-dots">
@@ -238,7 +246,7 @@
 					Query
 					<button
 						class="regular"
-						on:click={() => {
+						onclick={() => {
 							expandedZone = expandedZone === 'request' ? '' : 'request';
 						}}
 					>
@@ -261,7 +269,7 @@
 
 					<button
 						class="regular leftspaced"
-						on:click={() => {
+						onclick={() => {
 							expandedZone = expandedZone === 'response' ? '' : 'response';
 						}}
 					>
@@ -301,10 +309,10 @@
 						<dt>
 							<label for="tryit-variable-{name}">${name}</label>
 						</dt>
-						<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-						<!-- svelte-ignore a11y-click-events-have-key-events -->
+						<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+						<!-- svelte-ignore a11y_click_events_have_key_events -->
 						<dd
-							on:click={(e) => {
+							onclick={(e) => {
 								if (e.target !== e.currentTarget) return;
 								e.currentTarget.querySelector('input')?.focus();
 							}}
@@ -336,7 +344,7 @@
 							type="text"
 							placeholder="Value"
 							bind:value={newHeaderValue}
-							on:blur={() => {
+							onblur={() => {
 								if (newHeaderKey && newHeaderValue) {
 									headerDefs[newHeaderKey] = newHeaderValue;
 									newHeaderKey = '';
@@ -584,15 +592,15 @@
 		background: linear-gradient(to left, var(--shadow) 0%, transparent 100%);
 	}
 
-	.editor dl > :has(input) {
+	.editor dl > :has(:global(input)) {
 		background-color: var(--bg);
 	}
 
-	.editor dl > *:has(input):hover {
+	.editor dl > *:has(:global(input)):hover {
 		border-color: var(--muted);
 	}
 
-	.editor dl > *:has(input):focus-within {
+	.editor dl > *:has(:global(input)):focus-within {
 		border-color: var(--fg);
 	}
 

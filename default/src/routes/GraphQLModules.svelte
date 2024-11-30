@@ -16,10 +16,14 @@
 	import TypeDef from './TypeDef.svelte';
 	import type { GraphQLSchema } from 'graphql';
 
-	export let schema: GraphQLSchema;
-	export let allItems: ModuleItem[];
-	export let modules: Module[];
-	export let renderTitle: boolean = modules.length > 1;
+	interface Props {
+		schema: GraphQLSchema;
+		allItems: ModuleItem[];
+		modules: Module[];
+		renderTitle?: boolean;
+	}
+
+	let { schema, allItems, modules, renderTitle = false }: Props = $props();
 
 	function isImplicitSubscription(queryName: string) {
 		return modules.some(
@@ -56,12 +60,11 @@
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html renderedDocs}
 		{#if types.length > 0}
-			<svelte:element this={renderTitle ? 'h3' : 'h2'} id="{name}/types">Types</svelte:element>
 			{#each types as typeName}
 				{@const type = findTypeInSchema(schema, typeName)}
 				{#if type}
 					{@const item = allItems.find((i) => i.name === typeName)}
-					{#if !item?.connection && !item?.result && item.referencedBy.length !== 1}
+					{#if !item?.connection && !item?.result && item?.referencedBy.length !== 1}
 						<TypeDef
 							{schema}
 							{allItems}
@@ -78,7 +81,6 @@
 			{/each}
 		{/if}
 		{#if queries.length > 0}
-			<svelte:element this={renderTitle ? 'h3' : 'h2'} id="{name}/queries">Queries</svelte:element>
 			{#each queries as queryName}
 				{@const query = findQueryInSchema(schema, queryName)}
 				{@const item = allItems.find((i) => i.name === queryName)}
@@ -98,9 +100,7 @@
 			{/each}
 		{/if}
 		{#if mutations.length > 0}
-			<svelte:element this={renderTitle ? 'h3' : 'h2'} id="{name}/mutations"
-				>Mutations</svelte:element
-			>
+			
 			{#each mutations as mutationName}
 				{@const query = findMutationInSchema(schema, mutationName)}
 				{#if query}
@@ -113,9 +113,7 @@
 			{/each}
 		{/if}
 		{#if subscriptions.length > 0}
-			<svelte:element this={renderTitle ? 'h3' : 'h2'} id="{name}/subscriptions"
-				>Subscriptions</svelte:element
-			>
+			
 			{#each subscriptions as subscription}
 				{@const query = findSubscriptionInSchema(schema, subscription)}
 				{#if query}

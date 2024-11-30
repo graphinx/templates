@@ -1,5 +1,9 @@
 <script lang="ts">
-    export let centered = false
+	interface Props {
+		centered?: boolean;
+	}
+
+	let { centered = false }: Props = $props();
 </script>
 
 <div class="graphinx-credits" class:centered>
@@ -26,12 +30,12 @@
 		gap: 0.5em;
 	}
 
-    .graphinx-credits.centered {
-        font-size: 1em;
-        gap: 0.5em;
-        padding: 2rem 0;
-        border-width: 0.125rem;
-        justify-content: center;
-        align-items: center;
-    }
+	.graphinx-credits.centered {
+		font-size: 1em;
+		gap: 0.5em;
+		padding: 2rem 0;
+		border-width: 0.125rem;
+		justify-content: center;
+		align-items: center;
+	}
 </style>

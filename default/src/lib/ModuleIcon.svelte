@@ -2,20 +2,19 @@
 	import { moduleColor } from './colors';
 	import ModuleAllIcon from './icons/ModuleAllIcon.svelte';
 
-	export let name: string;
-	export let iconSvg: string | undefined = undefined;
-	export let inline = false;
-	export let big = false;
+	interface Props {
+		name: string;
+		iconSvg?: string | undefined;
+		inline?: boolean;
+		big?: boolean;
+		[key: string]: any;
+	}
+
+	let { name, iconSvg = undefined, inline = false, big = false, ...rest }: Props = $props();
 </script>
 
 {#if iconSvg || name === 'index'}
-	<div
-		class:inline
-		class:big
-		class="icon"
-		{...$$restProps}
-		style:--color="var(--{moduleColor(name)})"
-	>
+	<div class:inline class:big class="icon" {...rest} style:--color="var(--{moduleColor(name)})">
 		{#if name === 'index'}
 			<ModuleAllIcon />
 		{:else}

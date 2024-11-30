@@ -1,13 +1,16 @@
 <script lang="ts">
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
-	export let query: string | string[] | undefined = '';
+
+	interface Props {
+		query?: string | string[] | undefined;
+	}
+
+	let { query = $bindable('') }: Props = $props();
 </script>
 
 <search>
 	<form action="/-/search" method="get">
-		<input placeholder="Search…" bind:value={query} name="q" type="search" /><button
-			type="submit"
-		>
+		<input placeholder="Search…" bind:value={query} name="q" type="search" /><button type="submit">
 			<SearchIcon></SearchIcon>
 		</button>
 	</form>

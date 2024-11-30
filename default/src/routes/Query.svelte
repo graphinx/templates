@@ -19,26 +19,29 @@
 	} from 'graphql';
 	import { onMount } from 'svelte';
 	import ArgType from './ArgType.svelte';
+	import Query from './Query.svelte';
 	import TypeDef from './TypeDef.svelte';
 
-	export let schema: GraphQLSchema;
-	export let allItems: ModuleItem[];
-	export let query: GraphQLField<unknown, unknown>; //| GraphQLArgument;
-	export let kind: 'query' | 'mutation' | 'subscription' | 'field';
-	export let hasAvailableSubscription = false;
-	// export let showReturnType = false;
-	export let typeIsEnumAndWasExpanded = false;
+	interface Props {
+		schema: GraphQLSchema;
+		allItems: ModuleItem[];
+		query: GraphQLField<unknown, unknown>; //| GraphQLArgument;
+		kind: 'query' | 'mutation' | 'subscription' | 'field';
+		hasAvailableSubscription?: boolean;
+		// export let showReturnType = false;
+		typeIsEnumAndWasExpanded?: boolean;
+	}
 
-	$: item = allItems.find((i) => i.name === query.name && i.type === kind);
-	$: args = query.args ?? [];
-	$: unwrappedReturnType = firstNonWrapperType(query.type);
-	$: hasAvailableSubscription = Boolean(subscriptionItem);
-	$: subscriptionItem =
-		kind !== 'field' && schema.getSubscriptionType()?.getFields()?.[query.name]
-			? allItems.find((i) => i.name === query.name && i.type === 'subscription')
-			: undefined;
+	let {
+		schema,
+		allItems,
+		query,
+		kind,
+		hasAvailableSubscription = $bindable(false),
+		typeIsEnumAndWasExpanded = $bindable(false)
+	}: Props = $props();
 
-	let mobile = false;
+	let mobile = $state(false);
 	onMount(() => {
 		mobile = window.innerWidth < 768;
 	});
@@ -80,15 +83,25 @@
 		}
 	}
 
-	$: tryitQuery = exampleQuery(schema, kind, query);
-	$: hash = kind !== 'field' ? linkToItem(item) : undefined;
-	$: showArgumentTypesInHeader = !mobile && !(kind === 'field' && args.length > 2);
-
-	$: headingLevel = $page.url.pathname === '/' ? 'h4' : 'h3';
+	let item = $derived(allItems.find((i) => i.name === query.name && i.type === kind));
+	let args = $derived(query.args ?? []);
+	let unwrappedReturnType = $derived(firstNonWrapperType(query.type));
+	let subscriptionItem = $derived(
+		kind !== 'field' && schema.getSubscriptionType()?.getFields()?.[query.name]
+			? allItems.find((i) => i.name === query.name && i.type === 'subscription')
+			: undefined
+	);
+	$effect(() => {
+		hasAvailableSubscription = Boolean(subscriptionItem);
+	});
+	let tryitQuery = $derived(exampleQuery(schema, kind, query));
+	let hash = $derived(kind !== 'field' ? linkToItem(item) : undefined);
+	let showArgumentTypesInHeader = $derived(!mobile && !(kind === 'field' && args.length > 2));
+	let headingLevel = $derived($page.url.pathname === '/' ? 'h4' : 'h3');
 </script>
 
 <svelte:window
-	on:resize={() => {
+	onresize={() => {
 		mobile = window.innerWidth < 768;
 	}}
 />
@@ -120,8 +133,8 @@
 							this={typeIsEnumAndWasExpanded ? 'a' : 'span'}
 							href="#{query.name}"
 							class="field-name">{query.name}</svelte:element
-						></code><code class="no-color">:
-					</code><ArgType
+						></code
+					><code class="no-color">: </code><ArgType
 						linkify={!unwrappedReturnType || !expandTypedef(unwrappedReturnType)}
 						noExpandEnums={Boolean(unwrappedReturnType && expandTypedef(unwrappedReturnType))}
 						{allItems}
@@ -153,30 +166,28 @@
 				{/if}
 			</span>
 		{/if}
-		<svelte:fragment slot="end">
+		{#snippet end()}
 			{#if !query.description}
 				{#await tryitQuery then q}
 					{#if q}
-						<button class="try" on:click={() => tryit.summon(q)}>Try it</button>
+						<button class="try" onclick={() => tryit.summon(q)}>Try it</button>
 					{/if}
 				{/await}
 			{/if}
-		</svelte:fragment>
+		{/snippet}
 	</HashLink>
 	{#if query.description}
 		<section class="doc">
 			{#await markdownToHtml(query.description, $page.data.allResolvers) then doc}
 				{@const [firstParagraphInner, remainingHTML] = unwrapFirstParagraph(doc)}
-				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 				<p>
 					{@html firstParagraphInner}
 					{#await tryitQuery then q}
 						{#if q}
-							<button class="try inline" on:click={() => tryit.summon(q)}>Try it</button>
+							<button class="try inline" onclick={() => tryit.summon(q)}>Try it</button>
 						{/if}
 					{/await}
 				</p>
-				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 				{@html remainingHTML}
 			{:catch error}
 				<p>Impossible de rendre la documentation pour {query.name}: {error}</p>
@@ -191,7 +202,6 @@
 				{#await markdownToHtml(query.deprecationReason, $page.data.allResolvers)}
 					<p>{query.deprecationReason}</p>
 				{:then deprecationReason}
-					<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 					{@html deprecationReason}
 				{:catch}
 					<p>{query.deprecationReason}</p>
@@ -223,7 +233,6 @@
 						{#if arg.description}
 							<div class="doc">
 								{#await markdownToHtml(arg.description, $page.data.allResolvers) then doc}
-									<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 									{@html doc}
 								{:catch error}
 									<p>
@@ -238,9 +247,9 @@
 							{#if innerType}
 								<div class="inner-type">
 									<ul>
-										{#each isInputObjectType(innerType) ? Object.values(innerType.getFields()) ?? [] : [] as field}
+										{#each isInputObjectType(innerType) ? (Object.values(innerType.getFields()) ?? []) : [] as field}
 											<li>
-												<svelte:self {allItems} kind="field" query={field}></svelte:self>
+												<Query {allItems} kind="field" query={field}></Query>
 											</li>
 										{/each}
 									</ul>
@@ -286,9 +295,9 @@
 		padding-top: 0.25rem;
 		padding-bottom: 0.75rem;
 	}
-	
+
 	.striked {
-	    text-decoration: line-through; 
+		text-decoration: line-through;
 	}
 
 	button {
@@ -319,7 +328,7 @@
 		padding: 0.125em 0.5em;
 		font-size: 0.85em;
 	}
-	
+
 	@media (max-width: 700px) {
 		button.try {
 			display: none;

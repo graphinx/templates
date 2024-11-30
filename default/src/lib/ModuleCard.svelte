@@ -2,11 +2,15 @@
 	import ModuleIcon from '$lib/ModuleIcon.svelte';
 	import { moduleColor } from '$lib/colors';
 
-	export let module: {
-		name: string;
-		displayName: string;
-		shortDescription: string;
-	};
+	interface Props {
+		module: {
+			name: string;
+			displayName: string;
+			shortDescription: string;
+		};
+	}
+
+	let { module }: Props = $props();
 </script>
 
 <a
@@ -41,13 +45,13 @@
 		--icon-color: color-mix(in oklab, var(--color) 70%, var(--fg));
 	}
 
-	a:has(.card):hover .card,
-	a:has(.card):focus-within .card {
+	a:has(:global(.card)):hover .card,
+	a:has(:global(.card)):focus-within .card {
 		background-color: color-mix(in oklab, var(--color) 40%, var(--shadow));
 		border-color: var(--color);
 	}
 
-	a:has(.card) {
+	a:has(:global(.card)) {
 		display: block;
 		width: calc(min(var(--card-width), 100%));
 		height: var(--card-height);

@@ -1,22 +1,29 @@
 <script lang="ts">
 	import LinkIcon from './icons/LinkIcon.svelte';
 
-	export let href: string | undefined;
-	export let element: string = 'h4';
-	$: hash = href ? href.replace(/^.+#/, '') : undefined;
+	interface Props {
+		href: string | undefined;
+		element?: string;
+		children?: import('svelte').Snippet;
+		end?: import('svelte').Snippet;
+		[key: string]: any;
+	}
+
+	let { href, element = 'h4', children, end, ...rest }: Props = $props();
+	let hash = $derived(href ? href.replace(/^.+#/, '') : undefined);
 </script>
 
-<svelte:element this={element} class="header" id={hash} {...$$restProps}>
+<svelte:element this={element} class="header" id={hash} {...rest}>
 	{#if href}
 		<a class="hash-link" {href}>
 			<LinkIcon></LinkIcon>
 		</a>
 	{/if}
 	<div class="header-content">
-		<slot />
+		{@render children?.()}
 	</div>
 	<div class="header-end">
-		<slot name="end" />
+		{@render end?.()}
 	</div>
 </svelte:element>
 

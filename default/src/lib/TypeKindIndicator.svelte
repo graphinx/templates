@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { Kind } from 'graphql';
 
-	export let kind: Kind;
+	interface Props {
+		kind: Kind;
+	}
+
+	let { kind }: Props = $props();
 
 	const kinds: Partial<Record<Kind, { color: string; letter: string; title: string }>> = {
 		[Kind.INTERFACE_TYPE_DEFINITION]: { color: 'magenta', letter: 'I', title: 'Interface' },
@@ -12,11 +16,13 @@
 		// [Kind.Object]: { color: 'red', letter: 'O', title: 'Object' }
 	};
 
-	$: ({ letter, color, title } = kinds[kind] ?? {
-		letter: '',
-		color: '',
-		title: ''
-	});
+	let { letter, color, title } = $derived(
+		kinds[kind] ?? {
+			letter: '',
+			color: '',
+			title: ''
+		}
+	);
 </script>
 
 {#if letter && color && title}

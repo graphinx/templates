@@ -1,9 +1,18 @@
 <script lang="ts">
-	export let stopped = true;
+	import type { Snippet } from 'svelte';
+	
+	interface Props {
+		stopped?: boolean;
+		children?: Snippet;
+		onclick?: (event: MouseEvent) => void;
+		[key: string]: any;
+	}
+
+	let { onclick, stopped = true, children, ...rest }: Props = $props();
 </script>
 
-<button on:click {...$$restProps} class:stopped>
-	<slot />
+<button {onclick} {...rest} class:stopped>
+	{@render children?.()}
 </button>
 
 <style>

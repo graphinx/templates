@@ -58,3 +58,257 @@
 .hljs-literal {
 	color: var(--yellow) !important;
 }
+
+/* 
+/*
+
+
+const c = {
+	fg: 'var(--fg)',
+	bg: 'var(--bg-darker)',
+	bgDarker: 'var(--shadow-2)',
+	shadow: 'var(--bg)',
+	shadow2: 'var(--shadow)',
+	muted: 'var(--muted)',
+	green: 'var(--green)',
+	magenta: 'var(--magenta)',
+	orange: 'var(--orange)',
+	yellow: 'var(--yellow)',
+	blue: 'var(--blue)',
+	pink: 'var(--pink)',
+	red: 'var(--red)',
+	cyan: 'var(--cyan)'
+} as const;
+
+// Colors from https://www.nordtheme.com/docs/colors-and-palettes
+// Polar Night
+const base00 = c.fg; // black
+const base01 = c.fg; // dark grey
+const base02 = c.muted;
+
+// Snow Storm
+const base06 = c.bg; // white
+
+// Frost
+const cyan = c.cyan; // moss green
+const blue = c.blue; // ice blue
+const pink = c.pink; // water blue
+
+// Aurora
+const orange = c.orange; // orange
+const yellow = c.yellow; // yellow
+const green = c.green; // green
+const magenta = c.magenta; // purple
+
+const invalid = c.red;
+const darkBackground = c.shadow2;
+const highlightBackground = 'var(--selection-on-shadow)';
+const tooltipBackground = c.shadow;
+const selection = c.bgDarker;
+const cursor = c.fg;
+
+
+
+	'&': {
+			color: c.fg,
+			backgroundColor: c.bg
+		},
+
+		'.cm-content': {
+			caretColor: cursor
+		},
+
+		'.cm-gutterElement': {
+			color: c.muted
+		},
+
+		'.cm-gutterElement.cm-activeLineGutter': {
+			color: c.fg
+		},
+
+		'.cm-cursor, .cm-dropCursor': { borderLeftColor: cursor },
+		'&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection':
+			{ backgroundColor: selection },
+
+		'.cm-panels': { backgroundColor: darkBackground, color: c.muted },
+		'.cm-panels.cm-panels-top': { borderBottom: '2px solid black' },
+		'.cm-panels.cm-panels-bottom': { borderTop: '2px solid black' },
+
+		'.cm-searchMatch': {
+			backgroundColor: '#72a1ff59',
+			outline: `1px solid ${c.muted}`
+		},
+		'.cm-searchMatch.cm-searchMatch-selected': {
+			backgroundColor: c.bgDarker
+		},
+
+		'.cm-activeLine': { backgroundColor: highlightBackground },
+		'.cm-selectionMatch': { backgroundColor: c.bgDarker },
+
+		'&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
+			outline: `1px solid ${c.muted}`
+		},
+
+		'&.cm-focused .cm-matchingBracket': {
+			backgroundColor: base06
+		},
+
+		'.cm-gutters': {
+			backgroundColor: base06,
+			color: base00,
+			border: 'none'
+		},
+
+		'.cm-activeLineGutter': {
+			backgroundColor: highlightBackground
+		},
+
+		'.cm-foldPlaceholder': {
+			backgroundColor: 'transparent',
+			border: 'none',
+			color: '#ddd'
+		},
+
+		'.cm-tooltip': {
+			border: 'none',
+			backgroundColor: tooltipBackground
+		},
+		'.cm-tooltip .cm-tooltip-arrow:before': {
+			borderTopColor: 'transparent',
+			borderBottomColor: 'transparent'
+		},
+		'.cm-tooltip .cm-tooltip-arrow:after': {
+			borderTopColor: tooltipBackground,
+			borderBottomColor: tooltipBackground
+		},
+		'.cm-tooltip-autocomplete': {
+			borderBottomRightRadius: '1rem',
+			borderBottomLeftRadius: '1rem',
+			'& > ul > li[aria-selected]': {
+				backgroundColor: highlightBackground,
+				color: c.cyan,
+				borderBottomRightRadius: '1rem',
+				borderBottomLeftRadius: '1rem'
+			}
+		},
+		'.cm-scroller, .cm-tooltip-autocomplete > ul': {
+			fontFamily: "'Space Mono', monospace !important",
+			color: c.fg
+		}
+
+.codemirror {
+	color: var(--fg);
+	background-color: var(--bg-darker);
+}
+
+.codemirror .cm-content {
+	caret-color: var(--fg);
+}
+
+.codemirror .cm-gutterElement {
+	color: var(--muted);
+}
+
+.codemirror .cm-gutterElement.cm-activeLineGutter {
+	color: var(--fg);
+}
+
+.codemirror .cm-cursor,
+.codemirror .cm-dropCursor {
+	border-left-color: var(--fg);
+}
+
+.codemirror .cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground,
+.codemirror .cm-selectionBackground,
+.codemirror .cm-content ::selection {
+	background-color: var(--selection-on-shadow);
+}
+
+.codemirror .cm-panels {
+	background-color: var(--shadow-2);
+	color: var(--muted);
+}
+
+.codemirror .cm-panels.cm-panels-top {
+	border-bottom: 2px solid black;
+}
+
+.codemirror .cm-panels.cm-panels-bottom {
+	border-top: 2px solid black;
+}
+
+.codemirror .cm-searchMatch {
+	background-color: #72a1ff59;
+	outline: 1px solid var(--muted);
+}
+
+.codemirror .cm-searchMatch.cm-searchMatch-selected {
+	background-color: var(--bg-darker);
+}
+
+.codemirror .cm-activeLine {
+	background-color: var(--selection-on-shadow);
+}
+
+.codemirror .cm-selectionMatch {
+	background-color: var(--shadow-2);
+}
+
+.codemirror .cm-focused .cm-matchingBracket,
+.codemirror .cm-focused .cm-nonmatchingBracket {
+	outline: 1px solid var(--muted);
+}
+
+.codemirror .cm-focused .cm-matchingBracket {
+	background-color: var(--bg-darker);
+}
+
+.codemirror .cm-gutters {
+	background-color: var(--shadow-2);
+	color: var(--fg);
+	border: none;
+}
+
+.codemirror .cm-activeLineGutter {
+	background-color: var(--selection-on-shadow);
+}
+
+.codemirror .cm-foldPlaceholder {
+	background-color: transparent;
+	border: none;
+	color: #ddd;
+}
+
+.codemirror .cm-tooltip {
+	border: none;
+	background-color: var(--shadow);
+}
+
+.codemirror .cm-tooltip .cm-tooltip-arrow:before {
+	border-top-color: transparent;
+	border-bottom-color: transparent;
+}
+
+.codemirror .cm-tooltip .cm-tooltip-arrow:after {
+	border-top-color: var(--shadow);
+	border-bottom-color: var(--shadow);
+}
+
+.codemirror .cm-tooltip-autocomplete {
+	border-bottom-right-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+}
+
+.codemirror .cm-tooltip-autocomplete > ul > li[aria-selected] {
+	background-color: var(--selection-on-shadow);
+	color: var(--cyan);
+	border-bottom-right-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+}
+
+.codemirror .cm-scroller,
+.codemirror .cm-tooltip-autocomplete > ul {
+	font-family: 'Space Mono', monospace !important;
+	color: var(--fg);
+} 
+*/

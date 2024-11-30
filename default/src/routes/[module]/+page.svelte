@@ -20,14 +20,14 @@
 
 <h1>
 	{#if data.modules.length === 1}
-		{@const module = data.modules[0]}
+		{@const module_ = data.modules[0]}
 
-		<ModuleIcon --module-color={moduleColor(module.name)} inline {...module}></ModuleIcon>
+		<ModuleIcon --module-color={moduleColor(module_.name)} inline {...module_}></ModuleIcon>
 
-		{module.displayName}
+		{module_.displayName}
 
-		{#if module.contributeURL}
-			<a class="link-to-source" href={module.contributeURL}>
+		{#if module_.contributeURL}
+			<a class="link-to-source" href={module_.contributeURL}>
 				<EditIcon></EditIcon> Contribute to this page
 			</a>
 		{/if}

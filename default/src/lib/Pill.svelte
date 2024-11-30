@@ -1,9 +1,14 @@
 <script lang="ts">
-export let noInteractions = false;
+	interface Props {
+		noInteractions?: boolean;
+		children?: import('svelte').Snippet;
+	}
+
+	let { noInteractions = false, children }: Props = $props();
 </script>
 
 <span class="pill" class:no-interactions={noInteractions}>
-	<slot />
+	{@render children?.()}
 </span>
 
 <style>

@@ -10,9 +10,13 @@
 	import type { PageData } from './$types';
 	import ModulesList from './ModulesList.svelte';
 
-	export let data: PageData;
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 	// $: searchQuery = browser ? debounced(useParamStore('q'), 20) : undefined;
-	let query = '';
+	let query = $state('');
 </script>
 
 <svelte:head>

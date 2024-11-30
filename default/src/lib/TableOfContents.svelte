@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script lang="ts" module>
 	import { writable } from 'svelte/store';
 	export const tocShown = writable(false);
 	export const tocIsFloating = writable(false);
@@ -6,57 +6,100 @@
 
 <!-- From https://github.com/janosh/svelte-toc, MIT-licensed. -->
 <script lang="ts">
+	import { browser } from '$app/environment';
+	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/stores';
 	import debounced from '$lib/stores';
 	import { onMount } from 'svelte';
 	import { useParamStore } from 'svelte-param-store';
 	import { blur, type BlurParams } from 'svelte/transition';
-	import MenuIcon from './icons/MenuIcon.svelte';
-	import { browser } from '$app/environment';
 	import { data } from './data.generated';
-	import { currentTheme } from './theme';
-	import { onNavigate } from '$app/navigation';
-	import SearchBar from './SearchBar.svelte';
 	import GraphinxCredits from './GraphinxCredits.svelte';
+	import MenuIcon from './icons/MenuIcon.svelte';
+	import SearchBar from './SearchBar.svelte';
+	import { currentTheme } from './theme';
 
-	export let activeHeading: HTMLHeadingElement | null = null;
-	export let activeHeadingScrollOffset = 100;
-	export let activeTocLi: HTMLLIElement | null = null;
-	export let aside: HTMLElement | undefined = undefined;
-	export let breakpoint = 1000;
-	export let desktop = true;
-	export let flashClickedHeadingsFor = 1500;
-	export let getHeadingIds = (node: HTMLHeadingElement): string => node.id;
-	export let getHeadingLevels = (node: HTMLHeadingElement): number => Number(node.nodeName[1]); // get the number from H1, H2, ...
-	export let getHeadingTitles = (node: HTMLHeadingElement): string =>
-		node.dataset.tocTitle || node.firstChild?.textContent || node?.textContent || '';
-	// the result of document.querySelectorAll(headingSelector). can be useful for binding
-	export let headings: HTMLHeadingElement[] = [];
-	export let headingSelector = ':is(h2, [data-toc-include]):not(.toc-exclude)';
-	export let hide = false;
-	export let autoHide = false;
-	export let keepActiveTocItemInView = true; // requires scrollend event browser support
-	export let minItems = 0;
-	export let nav: HTMLElement | undefined = undefined;
-	export let open = false;
-	export let openButtonLabel = 'Open table of contents';
-	export let pageBody: string | HTMLElement = 'body';
-	export let scrollBehavior: 'auto' | 'smooth' = 'smooth';
-	export let titleTag = 'h2';
-	export let tocItems: HTMLLIElement[] = [];
-	export let warnOnEmpty = true;
-	export let blurParams: BlurParams | undefined = { duration: 200 };
-	export let title = 'Contents';
+	interface Props {
+		activeHeading?: HTMLHeadingElement | null;
+		activeHeadingScrollOffset?: number;
+		activeTocLi?: HTMLLIElement | null;
+		aside?: HTMLElement | undefined;
+		breakpoint?: number;
+		desktop?: boolean;
+		flashClickedHeadingsFor?: number;
+		getHeadingIds?: any;
+		getHeadingLevels?: any; // get the number from H1, H2, ...
+		getHeadingTitles?: any;
+		// the result of document.querySelectorAll(headingSelector). can be useful for binding
+		headings?: HTMLHeadingElement[];
+		headingSelector?: string;
+		hide?: boolean;
+		autoHide?: boolean;
+		keepActiveTocItemInView?: boolean; // requires scrollend event browser support
+		minItems?: number;
+		nav?: HTMLElement | undefined;
+		open?: boolean;
+		openButtonLabel?: string;
+		pageBody?: string | HTMLElement;
+		scrollBehavior?: 'auto' | 'smooth';
+		titleTag?: string;
+		tocItems?: HTMLLIElement[];
+		warnOnEmpty?: boolean;
+		blurParams?: BlurParams | undefined;
+		title?: string;
+		opentocicon?: import('svelte').Snippet;
+		customTitle?: import('svelte').Snippet;
+		tocitem?: import('svelte').Snippet<[any]>;
+	}
 
-	let window_width: number;
+	let {
+		activeHeading = $bindable(null),
+		activeHeadingScrollOffset = 100,
+		activeTocLi = $bindable(null),
+		aside = $bindable(undefined),
+		breakpoint = 1000,
+		desktop = $bindable(true),
+		flashClickedHeadingsFor = 1500,
+		getHeadingIds = (node: HTMLHeadingElement): string => node.id,
+		getHeadingLevels = (node: HTMLHeadingElement): number => Number(node.nodeName[1]),
+		getHeadingTitles = (node: HTMLHeadingElement): string =>
+			node.dataset.tocTitle || node.firstChild?.textContent || node?.textContent || '',
+		headings = $bindable([]),
+		headingSelector = ':is(h2, [data-toc-include]):not(.toc-exclude)',
+		hide = $bindable(false),
+		autoHide = false,
+		keepActiveTocItemInView = true,
+		minItems = 0,
+		nav = $bindable(undefined),
+		open = $bindable(false),
+		openButtonLabel = 'Open table of contents',
+		pageBody = $bindable('body'),
+		scrollBehavior = 'smooth',
+		titleTag = 'h2',
+		tocItems = $bindable([]),
+		warnOnEmpty = true,
+		blurParams = { duration: 200 },
+		title = 'Contents',
+		opentocicon,
+		customTitle,
+		tocitem
+	}: Props = $props();
 
-	$: searchQuery = browser ? debounced(useParamStore('q'), 20) : undefined;
+	let window_width: number = $state();
 
-	$: levels = headings.map(getHeadingLevels);
-	$: minLevel = Math.min(...levels);
-	$: desktop = window_width > breakpoint;
-	$: $tocShown = headings.length >= minItems;
-	$: $tocIsFloating = !desktop;
+	let searchQuery = $derived(browser ? debounced(useParamStore('q'), 20) : undefined);
+
+	let levels = $derived(headings.map(getHeadingLevels));
+	let minLevel = $derived(Math.min(...levels));
+	$effect(() => {
+		desktop = window_width > breakpoint;
+	});
+	$effect(() => {
+		$tocShown = headings.length >= minItems;
+	});
+	$effect(() => {
+		$tocIsFloating = !desktop;
+	});
 
 	function close(event: MouseEvent) {
 		if (!aside?.contains(event.target as Node)) open = false;
@@ -131,9 +174,9 @@
 
 <svelte:window
 	bind:innerWidth={window_width}
-	on:scroll={set_active_heading}
-	on:click={close}
-	on:scrollend={() => {
+	onscroll={set_active_heading}
+	onclick={close}
+	onscrollend={() => {
 		// wait for scroll end since Chrome doesn't support multiple simultaneous scrolls,
 		// smooth or otherwise (https://stackoverflow.com/a/63563437)
 		if (keepActiveTocItemInView && activeTocLi) {
@@ -157,18 +200,22 @@
 >
 	{#if !open && !desktop && headings.length >= minItems}
 		<button
-			on:click|preventDefault|stopPropagation={() => (open = true)}
+			onclick={(e) => {
+				e.preventDefault();
+				e.stopPropagation();
+				open = true;
+			}}
 			aria-label={openButtonLabel}
 		>
-			<slot name="open-toc-icon">
+			{#if opentocicon}{@render opentocicon()}{:else}
 				<MenuIcon width="1em" />
-			</slot>
+			{/if}
 		</button>
 	{/if}
 	{#if open || (desktop && headings.length >= minItems)}
 		<nav transition:blur={blurParams} bind:this={nav}>
 			<p class="suptitle">
-				<!-- svelte-ignore a11y-missing-attribute -->
+				<!-- svelte-ignore a11y_missing_attribute -->
 				<img src={data.config.branding.logo[$currentTheme]} aria-hidden="true" />
 				{data.config.branding.name}
 				{#if $page.url.pathname !== '/'}
@@ -177,11 +224,11 @@
 			</p>
 			<SearchBar bind:query={$searchQuery}></SearchBar>
 			{#if title}
-				<slot name="title">
+				{#if customTitle}{@render customTitle()}{:else}
 					<svelte:element this={titleTag} class="toc-title toc-exclude">
 						{title}
 					</svelte:element>
-				</slot>
+				{/if}
 			{/if}
 			<ol>
 				{#each headings as heading, idx}
@@ -189,14 +236,14 @@
 						style:margin="0 0 0 {levels[idx] - minLevel}em"
 						style:font-size="{2 - 0.2 * (levels[idx] - minLevel)}ex"
 						class:active={activeHeading === heading}
-						on:click={handler(heading)}
-						on:keyup={handler(heading)}
+						onclick={handler(heading)}
+						onkeyup={handler(heading)}
 						bind:this={tocItems[idx]}
 						role="menuitem"
 					>
-						<slot name="toc-item" {heading} {idx}>
+						{#if tocitem}{@render tocitem({ heading, idx })}{:else}
 							{getHeadingTitles(heading)}
-						</slot>
+						{/if}
 					</li>
 				{/each}
 			</ol>
@@ -205,7 +252,7 @@
 			{:else}
 				<button
 					class="close-btn"
-					on:click={() => {
+					onclick={() => {
 						open = false;
 					}}
 				>

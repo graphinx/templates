@@ -1,8 +1,14 @@
 <script>
 	import { page } from '$app/stores';
 	import Pill from './Pill.svelte';
-	export let href = '';
-	export let mobile = false;
+	/**
+	 * @typedef {Object} Props
+	 * @property {string} [href]
+	 * @property {boolean} [mobile]
+	 */
+
+	/** @type {Props} */
+	let { href = '', mobile = false } = $props();
 </script>
 
 <svelte:element
